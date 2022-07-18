@@ -70,3 +70,20 @@
 				    </div><!--//row-->
 			    </div><!--//item-->
 				
+
+
+				update
+
+				<div class="item mb-5">
+				    <div class="row g-3 g-xl-0">
+					    <div class="col-2 col-xl-3">
+					        <img class="img-fluid post-thumb " src="assets/images/blog/daktar.png" alt="image">
+					    </div>
+					    <div class="col">
+						    <h3 class="title mb-1"><a class="text-link" href="lifeandlove.html">যে বিদায় আনন্দের</a></h3>
+						    <div class="meta mb-1"><span class="date">অব্যক্ত</span><span class="time">উপেক্ষিত ক্রেঙ্কার</span></div>
+						    <div class="intro"><p align="justify">খুব ভালো বন্ধু আমি কোনদিনও হতে পারিনি।  </p></div>
+						    <a class="text-link" href="lifeandlove.html"> সম্পূর্ণ পড়ুন&rarr;</a>
+					    </div><!--//col-->
+				    </div><!--//row-->
+			    </div><!--//item-->
