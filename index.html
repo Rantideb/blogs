@@ -1,191 +1,99 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
-
-	<div class="container">
-		<div class="theme-switch">
-		  <div class="switch"></div>
-		</div>
-		
-	  </div>
-
-    <title>Rantideb's Random Rants</title>
-    
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rantideb's Random Rants">
-    <meta name="author" content="Rantideb">
-	<meta property="og:image" content="assets/images/ranti.jpeg">     
-    <link rel="shortcut icon" href="favicon.ico"> 
-    
-    <!-- FontAwesome JS-->
-	<script defer src="assets/fontawesome/js/all.min.js"></script>
-    
-    <!-- Theme CSS -->  
-    <link id="theme-style" rel="stylesheet" href="assets/css/theme-5.css">
-
-</head> 
-
+    <title>My Apologies</title>
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!--Stylesheets-->
+    <style media="screen">
+    	*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #c6c9cb;
+}
+.popup{
+    background-color: #ffffff;
+    width: fit-content; 
+    padding: 30px 40px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    font-family: "Poppins",sans-serif;
+    display: none; 
+    text-align: center;
+}
+.popup button{
+    display: block;
+    margin:  0 0 20px auto;
+    background-color: transparent;
+    font-size: 30px;
+    color: #ffffff;
+		background: #EDA73B;
+		border-radius: 100%;
+		width: 40px;
+		height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.popup h2{
+	margin-top: -20px;
+}
+.popup p{
+    font-size: 14px;
+    text-align: justify;
+    margin: 20px 0;
+    line-height: 25px;
+}
+a{
+    display: block;
+    width: 150px;
+    position: relative;
+    margin: 10px auto;
+    text-align: center;
+    background-color: #EDA73B;
+		border-radius: 20px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 0;
+}
+    </style>
+</head>
 <body>
-    
-    <header class="header text-center">	    
-	    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">ভাটের প্রলাপ</a></h1>
-        
-	    <nav class="navbar navbar-expand-lg navbar-dark" >
-           
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+    <div class="popup">
+        <button onclick="window.location.href='index-1.html'" id="close">&times;</button>
+        <h2>My Apologies</h2>
+        <p align="justify">
+            I have never been very vocal about my mental health. But if I'm being honest, it's in shambles right now. I'm not doing okay. I've not been doing okay for a long time now... And the reason I didn't open up to anyone was that I felt like everyone has their own shit to deal with and the last thing I wanted to be was a burden or an attention seeker. Having a history of depression isn't exactly good for a CV. I have faced this question too many times. You write such beautiful but fucked ur things. Are you okay?? I've always smiled and said I am. I'm just good with words But I'm not. I'm just an extremely private person who uses his own things as a punching bag.
+For as long as I can remember, I've dealt with some sort of undiagnosed bipolarity. It's not a fancy term that some people use on their Instagram bio. I constantly oscillate between manic and depressive. There are days when I'm so enthusiastic and hyperactive that it scares me. In those days I'm the brightest person in the room. On other days, I hide in the shadows. I don't get out of bed the entire day. Stare at the walls and simply space out. I don't have the energy to do basic things. I don't cry. Or scream. I envy people who can do that. I simply shut down. Trust me
+when I say this. Nothing works. The motivational quotes, the YouTube videos, talking to a friend. Nothing gets through. Even if they do, I relapse. And when I relapse, I don't recognise myself. It's like two people living in the same body and constantly fighting. Trying to lock each other in a chokehold. Kill the other and take over.
+Those who know me personally might be able to make sense of this. This is precisely why I disappear between conversations. Cancel plans. Go off the grid every now and then. I wasn't ghosting anyone. I just wasn't in a fit state to talk. I should have explained myself. I am sorry.
 
-			<div id="navigation" class="collapse navbar-collapse flex-column" >
-				<div class="profile-section pt-3 pt-lg-0">
-				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.jpg" alt="image" >			
-					
-					<div class="bio mb-3">তুই ক্লান্তু কেন হোস রে আমার মন
-						সবে তো তোর যাত্রা হলো শুরু,
-						এখনই মন হোস না উড়ু-উড়ু ।
-						হোস না উদাস, হোস না উচাটন ।
-						
-						যে পথাখানি পাড়ি দিতে হবে
-						সে পথে তুই পা রেখেছিস সবে ।
-						পথ-চলার ক্লান্ত অনুভবে
-						তুই ওটাই স্মরণ রাখিস অনুখন ।
-						
-						সঙ্গে চলার প্রতিশ্রুতি দলে
-						পথের সাথী যায় যদি যাক চলে
-						হতাশাতে ডুববি না তাই বলে ।
-						তুই পথে-পথেই পাবি আপনজন ।
-						তুই পথের কবি, পথেরই রতন ।</div><!--//bio-->
-					<ul class="social-list list-inline py-3 mx-auto">
-						<li class="list-inline-item"><a target="_blank" href="https://twitter.com/r4ntide3"><i class="fab fa-twitter fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a target="_blank" href="https://www.linkedin.com/in/rantideb/"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a target="_blank" href="https://github.com/Rantideb"><i class="fab fa-github-alt fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a target="_blank" href="https://www.facebook.com/R4ntideb"><i class="fab fa-facebook fa-fw"></i></a></li>
-			        </ul><!--//social-list-->
-			        <hr> 
-				</div><!--//profile-section-->
-				
-				<ul class="navbar-nav flex-column text-start">
-					<li class="nav-item">
-					    <a class="nav-link active" href="index.html"><i class="fas fa-home fa-fw me-2"></i>প্রলাপের পত্রসূচি<span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>প্রলাপের ভুতপত্তি</a>
-					</li>
-				</ul>
-				
-				<div class="my-2 my-md-3">
-				    <a class="btn btn-primary" href="https://ranti.dev" target="_blank">আমার নিরালা চরনভুমি</a>
-				</div>
-			</div>
-		</nav>
-    </header>
-    
-    <div class="main-wrapper">
-	    
-	    <section class="cta-section theme-bg-light py-5">
-		    <div class="container text-center single-col-max-width">
-			    <h2 class="heading">হিজিবিজি কথন</h2>
-			    <div class="intro">মানুষের নিত্যনৈমিত্তিক খাটে
-					স্বপ্ন দেখার আলাদা কোনো বিছানা-বালিশ নেই।
-					অবিকল স্বপ্নের মতো নারীও শুয়ে নেই কোনো খাটে।</div>
-		    </div><!--//container-->
-	    </section>
-	    
-	    
-	    <section class="blog-list px-3 py-5 p-md-5">
-		    <div class="container single-col-max-width">
-			    <div class="item mb-5">
-				    <div class="row g-3 g-xl-0">
-					    <div class="col-2 col-xl-3">
-					        <img class="img-fluid post-thumb " src="assets/images/blog/pic.jpeg" alt="image">
-					    </div>
-					    <div class="col">
-						    <h3 class="title mb-1"><a class="text-link" href="ranti.html">আমার ক্ষমা প্রার্থনা</a></h3>
-						    <div class="meta mb-1"><span class="date">সংগ্রহীত</span><span class="time">এড়িয়ে যেতে অনুরোধ</span></div>
-						    <div class="intro"><p align="justify">আমার মাঝে মাঝে মরে যেতে ইচ্ছে করে।খুব নিঃশব্দে,
-								কাউকে না জানিয়ে, অথবা কারও জন্যে কোনও ভাবে
-								বিরক্তির তৈরি না করে। আমার চলে যেতে ইচ্ছে করে,
-								যেন আমার জন্মই হয় নি অথবা আমার কোন অস্তিত্বই
-								ছিল না।...</p></div>
-						    <a class="text-link" href="ranti.html">সম্পূর্ণ পড়ুন &rarr;</a>
-					    </div><!--//col-->
-				    </div><!--//row-->
-			    </div><!--//item-->
+        </p>
+        <a href="index-1.html">Let's Go</a>
+    </div>
+    <!--Script-->
+    <script type="text/javascript">
+window.addEventListener("load", function(){
+    setTimeout(
+        function open(event){
+            document.querySelector(".popup").style.display = "block";
+        },
+        2000 
+    )
+});
 
-				<div class="item mb-5">
-				    <div class="row g-3 g-xl-0">
-					    <div class="col-2 col-xl-3">
-					        <img class="img-fluid post-thumb " src="assets/images/blog/draupadi.jpg" alt="image">
-					    </div>
-					    <div class="col">
-						    <h3 class="title mb-1"><a class="text-link" href="prashanta.html">নিঃসঙ্গ প্রেমিক </a></h3>
-						    <div class="meta mb-1"><span class="date">মিথোলজি</span><span class="time">মনোনিবেশ কাম্য</span></div>
-						    <div class="intro"><p align="justify"> দ্রৌপদী চোখ মেললেন সেই চিরচেনা স্বরে । বড় কষ্টে ম্লান হাসিতে ভরে গেলো তাঁর মুখ সঘন ব্রীড়ায় । -ভীম, তুমি ? যুধিষ্ঠির, অর্জুন, নকুল, সহদেব সবাই এগিয়ে গেছে, শুধু তুমি কেন দাঁড়ালে আমার জন্যে ? আমি তো তাদেরও স্ত্রী, তাদের সন্তানদেরও জননী ! তবু শুধু তুমি একা কেন ?পরম মমতায় বৃকোদর নিজের হাতের উপাধানে তুলে নিলেন দ্রৌপদীর মাথা ।- কথা বোলোনা, কৃষ্ণা, তোমার কষ্ট হবে ।যাজ্ঞসেনী ভাবেন, অর্জুন তো তাকে জয় করে নিয়ে এসেছিল । কিন্তু ভীম কেন বারবার প্রতিবার তাঁর কষ্টে, অপমানে, তুচ্ছ আবেদনে, সুখে, প্রসন্নতায় তাঁর পাশে থেকেছে ? ...</p></div>
-						    <a class="text-link" href="prashanta.html"> সম্পূর্ণ পড়ুন&rarr;</a>
-					    </div><!--//col-->
-				    </div><!--//row-->
-			    </div><!--//item-->
 
-				<div class="item mb-5">
-				    <div class="row g-3 g-xl-0">
-					    <div class="col-2 col-xl-3">
-					        <img class="img-fluid post-thumb " src="assets/images/blog/durjodhan.jpg" alt="image">
-					    </div>
-					    <div class="col">
-						    <h3 class="title mb-1"><a class="text-link" href="durjhodhon.html">সুযোধন</a></h3>
-						    <div class="meta mb-1"><span class="date">মিথোলজি</span><span class="time">মনোনিবেশ কাম্য</span></div>
-						    <div class="intro"><p align="justify"> মহাভারতের গল্প। হাজার বছর ধরে চলে আসছে। কোটি কোটি মানুষ গল্পটা জানেন। গল্পটা যদি অন্যভাবে লেখা হত! মানে মহারাজ শান্তনুর সাথে বিয়ে না হয়ে গাঙ্গেয় দেবব্রতের হত! যদি দ্রৌপদীর পাঁচ ভাইয়ের সাথে বিয়ে না হয়ে শুধু অর্জুনের সাথেই হত! কিংবা অস্ত্র প্রতিযোগিতার সময় কর্ণের আসল পিতা এসে কর্ণের পিতৃপরিচয় দিতেন এবং কর্ণ পাণ্ডবদের সাথে যোগ দিত! অথবা অর্জুনকে কেন্দ্র করে দ্রৌপদী, সুভদ্রা, মণিপুর রাজকন্যা চিত্রাঙ্গদা আর উলুপীর একটা চতুষ্কোণ প্রেমের গল্প হত কিংবা পাঞ্চালীকে নিয়ে দুর্যোধন, ভীম ও অর্জুনের ত্রিকোণ লড়াই হত। কুরুক্ষেত্র যুদ্ধের সাজসজ্জা হয়েও যদি দেবব্রত ও কৃষ্ণের মধ্যস্থতায় শেষ পর্যন্ত যুদ্ধটা এড়ানো যেতো। এ রকম হাজার সম্ভাবনা ছিল। এ সব হলে গল্পটা কি রকম হত?</p></div>
-						    <a class="text-link" href="durjhodhon.html"> সম্পূর্ণ পড়ুন&rarr;</a>
-					    </div><!--//col-->
-				    </div><!--//row-->
-			    </div><!--//item-->
-				
-				<div class="item mb-5">
-				    <div class="row g-3 g-xl-0">
-					    <div class="col-2 col-xl-3">
-					        <img class="img-fluid post-thumb " src="assets/images/blog/friend.webp" alt="image">
-					    </div>
-					    <div class="col">
-						    <h3 class="title mb-1"><a class="text-link" href="friend.html">এপিকটেটাসের ডিসকোর্স: বন্ধুত্ব প্রসঙ্গে</a></h3>
-						    <div class="meta mb-1"><span class="date">অনুবাদ</span><span class="time">cherchez la masculin</span></div>
-						    <div class="intro"><p align="justify"> কোন জীবন্ত আত্মা এতটা ভয়ঙ্কর রূপ কখনই ধারণ করতে পারে না যতটা পারে তার নিজ প্রয়োজনে। এর পথ ধরেই ঘৃণিত, পরিত্যাজ্য, অভিশপ্ত হচ্ছে পরিবার-পরিজন। নিজের প্রয়োজনের কাছে অন্ধত্ব যেন প্রকৃতিগত। নিজের প্রয়োজনের সামনে তুচ্ছ হয়ে উঠছে পিতা-ভাই, স্ত্রী-সন্তান, দেশ, এমন কি স্রষ্টাও।
-								দেবতা যখন প্রয়োজনের পথে বাধা হয়েছে আমরা তাদেরও অপবাদ দিতে কুণ্ঠাবোধ করিনি। আমরা তাদের সম্মান ধূলোয় লোপাটের চেষ্টা করেছি, তাদের মন্দির পুড়িয়ে দিয়েছি।
-								</p></div>
-						    <a class="text-link" href="friend.html"> সম্পূর্ণ পড়ুন&rarr;</a>
-					    </div><!--//col-->
-				    </div><!--//row-->
-			    </div><!--//item-->
-<!-- Get file from it's in the index folder and paste here -->
-			    
-			   <nav class="blog-nav nav nav-justified my-5">
-				  <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-				  <a class="nav-link-next nav-item nav-link rounded" href="blog.html">পত্রসূচির পরবর্তী পৃষ্ঠাতে যান<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
-				</nav>
-				
-		    </div>
-	    </section>
-	    
-	    <footer class="footer text-center py-2 theme-bg-dark">
-		   
-			হৃদয়ের যে উত্তাপ সহসা হারিয়েছে মরুতে,
-			প্রবঞ্চনা যা ঘটেছে এই জীবনের তটে,
-			খুঁজতে যেয়ো না কোন কারণ শুরুতে,
-			ধন্যবাদ দিয়ে যাবো তা ছাড়াই অকপটে।
-		   
-	    </footer>
-    
-    </div><!--//main-wrapper-->
-
-       
-    <!-- Javascript -->          
-    <script src="assets/plugins/popper.min.js"></script> 
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
-
-    
-
+document.querySelector("#close").addEventListener("click", function(){
+    document.querySelector(".popup").style.display = "none";
+});
+    </script>
 </body>
-</html> 
-
+</html>
