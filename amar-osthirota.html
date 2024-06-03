@@ -231,6 +231,85 @@
   </figure>
 
 
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>এটুকু আমি শুনি, ভীষণ আমার </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .audio-player {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .controls label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+  <h1 style="text-align: center;">এটুকু আমি শুনি, ভীষণ আমার</h1>
+    <div class="audio-player">
+        <audio id="audio" controls>
+            <source src="assets/images/blog/audio.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="controls">
+            <label for="speed">Speed:</label>
+            <select id="speed">
+                <option value="0.5">0.5x</option>
+                <option value="1" selected>1x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2x</option>
+            </select>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const audio = document.getElementById('audio');
+            const speedControl = document.getElementById('speed');
+
+            speedControl.addEventListener('change', function() {
+                audio.playbackRate = this.value;
+            });
+        });
+    </script>
+</body>
+</html>
+
+<br>
+
 
   <p align="justify">তবে এটা ঠিক যে, প্রেমে জীবনে ঐ একবারই পড়েছিলাম। আর হবে না। প্রেমের জন্য পরিবেশ চাই। প্রচুর বোকামি থাকা চাই। অনভিজ্ঞ হওয়া চাই। কলকাতাতে যেসব সম্পর্ক হয় ওগুলো কেনা-বেচার সম্পর্ক। কামের, ক্যারিয়ারের, সোস্যাল স্ট্যাটাসের; কন্ডিসনাল প্রেম সেসব; অধিকাংশই কনভিনিয়ন্সের প্রেম। </p>
   <p align="justify">জীবন, পড়ালেখা- শেখা, এই চাকরি-খোঁজা, চাকরি-পাওয়া, চাকরি টিকিয়ে রাখা, উন্নতি-করা, বন্ধু-পাওয়া, ভালোবাসা, বিয়ে-করা, সংসার-করা, ছেলেমেয়ের জন্ম-দেওয়া, তারপর একদিন চোদ্দ বছর বয়সী, লোম-ওঠা অপক্ত কুকুরের মতো করুণার পাত্র-হওয়া, বুড়ো হওয়া; এই যুগ যুগ ধরে মেনে নেওয়া সুপ্রাচীন বস্তুটিকে কি কোনখানে নিয়ে গিয়ে নিরিবিলিতে টেনে-হিঁচড়ে দুমড়ে-মুচড়ে চতুষ্কোণ বা ত্রিকোণ বা অক্টাগোনাল করে দেয়া যায়না ? এতোদিনের সব মেনে-নেওয়া অভ্যেসকে লন্ডভণ্ড করে দিয়ে? </p>
