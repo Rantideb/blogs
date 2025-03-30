@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rantideb.github.io/blogs/sitemap.xml
