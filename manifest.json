@@ -10,12 +10,12 @@
       {
         "src": "/assets/images/about-me.JPG",
         "sizes": "192x192",
-        "type": "image/png"
+        "type": "image/JPG"
       },
       {
         "src": "/assets/images/about-me.JPG",
         "sizes": "512x512",
-        "type": "image/png"
+        "type": "image/JPG"
       }
     ]
   }
