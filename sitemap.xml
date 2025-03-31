@@ -7,12 +7,6 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://rantideb.github.io/blogs/index.html</loc>
-        <lastmod>2024-03-31T00:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
         <loc>https://rantideb.github.io/blogs/index-1.html</loc>
         <lastmod>2024-03-31T00:00:00+00:00</lastmod>
         <changefreq>weekly</changefreq>
