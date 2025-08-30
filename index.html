@@ -90,7 +90,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <!--Stylesheets-->
     <style media="screen">
-	*,
+*,
 *:before,
 *:after{
     padding: 0;
@@ -103,19 +103,29 @@ body{
 .popup{
     background-color: #ffffff;
     max-width: 400px;
-    width: 90vw;
-    padding: 24px 16px;
-    position: absolute;
-    transform: translate(-50%,-50%);
+    width: 80vw;
+    min-width: 220px;
+    padding: 24px 16px 32px 16px;
+    position: fixed;
     left: 50%;
     top: 50%;
+    transform: translate(-50%,-50%);
     border-radius: 8px;
     font-family: "Poppins",sans-serif;
     display: none; 
     text-align: center;
     box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    overflow: visible;
+    /* For mobile, allow scrolling to button */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.popup-content {
+    flex-grow: 1;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: 60vh;
+    /* Ensures scroll for long text */
 }
 .popup button{
     display: block;
@@ -123,59 +133,67 @@ body{
     background-color: transparent;
     font-size: 30px;
     color: #ffffff;
-	background: #EDA73B;
-	border-radius: 100%;
-	width: 40px;
-	height: 40px;
+    background: #EDA73B;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
     border: none;
     outline: none;
     cursor: pointer;
+    flex-shrink: 0;
 }
 .popup h2{
-	margin-top: -20px;
-	font-size: 1.3rem;
+    margin-top: -20px;
+    font-size: 1.3rem;
+    word-break: break-word;
+    flex-shrink: 0;
 }
 .popup p{
-    font-size: 14px;
-    text-align: justify;
+    font-size: 15px;
     margin: 20px 0;
     line-height: 1.7;
     word-break: break-word;
     white-space: pre-line;
+    text-align: justify;
+    max-width: 100%;
 }
 a{
     display: block;
     width: 150px;
     position: relative;
-    margin: 10px auto;
+    margin: 10px auto 0 auto;
     text-align: center;
     background-color: #EDA73B;
-	border-radius: 20px;
+    border-radius: 20px;
     color: #ffffff;
     text-decoration: none;
     padding: 8px 0;
     font-size: 1rem;
+    flex-shrink: 0;
 }
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .popup {
-        max-width: 98vw;
-        width: 98vw;
-        padding: 16px 4vw;
+        max-width: 80vw;
+        min-width: 0;
+        width: 80vw;
+        padding: 12px 2vw 24px 2vw;
+        font-size: 0.97rem;
         top: 50%;
         left: 50%;
         transform: translate(-50%,-50%);
-        font-size: 0.97rem;
         max-height: 90vh;
-        overflow-y: auto;
+    }
+    .popup-content {
+        max-height: 55vh;
     }
     .popup h2 {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
     }
     .popup p {
         font-size: 13px;
         line-height: 1.5;
-        word-break: break-word;
-        white-space: pre-line;
+        margin: 12px 0;
+        max-width: 100%;
     }
     a {
         width: 100%;
@@ -187,19 +205,37 @@ a{
         font-size: 24px;
     }
 }
+@media (max-width: 400px) {
+    .popup {
+        padding: 8px 1vw 16px 1vw;
+        font-size: 0.93rem;
+        max-width: 96vw;
+        width: 96vw;
+    }
+    .popup-content {
+        max-height: 45vh;
+    }
+    .popup h2 {
+        font-size: 0.95rem;
+    }
+    .popup p {
+        font-size: 12px;
+    }
+}
     </style>
 </head>
 <body>
     <div class="popup">
         <button onclick="window.location.href='index-1.html'" id="close">&times;</button>
         <h2>My Apologies</h2>
-        <p align="justify">
-            I have never been very vocal about my mental health. But if I'm being honest, it's in shambles right now. I'm not doing okay. I've not been doing okay for a long time now... And the reason I didn't open up to anyone was that I felt like everyone has their own shit to deal with and the last thing I wanted to be was a burden or an attention seeker. Having a history of depression isn't exactly good for a CV. I have faced this question too many times. You write such beautiful but fucked ur things. Are you okay?? I've always smiled and said I am. I'm just good with words But I'm not. I'm just an extremely private person who uses his own things as a punching bag.
+        <div class="popup-content">
+            <p>
+                I have never been very vocal about my mental health. But if I'm being honest, it's in shambles right now. I'm not doing okay. I've not been doing okay for a long time now... And the reason I didn't open up to anyone was that I felt like everyone has their own shit to deal with and the last thing I wanted to be was a burden or an attention seeker. Having a history of depression isn't exactly good for a CV. I have faced this question too many times. You write such beautiful but fucked ur things. Are you okay?? I've always smiled and said I am. I'm just good with words But I'm not. I'm just an extremely private person who uses his own things as a punching bag.
 For as long as I can remember, I've dealt with some sort of undiagnosed bipolarity. It's not a fancy term that some people use on their Instagram bio. I constantly oscillate between manic and depressive. There are days when I'm so enthusiastic and hyperactive that it scares me. In those days I'm the brightest person in the room. On other days, I hide in the shadows. I don't get out of bed the entire day. Stare at the walls and simply space out. I don't have the energy to do basic things. I don't cry. Or scream. I envy people who can do that. I simply shut down. Trust me
 when I say this. Nothing works. The motivational quotes, the YouTube videos, talking to a friend. Nothing gets through. Even if they do, I relapse. And when I relapse, I don't recognise myself. It's like two people living in the same body and constantly fighting. Trying to lock each other in a chokehold. Kill the other and take over.
 Those who know me personally might be able to make sense of this. This is precisely why I disappear between conversations. Cancel plans. Go off the grid every now and then. I wasn't ghosting anyone. I just wasn't in a fit state to talk. I should have explained myself. I am sorry.
-
-        </p>
+            </p>
+        </div>
         <a href="index-1.html">Let's Go</a>
     </div>
     <!--Script-->
