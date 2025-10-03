@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="bn"> 
+<head>
+    <title>সার্চ ফলাফল - হিজিবিজি কথন</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="হিজিবিজি কথন - সার্চ ফলাফল">
+    <meta name="author" content="Rantideb"> 
+    <meta property="og:image" content="assets/images/me.jpeg">     
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-5.css">
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+        <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index-1.html">ছোট্ট একটা ঘরের কাঙাল</a></h1>
+        
+        <nav class="navbar navbar-expand-lg navbar-dark">
+           
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="navigation" class="collapse navbar-collapse flex-column">
+                <div class="profile-section pt-3 pt-lg-0">
+                    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.jpg" alt="image">			
+                    
+                    <div class="bio mb-3">বিষাক্ত সাপের মতো আমার রক্তে
+                        তোমাকে পাবার বাসনা।
+                        আর মাঝে মাঝে আকাশে হলুদ রঙের অদ্ভুত চাঁদ ওঠে,
+                        চঞ্চল বসন্ত কাঁপে গাছের পাতায়,
+                        আর অন্ধকারে লাল কাঁকরের পথ
+                        পড়ে থাকে অলস স্বপ্নের মতো।
+                        সমস্ত দিন, আর সমস্ত রাত্রি ভরে
+                        তোমাকে পাবার বাসনা
+                        বিষাক্ত সাপের মতো।</div><!--//bio-->
+                    <ul class="social-list list-inline py-3 mx-auto">
+                        <li class="list-inline-item"><a target="_blank" href="https://twitter.com/r4ntide3"><i class="fab fa-twitter fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://www.linkedin.com/in/rantideb/"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://github.com/Rantideb"><i class="fab fa-github-alt fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://www.facebook.com/R4ntideb"><i class="fab fa-facebook fa-fw"></i></a></li>
+                    </ul><!--//social-list-->
+                    <hr> 
+                </div><!--//profile-section-->
+                
+                <ul class="navbar-nav flex-column text-start">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index-1.html"><i class="fas fa-home fa-fw me-2"></i>প্রলাপের পত্রসূচি</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>প্রলাপের ভুতপত্তি</a>
+                    </li>
+                </ul>
+                
+                <div class="my-2 my-md-3">
+                    <a class="btn btn-primary" href="https://www.ranti.dev/" target="_blank">আমার নিরালা চরনভুমি</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="main-wrapper">
+        
+        <section class="cta-section theme-bg-light py-5">
+            <div class="container text-center single-col-max-width">
+                <h2 class="heading" id="search-title">সার্চ ফলাফল</h2>
+                <div class="intro" id="search-subtitle">লোড হচ্ছে...</div>
+            </div><!--//container-->
+        </section>
+        
+        <section class="blog-list px-3 py-5 p-md-5">
+            <div class="container single-col-max-width">
+                
+                <!-- Search Box -->
+                <div style="
+                    background: white;
+                    padding: 25px;
+                    border-radius: 10px;
+                    margin-bottom: 30px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                ">
+                    <div style="position: relative;">
+                        <input 
+                            type="text" 
+                            id="global-search-input" 
+                            placeholder="সব পোস্টের মধ্যে খুঁজুন..." 
+                            style="
+                                width: 100%;
+                                padding: 12px 45px 12px 15px;
+                                border: 2px solid #223142;
+                                border-radius: 25px;
+                                font-size: 16px;
+                                outline: none;
+                                transition: all 0.3s;
+                            "
+                        />
+                        <i class="fas fa-search" style="
+                            position: absolute;
+                            right: 18px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            color: #223142;
+                            font-size: 18px;
+                        "></i>
+                    </div>
+                    
+                    <!-- All Tags -->
+                    <div id="all-tags" style="
+                        margin-top: 20px;
+                        display: flex;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                        align-items: center;
+                    ">
+                        <strong style="color: #223142;">
+                            <i class="fas fa-tags"></i> সব ট্যাগ:
+                        </strong>
+                    </div>
+                </div>
+                
+                <!-- Results Container -->
+                <div id="results-container">
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 40px;"></i>
+                        <p style="margin-top: 20px;">লোড হচ্ছে...</p>
+                    </div>
+                </div>
+                
+                <nav class="blog-nav nav nav-justified my-5">
+                    <a class="nav-link-prev nav-item nav-link rounded" href="index-1.html">
+                        পত্রসূচিতে ফিরে যান<i class="arrow-prev fas fa-long-arrow-alt-left"></i>
+                    </a>
+                </nav>
+                
+            </div>
+        </section>
+        
+        <footer class="footer text-center py-2 theme-bg-dark">
+            তুমি এমনভাবে বলছ
+            যেন ভালোবাসা মানে সাপে আর নেউলে ভয়াবহ
+            একটা যুদ্ধ।
+            ভয় লাগছে।
+            অন্য গল্প বলো।
+        </footer>
+    
+    </div><!--//main-wrapper-->
+
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- Global Search Script -->
+    <script src="assets/js/global-search.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>বোধিদ্রুমে ধরেছে হতবুদ্ধির ঘুন</title>
+    <link>https://rantideb.github.io/blogs/</link>
+    <description>জীবন থমেক যাওয়ার পর হাঁটেত হাঁটেত ভাবি স্বর্গে হাটার রাস্তা আছে কতটুকু?</description>
+    <language>bn</language>
+    <lastBuildDate>Fri, 03 Oct 2025 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://rantideb.github.io/blogs/feed.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+        <title>আমার অস্থিরতা যদি তুমি দেখতে!</title>
+        <link>https://rantideb.github.io/blogs/amar-osthirota.html</link>
+        <description>গৌতম স্থির হলো বোধিবৃক্ষে, মুহম্মদ হেরায় কলিঙ্গে, অশোক জীবনানন্দ ধর্মতলায় আর আমার অস্থিরতা যদি তুমি দেখতে!</description>
+        <pubDate>Fri, 03 Oct 2025 00:00:00 GMT</pubDate>
+        <guid>https://rantideb.github.io/blogs/amar-osthirota.html</guid>
+    </item>
+    
+    <item>
+        <title>সাথী</title>
+        <link>https://rantideb.github.io/blogs/sathi.html</link>
+        <description>কেউ হাহাকার করছে ছেড়ে যাওয়া মানুষটির স্মৃতিতে, পাশে দাঁড়িয়ে থাকা মানুষটিকে কেউ লক্ষ্যই করছে না</description>
+        <pubDate>Thu, 02 Oct 2025 00:00:00 GMT</pubDate>
+        <guid>https://rantideb.github.io/blogs/sathi.html</guid>
+    </item>
+    
+    <item>
+        <title>অপ্রাপ্তি</title>
+        <link>https://rantideb.github.io/blogs/oprapti.html</link>
+        <description>অপ্রাপ্তি নিয়ে চিন্তাভাবনা</description>
+        <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+        <guid>https://rantideb.github.io/blogs/oprapti.html</guid>
+    </item>
+    
+    <!-- Add more blog posts here as they are created -->
+    
+</channel>
+</rss>

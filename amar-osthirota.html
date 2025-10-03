@@ -1,5 +1,13 @@
-<!DOCTYPE html>
-<html lang="en"> 
+<!DOCTYPE ht    <meta property="og:image" content="assets/images/blog/amar-3.jpeg">   
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="ব্লগ RSS Feed" href="feed.xml">
+    
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
+    
+    <!-- FontAwesome JS--><html lang="en"> 
 <head>
     <title>আমার অস্থিরতা যদি তুমি দেখতে!</title>
     
@@ -22,6 +30,8 @@
     <!-- Theme CSS -->  
     <link id="theme-style" rel="stylesheet" href="assets/css/theme-5.css">
     
+    <!-- Blog Responsive Fix CSS - Include this in all blog posts with blog-features.js -->
+    <link rel="stylesheet" href="assets/css/blog-responsive-fix.css">
 
 </head> 
 
@@ -86,7 +96,6 @@
 			    <div class="blog-post-body">
 				    <figure class="blog-banner">
 				        <a target="_blank" href="https://www.ranti.dev/"><img class="img-fluid" src="assets/images/blog/amar-1.jpeg" alt="image"></a>
-				        
 				    </figure>
 
 
@@ -232,14 +241,14 @@
 
 
   <h1 style="text-align: center;">এটুকু আমি শুনি, ভীষণ আমার</h1>
-  <div class="audio-player" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center;">
-      <audio id="audio" controls style="width: 100%; margin-bottom: 10px;">
+  <div class="audio-player" style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; max-width: 100%; box-sizing: border-box;">
+      <audio id="audio" controls style="width: 100%; max-width: 100%; margin-bottom: 10px;">
           <source src="assets/images/blog/audio.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
       </audio>
-      <div class="controls" style="display: flex; align-items: center;">
-          <label for="speed" style="margin-right: 10px;">Speed:</label>
-          <select id="speed">
+      <div class="controls" style="display: flex; align-items: center; flex-wrap: wrap; justify-content: center;">
+          <label for="speed" style="margin-right: 10px; margin-bottom: 5px;">Speed:</label>
+          <select id="speed" style="max-width: 100px;">
               <option value="0.5">0.5x</option>
               <option value="1" selected>1x</option>
               <option value="1.5">1.5x</option>
@@ -291,8 +300,20 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
 
     <!-- Custom JS -->
-    <script src="assets/js/blog.js"></script> 
+    <script src="assets/js/blog.js"></script>
     
+    <!-- Blog Features JS -->
+    <script src="assets/js/blog-features.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/global-search.js"></script>
+    <script src="assets/js/newsletter.js"></script>
+    <script src="assets/js/related-posts.js"></script>
+    <script src="assets/js/accessibility.js"></script>
+    
+    <!-- Firebase Comments System (Universal) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/firebase-comments.js"></script>
 
 </body>
 </html> 

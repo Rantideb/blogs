@@ -393,6 +393,7 @@ button,
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
+  appearance: button;
 }
 
 button:not(:disabled),
@@ -454,6 +455,7 @@ legend + * {
 [type="search"] {
   outline-offset: -2px;
   -webkit-appearance: textfield;
+  appearance: textfield;
 }
 
 /* rtl:raw:
@@ -475,6 +477,7 @@ legend + * {
 ::file-selector-button {
   font: inherit;
   -webkit-appearance: button;
+  appearance: button;
 }
 
 output {
@@ -2060,7 +2063,7 @@ progress {
 }
 
 .table-group-divider {
-  border-top: calc(2 * $table-border-width) solid currentcolor;
+  border-top: calc(2 * 1px) solid currentcolor;
 }
 
 .caption-top {
@@ -5289,7 +5292,7 @@ fieldset:disabled .btn {
 }
 
 .page-item:not(:first-child) .page-link {
-  margin-left: calc($pagination-border-width * -1);
+  margin-left: calc(1px * -1);
 }
 
 .page-item:first-child .page-link {
@@ -8997,7 +9000,7 @@ fieldset:disabled .btn {
 }
 
 .py-5 {
-  padding-top: 3rem !important;
+  padding-top: 1rem !important;
   padding-bottom: 3rem !important;
 }
 

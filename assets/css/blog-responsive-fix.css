@@ -1,0 +1,119 @@
+/**
+ * Blog Responsive Fix CSS
+ * Fixes horizontal scrollbar and ensures proper mobile responsiveness
+ * Include this file in any blog post that uses blog-features.js
+ */
+
+/* Fix horizontal scrollbar on mobile */
+body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Fix main containers */
+.main-wrapper,
+.blog-post,
+.container,
+.single-col-max-width {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Fix blog meta container and action buttons */
+.blog-meta-container,
+.blog-action-buttons {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 1rem !important;
+}
+
+.blog-meta-container > div,
+.blog-action-buttons > button {
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+/* Ensure audio player is responsive */
+.audio-player {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Fix fixed position buttons on mobile */
+@media (max-width: 768px) {
+    #font-size-adjuster,
+    button[aria-label*="কীবোর্ড"],
+    #dark-mode-toggle {
+        right: 10px !important;
+    }
+}
+
+/* Ensure images don't cause overflow */
+.blog-post-body img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Fix audio player specifically */
+audio {
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Additional mobile safety */
+@media (max-width: 768px) {
+    * {
+        box-sizing: border-box;
+    }
+    
+    .blog-meta-container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .blog-action-buttons {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* Override padding for blog post article */
+.blog-post.py-5 {
+    padding-top: 1rem !important;
+}
+
+/* Fix blog title overlapping with menu in mobile */
+@media (max-width: 768px) {
+    .header .blog-name {
+        padding-top: 1rem !important;
+        padding-bottom: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+        font-size: 1.5rem !important;
+    }
+    
+    .header .blog-name a {
+        font-size: 1.3rem !important;
+        line-height: 1.3 !important;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    .header .blog-name {
+        font-size: 1.2rem !important;
+        padding-top: 0.5rem !important;
+    }
+    
+    .header .blog-name a {
+        font-size: 1.1rem !important;
+    }
+}
