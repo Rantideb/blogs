@@ -21,8 +21,8 @@ function createNewsletterBox() {
     newsletterBox.innerHTML = `
         <div style="max-width: 500px; margin: 0 auto;">
             <i class="fas fa-envelope" style="font-size: 40px; margin-bottom: 15px; opacity: 0.9;"></i>
-            <h3 style="margin: 0 0 10px 0; font-size: 24px;">নতুন লেখার আপডেট পান</h3>
-            <p style="margin: 0 0 20px 0; opacity: 0.9;">নতুন ব্লগ পোস্টের জন্য আমাদের নিউজলেটার সাবস্ক্রাইব করুন</p>
+            <h3 style="margin: 0 0 10px 0; font-size: 24px;">লেখা মানে আমার আত্মকথন</h3>
+            <p style="margin: 0 0 20px 0; opacity: 0.9;">ইচ্ছে করলে পড়বেন, না পড়লেও চলবে</p>
             <form id="newsletter-form" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
                 <input 
                     type="email" 
@@ -55,12 +55,12 @@ function createNewsletterBox() {
                     onmouseover="this.style.transform='scale(1.05)'"
                     onmouseout="this.style.transform='scale(1)'"
                 >
-                    সাবস্ক্রাইব করুন
+                    যা খুশি
                 </button>
             </form>
             <p id="newsletter-message" style="margin: 15px 0 0 0; font-size: 14px; display: none;"></p>
             <p style="margin: 15px 0 0 0; font-size: 12px; opacity: 0.8;">
-                আমরা স্প্যাম পাঠাই না। যেকোনো সময় আনসাবস্ক্রাইব করতে পারবেন।
+                যা হবে, তাই হবে—আপনার খেয়াল নেই, আমারও নেই।
             </p>
         </div>
     `;
