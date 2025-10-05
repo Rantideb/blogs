@@ -222,6 +222,9 @@ function addKeyboardShortcutsInfo() {
 }
 
 function showKeyboardShortcutsModal() {
+    if (document.getElementById('shortcuts-modal')) {
+        return; // Prevent duplicate modals
+    }
     const modal = document.createElement('div');
     modal.id = 'shortcuts-modal';
     modal.setAttribute('role', 'dialog');
@@ -239,75 +242,91 @@ function showKeyboardShortcutsModal() {
         align-items: center;
         z-index: 10000;
     `;
-    
     modal.innerHTML = `
-        <div style="
+        <div class="shortcuts-dialog" style="
             background: white;
             padding: 30px;
             border-radius: 10px;
-            max-width: 500px;
+            max-width: 520px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
         ">
             <h2 id="shortcuts-title" style="margin: 0 0 20px 0; color: #223142;">কীবোর্ড শর্টকাট</h2>
-            <table style="width: 100%; border-collapse: collapse;">
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 10px; font-weight: 600;">J বা ←</td>
-                    <td style="padding: 10px;">পূর্ববর্তী পোস্ট</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 10px; font-weight: 600;">K বা →</td>
-                    <td style="padding: 10px;">পরবর্তী পোস্ট</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 10px; font-weight: 600;">Tab</td>
-                    <td style="padding: 10px;">পরবর্তী উপাদানে যান</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 10px; font-weight: 600;">Shift + Tab</td>
-                    <td style="padding: 10px;">পূর্ববর্তী উপাদানে যান</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 10px; font-weight: 600;">Enter</td>
-                    <td style="padding: 10px;">লিঙ্ক বা বাটন সক্রিয় করুন</td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px; font-weight: 600;">Esc</td>
-                    <td style="padding: 10px;">মোডাল বন্ধ করুন</td>
-                </tr>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:8px;font-weight:600;">J বা ←</td><td style="padding:8px;">পূর্ববর্তী পোস্ট</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:8px;font-weight:600;">K বা →</td><td style="padding:8px;">পরবর্তী পোস্ট</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:8px;font-weight:600;">Tab</td><td style="padding:8px;">পরবর্তী উপাদানে যান</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:8px;font-weight:600;">Shift + Tab</td><td style="padding:8px;">পূর্ববর্তী উপাদানে যান</td></tr>
+                <tr style="border-bottom:1px solid #eee;"><td style="padding:8px;font-weight:600;">Enter</td><td style="padding:8px;">লিঙ্ক বা বাটন সক্রিয় করুন</td></tr>
+                <tr><td style="padding:8px;font-weight:600;">Esc</td><td style="padding:8px;">মোডাল বন্ধ করুন</td></tr>
             </table>
-            <button onclick="this.closest('#shortcuts-modal').remove()" style="
-                margin-top: 20px;
-                padding: 10px 20px;
-                background: #223142;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                width: 100%;
-            ">বন্ধ করুন</button>
-        </div>
-    `;
-    
+                <div style="margin-top:20px;padding:12px 14px;background:#f5f7fa;border:1px solid #e1e5ea;border-radius:8px;display:flex;flex-direction:column;gap:10px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                        <div style="font-size:13px;line-height:1.4;color:#223142;font-weight:600;">নেভিগেশন শর্টকাট চালু/বন্ধ</div>
+                        <label style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+                             <input type="checkbox" id="keyboard-nav-toggle" style="width:18px;height:18px;cursor:pointer;" />
+                             <span style="font-size:13px;color:#223142;">সক্রিয় করুন</span>
+                        </label>
+                    </div>
+                    <small style="font-size:11px;color:#555;">চালু থাকলে J/← পূর্ববর্তী এবং K/→ পরবর্তী পোস্টে যাবে। বন্ধ থাকলে এগুলো কাজ করবে না।</small>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:18px;">
+                    <button data-close-modal style="flex:1;padding:10px 16px;background:#223142;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;">বন্ধ করুন</button>
+                </div>
+        </div>`;
+
+    // Disable background scroll
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    function closeModal() {
+        modal.remove();
+        document.body.style.overflow = prevOverflow;
+        document.removeEventListener('keydown', keyHandler, true);
+    }
+
+    // Close handlers
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.remove();
-        }
+        if (e.target === modal) closeModal();
     });
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && document.getElementById('shortcuts-modal')) {
-            modal.remove();
+    const keyHandler = (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+        } else if (e.key === 'j' || e.key === 'k' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            // Prevent background nav shortcuts while modal open
+            e.stopPropagation();
         }
-    });
-    
+        // Trap focus with Tab
+        if (e.key === 'Tab') {
+            const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault(); last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault(); first.focus();
+            }
+        }
+    };
+    document.addEventListener('keydown', keyHandler, true);
+
     document.body.appendChild(modal);
-    
-    // Focus the close button
-    setTimeout(() => {
-        modal.querySelector('button').focus();
-    }, 100);
+    // Focus first button
+    const closeBtn = modal.querySelector('[data-close-modal]');
+    closeBtn.addEventListener('click', closeModal);
+    // Sync checkbox state
+    const toggle = modal.querySelector('#keyboard-nav-toggle');
+    if (toggle) {
+        const current = localStorage.getItem('keyboardNavEnabled') === '1';
+        toggle.checked = current;
+        toggle.addEventListener('change', () => {
+            window.__toggleKeyboardNav(toggle.checked);
+        });
+    }
+    setTimeout(() => closeBtn.focus(), 60);
 }
 
 function improveImageAltTexts() {

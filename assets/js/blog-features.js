@@ -574,22 +574,123 @@ function implementLazyLoading() {
     }
 }
 
-// ==================== 12. KEYBOARD NAVIGATION ====================
-function implementKeyboardNavigation() {
-    const prevLink = document.querySelector('.nav-link-prev');
-    const nextLink = document.querySelector('.nav-link-next');
-    
-    document.addEventListener('keydown', (e) => {
-        // J or Left Arrow - Previous post
-        if ((e.key === 'j' || e.key === 'ArrowLeft') && prevLink) {
-            window.location.href = prevLink.href;
+// ==================== 12. KEYBOARD NAVIGATION (OPT-IN) ====================
+let keyboardNavEnabled = false;
+let keyboardNavHandlerAttached = false;
+let globalPostOrder = [];
+let globalPostIndex = -1;
+let globalPostManifestLoaded = false;
+const LAST_POST_KEY = 'lastVisitedPost';
+
+function enableKeyboardNavigation() {
+    if (keyboardNavEnabled) return;
+    const handler = (e) => {
+        if (!keyboardNavEnabled) return;
+        // Avoid triggering inside input/textarea or editable areas
+        const target = e.target;
+        if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return;
+        // Always use global cycling list (independent of inline prev/next links)
+        if (e.key === 'j' || e.key === 'ArrowLeft') {
+            goToRelativeGlobalPost(-1);
+        } else if (e.key === 'k' || e.key === 'ArrowRight') {
+            goToRelativeGlobalPost(1);
         }
-        // K or Right Arrow - Next post
-        if ((e.key === 'k' || e.key === 'ArrowRight') && nextLink && !nextLink.classList.contains('d-none')) {
-            window.location.href = nextLink.href;
-        }
-    });
+    };
+    if (!keyboardNavHandlerAttached) {
+        document.addEventListener('keydown', handler);
+        keyboardNavHandlerAttached = true;
+    }
+    keyboardNavEnabled = true;
+    localStorage.setItem('keyboardNavEnabled', '1');
+    console.log('✅ Keyboard navigation enabled');
 }
+
+function disableKeyboardNavigation() {
+    keyboardNavEnabled = false;
+    localStorage.setItem('keyboardNavEnabled', '0');
+    console.log('⛔ Keyboard navigation disabled');
+}
+
+function initKeyboardNavigationPreference() {
+    const stored = localStorage.getItem('keyboardNavEnabled');
+    if (stored === '1') {
+        enableKeyboardNavigation();
+    } else {
+        disableKeyboardNavigation();
+    }
+    loadGlobalPostOrder();
+}
+
+// Expose for modal toggle
+window.__toggleKeyboardNav = function(state) {
+    if (state) enableKeyboardNavigation(); else disableKeyboardNavigation();
+};
+
+// Load pages-index.json and build an ordered list of posts for global cycling
+async function loadGlobalPostOrder() {
+    if (globalPostManifestLoaded) return globalPostOrder;
+    // Prefer dedicated posts-index.json for precise ordering
+    const sources = ['posts-index.json','pages-index.json'];
+    for (const src of sources) {
+        try {
+            const res = await fetch(src);
+            if (!res.ok) continue;
+            const list = await res.json();
+            // posts-index.json expected to already be filtered; if using pages fallback, filter.
+            if (src === 'posts-index.json') {
+                globalPostOrder = list.filter(p => p.endsWith('.html'));
+            } else {
+                const exclude = new Set(['index.html','index-1.html','about.html','archive.html','blog.html','blog-post.html','search-results.html','google32f4039fea15063c.html','head.html']);
+                globalPostOrder = list.filter(p => p.endsWith('.html') && !exclude.has(p));
+            }
+            break;
+        } catch (e) {
+            console.warn('Failed to load', src, e);
+        }
+    }
+    globalPostManifestLoaded = true;
+    const current = location.pathname.split('/').pop();
+    const storedLast = localStorage.getItem(LAST_POST_KEY);
+    if (storedLast && globalPostOrder.includes(storedLast) && storedLast !== current) {
+        // If user opens a non-stored post directly, keep current; else resume from stored
+        globalPostIndex = globalPostOrder.indexOf(storedLast);
+    } else {
+        globalPostIndex = globalPostOrder.indexOf(current);
+    }
+    return globalPostOrder;
+}
+
+function goToRelativeGlobalPost(delta) {
+    if (!globalPostManifestLoaded) {
+        loadGlobalPostOrder().then(() => goToRelativeGlobalPost(delta));
+        return;
+    }
+    if (globalPostOrder.length === 0) return;
+    if (globalPostIndex === -1) {
+        const current = location.pathname.split('/').pop();
+        globalPostIndex = globalPostOrder.indexOf(current);
+    }
+    let newIndex = globalPostIndex + delta;
+    // Wrap around
+    if (newIndex < 0) newIndex = globalPostOrder.length - 1;
+    if (newIndex >= globalPostOrder.length) newIndex = 0;
+    const target = globalPostOrder[newIndex];
+    if (target) {
+        localStorage.setItem(LAST_POST_KEY, target);
+        window.location.href = target;
+    }
+}
+
+// Persist current page as last visited on load (if it's part of the order)
+document.addEventListener('DOMContentLoaded', () => {
+    const current = location.pathname.split('/').pop();
+    // Delay until order is (maybe) loaded
+    setTimeout(() => {
+        if (globalPostOrder.includes(current)) {
+            localStorage.setItem(LAST_POST_KEY, current);
+        }
+    }, 800);
+});
 
 // ==================== 13. LAST UPDATED DATE ====================
 // ==================== 14. COMMENTS SECTION (BENGALI) ====================
@@ -612,7 +713,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createImageLightbox();
     implementViewCounter();
     implementLazyLoading();
-    implementKeyboardNavigation();
+    initKeyboardNavigationPreference();
     addCommentsSection();
     // Highlight.js fallback loader (fixes protocol-relative // URL issue in local file mode)
     (function ensureHighlightJs() {
