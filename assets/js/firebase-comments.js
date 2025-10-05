@@ -45,7 +45,7 @@ function getCurrentPageUrl() {
 
 // Resolve best container and anchor inside the single column content area
 function getCommentsInsertionPoint() {
-    // Prefer the inner single column container used by posts
+    // Core single-column container inside a blog post
     const container = document.querySelector(
         '.blog-post .container.single-col-max-width, ' +
         'article .container.single-col-max-width, ' +
@@ -53,9 +53,13 @@ function getCommentsInsertionPoint() {
         '.container.single-col-max-width'
     );
     if (container) {
-        // Insert right after the main blog content when available
-        const afterNode = container.querySelector('.blog-post-body') || container.lastElementChild;
-        return { container, afterNode };
+        // Prefer to insert after a post navigation bar if it exists (keeps comments at the end of content but before unrelated footers)
+        const nav = container.querySelector('.blog-nav.nav');
+        if (nav) return { container, afterNode: nav };
+        // Otherwise after the main body
+        const body = container.querySelector('.blog-post-body');
+        if (body) return { container, afterNode: body };
+        return { container, afterNode: container.lastElementChild };
     }
     // Fallbacks
     const article = document.querySelector('.blog-post, article');
@@ -79,7 +83,7 @@ function createCommentSection() {
     commentsSection.className = 'comments-section';
     commentsSection.style.cssText = `
         width: 100%;
-        margin: 2rem 0;
+        margin: 2.5rem 0 1rem 0;
     `;
 
     commentsSection.innerHTML = `
@@ -187,7 +191,7 @@ function createPlaceholderComments() {
     placeholder.id = 'firebase-comments-root';
     placeholder.style.cssText = `
         width: 100%;
-        margin: 2rem 0;
+        margin: 2.5rem 0 1rem 0;
         padding: 30px;
         background: #fff5e6;
         border: 2px dashed #EEA73B;
