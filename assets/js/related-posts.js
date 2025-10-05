@@ -57,13 +57,16 @@ function createRelatedPosts() {
     // Find related posts with same tags
     let relatedPosts = [];
     if (typeof allBlogPosts !== 'undefined') {
+        // If any posts missing tags/image/excerpt, attempt auto-harvest from their HTML head
+        const incomplete = allBlogPosts.filter(p => p.url !== currentPage && (!p.tags || p.tags.length === 0 || !p.image || !p.excerpt));
+        // Harvest in parallel (limit concurrency lightly)
+        Promise.all(incomplete.slice(0,10).map(p => autoHarvestPostMetadata(p)))
+            .then(() => { /* metadata enriched */ })
+            .catch(()=>{});
         relatedPosts = allBlogPosts.filter(post => {
-            // Don't include current post
             if (post.url === currentPage) return false;
-            
-            // Check if post has any matching tags
             return post.tags && post.tags.some(tag => currentTags.includes(tag));
-        }).slice(0, 3); // Limit to 3 related posts
+        }).slice(0, 3);
     }
     
     // Create tags section with related posts
@@ -208,6 +211,63 @@ function createRelatedPosts() {
         article.insertBefore(tagsSection, nav);
     } else {
         article.appendChild(tagsSection);
+    }
+}
+
+// ==================== AUTO METADATA HARVEST ====================
+const harvestCache = {};
+async function autoHarvestPostMetadata(post) {
+    if (!post || harvestCache[post.url]) return post;
+    try {
+        const res = await fetch(post.url);
+        if (!res.ok) return post;
+        const html = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        // Title
+        if (!post.title) {
+            const t = doc.querySelector('title');
+            if (t) post.title = t.textContent.trim();
+        }
+        // OG Image / fallback first img
+        if (!post.image) {
+            const og = doc.querySelector('meta[property="og:image"]');
+            if (og && og.content) post.image = og.content; else {
+                const firstImg = doc.querySelector('img');
+                if (firstImg && firstImg.getAttribute('src')) post.image = firstImg.getAttribute('src');
+            }
+        }
+        // Description / excerpt
+        if (!post.excerpt) {
+            const desc = doc.querySelector('meta[name="description"]');
+            if (desc && desc.content) post.excerpt = desc.content.trim();
+            if (!post.excerpt) {
+                const para = doc.querySelector('.blog-post-body p, article p, .intro, p');
+                if (para) post.excerpt = para.textContent.trim().slice(0,160) + (para.textContent.length>160?'…':'');
+            }
+        }
+        // Tags: try meta keywords or spans using existing pattern
+        if (!post.tags || post.tags.length === 0) {
+            let tags = [];
+            const kw = doc.querySelector('meta[name="keywords"]');
+            if (kw && kw.content) {
+                tags = kw.content.split(',').map(s=>s.trim()).filter(Boolean);
+            } else {
+                const metaSpans = doc.querySelectorAll('.meta .date, .meta .time');
+                metaSpans.forEach(s => { const txt = s.textContent.trim(); if (txt) tags.push(txt); });
+            }
+            post.tags = Array.from(new Set(tags)).slice(0,5);
+        }
+        // Build meta text for search integration if available
+        if (!post._metaText && typeof normalizeText === 'function') {
+            post._metaText = normalizeText([
+                post.title||'', post.excerpt||'', (post.tags||[]).join(' ')
+            ].join(' '));
+        }
+        harvestCache[post.url] = true;
+        return post;
+    } catch {
+        return post;
     }
 }
 
