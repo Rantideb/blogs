@@ -69,6 +69,14 @@ function initGlobalSearch() {
     const resultsContainer = document.getElementById('results-container');
     const searchTitle = document.getElementById('search-title');
     const searchSubtitle = document.getElementById('search-subtitle');
+    // If essential containers are missing, abort safely (prevents TypeError on non-search pages)
+    if (!resultsContainer || !searchTitle || !searchSubtitle) {
+        return; // Not a search results page
+    }
+    // If input missing, create a lightweight no-op object to avoid null deref
+    if (!searchInput) {
+        console.warn('Global search input not found; skipping interactive search binding.');
+    }
     
     // Display all unique tags
     displayAllTags();
@@ -104,6 +112,7 @@ function initGlobalSearch() {
     
     // Add search input listener with debouncing for performance
     let searchTimeout;
+    if (searchInput) {
     searchInput.addEventListener('input', async (e) => {
         const searchQuery = e.target.value.toLowerCase().trim();
         
@@ -124,17 +133,20 @@ function initGlobalSearch() {
             displayResults(allBlogPosts, '');
         }
     });
+    }
     
     // Focus styling
-    searchInput.addEventListener('focus', () => {
-        searchInput.style.borderColor = '#EEA73B';
-        searchInput.style.boxShadow = '0 0 0 3px rgba(238, 167, 59, 0.2)';
-    });
-    
-    searchInput.addEventListener('blur', () => {
-        searchInput.style.borderColor = '#223142';
-        searchInput.style.boxShadow = 'none';
-    });
+    if (searchInput) {
+        searchInput.addEventListener('focus', () => {
+            searchInput.style.borderColor = '#EEA73B';
+            searchInput.style.boxShadow = '0 0 0 3px rgba(238, 167, 59, 0.2)';
+        });
+        
+        searchInput.addEventListener('blur', () => {
+            searchInput.style.borderColor = '#223142';
+            searchInput.style.boxShadow = 'none';
+        });
+    }
 }
 
 // Display all unique tags

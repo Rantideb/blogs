@@ -1305,6 +1305,23 @@ document.addEventListener('DOMContentLoaded', () => {
     implementLazyLoading();
     implementKeyboardNavigation();
     addCommentsSection();
+    // Highlight.js fallback loader (fixes protocol-relative // URL issue in local file mode)
+    (function ensureHighlightJs() {
+        const existing = document.querySelector('script[src*="highlight.min.js"]');
+        const hasHljs = typeof window.hljs !== 'undefined';
+        if (hasHljs) return;
+        // If existing tag used protocol-relative and failed under file://, load explicitly via https
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js';
+        script.onload = () => {
+            if (window.hljs && hljs.highlightAll) {
+                hljs.highlightAll();
+                console.log('✅ highlight.js loaded via fallback');
+            }
+        };
+        script.onerror = () => console.warn('highlight.js fallback failed to load');
+        document.head.appendChild(script);
+    })();
     
     console.log('✅ All blog features loaded successfully!');
 });
