@@ -3,8 +3,8 @@
  * Search across all blog posts from any page
  */
 
-// Complete list of all blog posts
-const allBlogPosts = [
+// Seed list of known blog posts (will be augmented by auto-discovery)
+let allBlogPosts = [
     { title: 'পুরুষতন্ত্র', url: 'man.html', tags: ['জুয়েল', 'মুখবইয়ের পৃষ্ঠা'], excerpt: 'পুরুষ জানে না তার বুকে কেন এতো বেদনা, সে প্রতি মুহূর্তে ব্যস্ত পরিবারের বেদনা তাড়ানোয়।', image: 'assets/images/blog/man.jpg', content: 'পুরুষ জানে না তার বুকে কেন এতো বেদনা সে প্রতি মুহূর্তে ব্যস্ত পরিবারের বেদনা তাড়ানোয় পরিবার পরিজন সমাজ সংসার দায়িত্ব কর্তব্য নারী শিশু সন্তান বাবা মা' },
     { title: 'হারিয়ে গিয়েছি', url: 'lost.html', tags: ['চলতে পথে', 'উপেক্ষিত ক্রেঙ্কার'], excerpt: 'এখানে নয়, যতটা পথ তুমি হেঁটে এসেছো, তার কোথাও না কোথাও তুমি ঠিক দাঁড়িয়ে পড়তে পারতে!', image: 'assets/images/blog/broken-blog.jpg', content: 'হারিয়ে যাওয়া পথ খোঁজা জীবন সংগ্রাম দিশা দিক চলা হাঁটা থামা দাঁড়ানো' },
     { title: 'Philosophy Of My Life, You Should Probably Ignore', url: 'life.html', tags: ['Life & Philosophy', 'The Sands of Time'], excerpt: "I've put you on an podestal it's true, Now I want to kick it from under you.", image: 'assets/images/blog/life.jpg', content: 'philosophy life living thoughts thinking existence meaning purpose love hate happiness sadness' },
@@ -78,8 +78,21 @@ function initGlobalSearch() {
         console.warn('Global search input not found; skipping interactive search binding.');
     }
     
-    // Display all unique tags
+    // Display all unique tags (seed list only initially)
     displayAllTags();
+
+    // Start background discovery/indexing of all pages
+    discoverAllPages().then(() => {
+        // Rebuild tags after additions
+        displayAllTags();
+        // If there is an existing query, redo search with fuller index
+        const q = (searchInput && searchInput.value) ? searchInput.value.trim() : (query ? decodeURIComponent(query) : '');
+        if (q) {
+            searchPosts(q).then(r => {
+                displayResults(r, `"${q}" (পূর্ণ সূচি)`);
+            });
+        }
+    });
     
     // If tag parameter exists, filter by that tag
     if (tag) {
@@ -247,48 +260,154 @@ async function loadHTMLContent(url) {
     }
 }
 
-// Search posts with dynamic HTML content loading
+// Text normalization (Bengali + English) - case fold, collapse spaces, remove some punctuation
+function normalizeText(str = '') {
+    return str
+        .toLowerCase()
+        .normalize('NFC')
+        .replace(/[“”‘’`'"\-_,.;:!()?\[\]{}<>]/g, ' ')
+        .replace(/\s+/g, ' ') // collapse whitespace
+        .trim();
+}
+
+// Build a unified searchable string for a post entry
+function buildMetadataText(post) {
+    return normalizeText([
+        post.title || '',
+        post.excerpt || '',
+        (post.tags || []).join(' '),
+        post.content || ''
+    ].join(' '));
+}
+
+// Async search across metadata + loaded HTML
 async function searchPosts(query) {
-    const queryLower = query.toLowerCase();
+    const nq = normalizeText(query);
     const results = [];
-    
-    // First pass: search in metadata (title, excerpt, tags, cached content)
+    const seen = new Set();
     for (const post of allBlogPosts) {
-        const metadataText = [
-            post.title.toLowerCase(),
-            post.excerpt.toLowerCase(),
-            ...post.tags.map(tag => tag.toLowerCase()),
-            post.content ? post.content.toLowerCase() : ''
-        ].join(' ');
-        
-        if (metadataText.includes(queryLower)) {
-            results.push(post);
-            continue;
-        }
-        
-        // Second pass: load and search actual HTML content
-        const htmlContent = await loadHTMLContent(post.url);
-        if (htmlContent.includes(queryLower)) {
-            results.push(post);
+        try {
+            const meta = post._metaText || (post._metaText = buildMetadataText(post));
+            if (meta.includes(nq)) {
+                results.push(post); seen.add(post.url); continue;
+            }
+            // Deep content fetch
+            const htmlContent = await loadHTMLContent(post.url);
+            if (normalizeText(htmlContent).includes(nq)) {
+                results.push(post); seen.add(post.url); continue;
+            }
+        } catch (e) {
+            console.warn('Search error for', post.url, e);
         }
     }
-    
     return results;
 }
 
 // Synchronous search for initial results (searches metadata only)
 function searchPostsSync(query) {
+    const nq = normalizeText(query);
     return allBlogPosts.filter(post => {
-        // Search in title, excerpt, and tags
-        const searchableText = [
-            post.title.toLowerCase(),
-            post.excerpt.toLowerCase(),
-            ...post.tags.map(tag => tag.toLowerCase()),
-            post.content ? post.content.toLowerCase() : ''
-        ].join(' ');
-        
-        return searchableText.includes(query);
+        const meta = post._metaText || (post._metaText = buildMetadataText(post));
+        return meta.includes(nq);
     });
+}
+
+// --- Auto-discovery & indexing logic ---
+let fullIndexReady = false;
+let indexingPromise = null;
+let pagesManifestLoaded = false;
+
+async function loadPagesManifest() {
+    if (pagesManifestLoaded) return [];
+    try {
+        const res = await fetch('pages-index.json');
+        if (!res.ok) return [];
+        const arr = await res.json();
+        pagesManifestLoaded = true;
+        return Array.isArray(arr) ? arr : [];
+    } catch (e) {
+        console.warn('pages-index.json load failed', e);
+        return [];
+    }
+}
+
+async function discoverAllPages() {
+    if (indexingPromise) return indexingPromise;
+    indexingPromise = (async () => {
+        // Attempt to fetch sitemap.xml (absolute or relative)
+        const sitePages = new Set(allBlogPosts.map(p => p.url));
+        // Load pages-index.json if present for exhaustive list
+        const manifestPages = await loadPagesManifest();
+        manifestPages.forEach(p => sitePages.add(p));
+        try {
+            const sitemapUrl = `${location.origin}${location.pathname.replace(/\/[^/]*$/, '/') }sitemap.xml`;
+            const res = await fetch('sitemap.xml');
+            if (res.ok) {
+                const text = await res.text();
+                const urls = Array.from(text.matchAll(/<loc>(.*?)<\/loc>/g)).map(m => m[1]);
+                urls.forEach(u => {
+                    if (u.endsWith('.html') || /\/blogs\/?$/.test(u)) {
+                        // Convert absolute to relative if inside same site
+                        try {
+                            const uObj = new URL(u);
+                            if (uObj.origin === location.origin) {
+                                let rel = uObj.pathname.split('/').filter(Boolean).pop();
+                                if (!rel || rel === 'blogs') rel = 'index.html';
+                                sitePages.add(rel);
+                            }
+                        } catch { /* ignore */ }
+                    }
+                });
+            }
+        } catch (e) {
+            console.warn('Sitemap fetch failed', e);
+        }
+        // Fallback: heuristic gather from links on current page
+        document.querySelectorAll('a[href$=".html"]').forEach(a => {
+            const href = a.getAttribute('href');
+            if (href && !href.startsWith('http') && !href.startsWith('#')) sitePages.add(href.split('?')[0]);
+        });
+        // Build new entries for pages not in seed list
+        const existing = new Set(allBlogPosts.map(p => p.url));
+        const additions = [];
+        sitePages.forEach(url => {
+            if (!existing.has(url) && !/^(assets|plugins|fontawesome)\//.test(url) && url !== 'search-results.html') {
+                additions.push({ title: url.replace(/[-_]/g,' ').replace(/\.html$/i,''), url, tags: [], excerpt: '', content: '' });
+            }
+        });
+        if (additions.length) {
+            allBlogPosts = allBlogPosts.concat(additions);
+        }
+        // Preload & augment additions with full content (no truncation)
+        await Promise.all(additions.map(async p => {
+            const txt = await loadHTMLContent(p.url);
+            const norm = normalizeText(txt);
+            p.content = norm; // full normalized content
+            p.excerpt = norm.slice(0, 160) + (norm.length > 160 ? '…' : '');
+            p._metaText = buildMetadataText(p);
+        }));
+
+        // Ensure seeded posts also gain full content (in case their metadata/content field was short)
+        await Promise.all(allBlogPosts.filter(p => !p._fullIndexed).map(async p => {
+            try {
+                const txt = await loadHTMLContent(p.url);
+                if (txt) {
+                    const norm = normalizeText(txt);
+                    p.content = norm; // override/extend
+                    if (!p.excerpt || p.excerpt.length < 40) {
+                        p.excerpt = norm.slice(0, 160) + (norm.length > 160 ? '…' : '');
+                    }
+                    p._metaText = buildMetadataText(p);
+                    p._fullIndexed = true;
+                }
+            } catch (e) {
+                console.warn('Full index fetch failed for', p.url, e);
+            }
+        }));
+        fullIndexReady = true;
+        return true;
+    })();
+    return indexingPromise;
 }
 
 // Display results

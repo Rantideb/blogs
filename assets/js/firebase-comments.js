@@ -17,6 +17,7 @@
 // Initialize Firebase (only if config is set)
 let db = null;
 let isFirebaseConfigured = false;
+let activeReplyTarget = null; // comment id currently being replied to
 
 function initializeFirebase() {
     // Check if Firebase config is properly set
@@ -229,19 +230,29 @@ async function loadComments() {
             .where('pageUrl', '==', pageUrl)
             .get();
         
-        // Filter approved comments and sort by timestamp
-        const comments = [];
+        // Collect approved comments
+        const flat = [];
         snapshot.forEach(doc => {
             const data = doc.data();
             if (data.approved === true) {
-                comments.push({ id: doc.id, ...data });
+                flat.push({ id: doc.id, parentId: data.parentId || null, ...data });
             }
         });
-        
-        // Sort by timestamp descending (newest first)
-        comments.sort((a, b) => b.timestamp - a.timestamp);
-        
-        const count = comments.length;
+        // Sort oldest first for natural threaded order (parent before children)
+        flat.sort((a, b) => a.timestamp - b.timestamp);
+
+        // Build tree map
+        const byId = {}; flat.forEach(c => byId[c.id] = { ...c, children: [] });
+        const roots = [];
+        flat.forEach(c => {
+            if (c.parentId && byId[c.parentId]) {
+                byId[c.parentId].children.push(byId[c.id]);
+            } else {
+                roots.push(byId[c.id]);
+            }
+        });
+        // Count all
+        const count = flat.length;
         
         // Update count
         if (count === 0) {
@@ -256,42 +267,54 @@ async function loadComments() {
             <i class="fas fa-comments"></i> মোট ${count} টি মন্তব্য
         `;
         
-        // Build comments HTML
-        let html = '';
-        comments.forEach(comment => {
-            const date = formatBengaliDate(new Date(comment.timestamp));
-            const timeAgo = getTimeAgo(comment.timestamp);
-            
-            html += `
-                <div class="comment-item" style="
-                    border-left: 4px solid #EEA73B;
-                    padding: 20px;
-                    margin-bottom: 20px;
-                    background: white;
-                    border-radius: 6px;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-                    transition: transform 0.2s, box-shadow 0.2s;
-                " onmouseover="this.style.transform='translateX(5px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.05)'">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #EEA73B, #d89429); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px;">
-                                ${comment.name.charAt(0).toUpperCase()}
-                            </div>
-                            <div>
-                                <strong style="color: #223142; font-size: 16px; display: block;">${escapeHtml(comment.name)}</strong>
-                                <span style="color: #999; font-size: 12px;">${timeAgo}</span>
-                            </div>
-                        </div>
-                        <span style="color: #666; font-size: 13px;">
-                            <i class="far fa-calendar-alt"></i> ${date}
-                        </span>
-                    </div>
-                    <p style="color: #333; margin: 0; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word;">${escapeHtml(comment.comment)}</p>
-                </div>
-            `;
-        });
-        
-        commentsList.innerHTML = html;
+                // Recursive renderer
+                function renderNode(node, depth = 0) {
+                        const date = formatBengaliDate(new Date(node.timestamp));
+                        const timeAgo = getTimeAgo(node.timestamp);
+                        const indent = depth * 18; // px
+                        let html = `
+                        <div class="comment-item-wrapper" style="margin-left:${indent}px; position:relative;">
+                            <div class="comment-item" data-comment-id="${node.id}" style="
+                                        border-left: 4px solid #EEA73B;
+                                        padding: 16px 18px 14px 18px;
+                                        margin-bottom: 14px;
+                                        background: #fff;
+                                        border-radius: 6px;
+                                        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                                        transition: transform 0.2s, box-shadow 0.2s;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px;">
+                                    <div style="display:flex;align-items:center;gap:10px;">
+                                        <div style="width:38px;height:38px;background:linear-gradient(135deg,#EEA73B,#d89429);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:16px;">
+                                            ${node.name.charAt(0).toUpperCase()}
+                                        </div>
+                                        <div>
+                                            <strong style="color:#223142;font-size:15px;display:block;">${escapeHtml(node.name)}</strong>
+                                            <span style="color:#999;font-size:11px;">${timeAgo}</span>
+                                        </div>
+                                    </div>
+                                    <span style="color:#666;font-size:12px;"><i class="far fa-calendar-alt"></i> ${date}</span>
+                                </div>
+                                <p style="color:#333;margin:0 0 10px 0;line-height:1.55;white-space:pre-wrap;word-wrap:break-word;font-size:14px;">${escapeHtml(node.comment)}</p>
+                                <div class="comment-actions" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                                    <button type="button" class="reply-btn" data-reply-to="${node.id}" style="background:none;border:none;color:#EEA73B;font-size:13px;cursor:pointer;padding:0;">
+                                        <i class="fas fa-reply"></i> উত্তর দিন
+                                    </button>
+                                </div>
+                            </div>`;
+                        if (node.children && node.children.length) {
+                                node.children.sort((a,b)=> a.timestamp - b.timestamp);
+                                node.children.forEach(child => {
+                                        html += renderNode(child, depth + 1);
+                                });
+                        }
+                        html += '</div>';
+                        return html;
+                }
+                let html = '';
+                // Render roots newest last (oldest first already sorted)
+                roots.forEach(r => { html += renderNode(r, 0); });
+                commentsList.innerHTML = html;
+                attachReplyHandlers();
         
     } catch (error) {
         console.error('Error loading comments:', error);
@@ -337,21 +360,28 @@ async function submitComment(event) {
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
     
     try {
-        // Add comment to Firestore
-        await db.collection('comments').add({
+        const payload = {
             pageUrl: pageUrl,
             name: name,
             email: email || '',
             comment: commentText,
             timestamp: Date.now(),
-            approved: true, // Set to false if you want manual approval
+            approved: true,
             userAgent: navigator.userAgent,
-            ip: '' // Can be filled by backend if needed
-        });
+            ip: ''
+        };
+        if (activeReplyTarget) {
+            payload.parentId = activeReplyTarget;
+        }
+        await db.collection('comments').add(payload);
         
-        // Clear form
+        // Clear form & reset reply state
         document.getElementById('firebase-comment-form').reset();
         document.getElementById('char-count').textContent = '0';
+        if (activeReplyTarget) {
+            restoreMainFormPosition();
+            activeReplyTarget = null;
+        }
         
         // Show success message
         showNotification('আপনার মন্তব্য সফলভাবে পাঠানো হয়েছে! ধন্যবাদ।', 'success');
@@ -368,6 +398,58 @@ async function submitComment(event) {
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> মন্তব্য পাঠান';
+    }
+}
+
+// Handle reply button clicks
+function attachReplyHandlers() {
+    const buttons = document.querySelectorAll('#firebase-comments-list .reply-btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-reply-to');
+            if (!targetId) return;
+            moveFormUnderComment(targetId, btn);
+        });
+    });
+}
+
+function moveFormUnderComment(commentId, triggerBtn) {
+    const form = document.getElementById('firebase-comment-form');
+    if (!form) return;
+    const commentEl = document.querySelector(`[data-comment-id="${commentId}"]`);
+    if (!commentEl) return;
+    activeReplyTarget = commentId;
+    // Remove existing inline indicator if any
+    const existing = document.getElementById('reply-indicator');
+    if (existing) existing.remove();
+    // Add indicator with cancel
+    const indicator = document.createElement('div');
+    indicator.id = 'reply-indicator';
+    indicator.style.cssText = 'margin-bottom:10px;padding:8px 12px;background:#FFF5E6;border-left:3px solid #EEA73B;border-radius:4px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;';
+    indicator.innerHTML = `<span><i class="fas fa-reply"></i> উত্তর দিচ্ছেন</span><button type="button" id="cancel-reply" style="background:none;border:none;color:#d32f2f;cursor:pointer;font-size:12px;">বাতিল</button>`;
+    form.parentNode.insertBefore(indicator, form);
+    commentEl.insertAdjacentElement('afterend', form);
+    const cancelBtn = document.getElementById('cancel-reply');
+    cancelBtn.addEventListener('click', () => {
+        restoreMainFormPosition();
+        activeReplyTarget = null;
+    });
+    // Focus textarea
+    const textarea = document.getElementById('firebase-comment-text');
+    if (textarea) textarea.focus();
+}
+
+function restoreMainFormPosition() {
+    const { container, afterNode } = getCommentsInsertionPoint();
+    const form = document.getElementById('firebase-comment-form');
+    const indicator = document.getElementById('reply-indicator');
+    if (indicator) indicator.remove();
+    if (!form) return;
+    // Move form back to top of comment section (before comments count)
+    const commentsRoot = document.getElementById('firebase-comments-root');
+    const countEl = document.getElementById('firebase-comments-count');
+    if (commentsRoot && countEl) {
+        commentsRoot.insertBefore(form, countEl);
     }
 }
 
