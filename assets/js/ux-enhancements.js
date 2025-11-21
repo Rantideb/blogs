@@ -52,6 +52,12 @@ function calculateReadingTime() {
     const bengaliNumerals = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
     const toBengaliNumber = (num) => num.toString().split('').map(digit => bengaliNumerals[parseInt(digit)]).join('');
 
+    // Remove any existing badge to prevent duplicates
+    const existingBadge = document.querySelector('.reading-time-badge');
+    if (existingBadge) {
+        existingBadge.remove();
+    }
+
     // Create reading time badge
     const badge = document.createElement('div');
     badge.className = 'reading-time-badge';
