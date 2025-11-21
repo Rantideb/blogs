@@ -205,15 +205,266 @@ function createBackToTopButton() {
     });
 }
 
-// 4. Mobile-specific adjustments
+// 4. Zen Mode (Focus Reading)
+function createZenModeButton() {
+    // Only show on individual blog posts - robust check
+    if (!document.querySelector('.blog-post-body')) return;
+
+    console.log('Initializing Zen Mode Button...'); // Debug
+
+    const button = document.createElement('button');
+    button.id = 'zenModeBtn';
+    button.className = 'ux-floating-btn';
+    button.innerHTML = '<i class="fas fa-spa"></i>';
+    button.setAttribute('aria-label', 'Zen Mode');
+    button.title = 'জেন মোড (Zen Mode)';
+
+    // Add styles via class instead of inline for better responsiveness
+    const style = document.createElement('style');
+    style.textContent = `
+        .ux-floating-btn {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #223142;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            line-height: 1;
+        }
+        
+        /* Desktop Positioning (Left side, right of sidebar) */
+        @media (min-width: 992px) {
+            #zenModeBtn {
+                left: 300px; /* 280px sidebar + 20px gap */
+                bottom: 30px;
+                right: auto;
+            }
+            #randomPostBtn {
+                left: 300px;
+                bottom: 90px; /* Stacked above Zen Mode */
+                right: auto;
+            }
+        }
+
+        /* Mobile Positioning (Left side) */
+        @media (max-width: 991.98px) {
+            #zenModeBtn {
+                left: 20px;
+                bottom: 30px; /* Same level as Back to Top but on left */
+                right: auto;
+            }
+            #randomPostBtn {
+                left: 20px;
+                bottom: 90px; /* Stacked above Zen Mode */
+                right: auto;
+            }
+        }
+
+        /* Zen Mode Active Styles */
+        body.zen-mode .header,
+        body.zen-mode .navbar,
+        body.zen-mode .blog-nav,
+        body.zen-mode .related-posts,
+        body.zen-mode .comments-section,
+        body.zen-mode .share-buttons,
+        body.zen-mode .newsletter-section,
+        body.zen-mode .footer,
+        body.zen-mode #backToTop,
+        body.zen-mode #randomPostBtn {
+            display: none !important;
+        }
+        body.zen-mode .main-wrapper {
+            margin: 0 auto !important;
+            max-width: 800px !important;
+            padding: 60px 20px !important;
+            background: #fdfdfd;
+        }
+        body.zen-mode {
+            background: #fdfdfd !important;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        body.zen-mode #zenModeBtn {
+            background: #EDA73B;
+            color: white;
+            opacity: 1 !important; /* Always visible in Zen Mode */
+            visibility: visible !important;
+        }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(button);
+
+    button.addEventListener('click', () => {
+        document.body.classList.toggle('zen-mode');
+        const isZen = document.body.classList.contains('zen-mode');
+        button.innerHTML = isZen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-spa"></i>';
+
+        // Notify user
+        const msg = isZen ? 'জেন মোড চালু হয়েছে' : 'জেন মোড বন্ধ হয়েছে';
+        showToast(msg);
+    });
+
+    // Show/hide logic
+    window.addEventListener('scroll', () => {
+        // Always show if in Zen Mode, otherwise follow scroll rule
+        if (document.body.classList.contains('zen-mode')) {
+            button.style.opacity = '1';
+            button.style.visibility = 'visible';
+            return;
+        }
+
+        if (window.pageYOffset > 100) {
+            button.style.opacity = '1';
+            button.style.visibility = 'visible';
+        } else {
+            button.style.opacity = '0';
+            button.style.visibility = 'hidden';
+        }
+    });
+}
+
+// 5. Random Post (Serendipity)
+function createRandomPostButton() {
+    // Only show on individual blog posts - robust check
+    if (!document.querySelector('.blog-post-body')) return;
+
+    console.log('Initializing Random Post Button...'); // Debug
+
+    const button = document.createElement('button');
+    button.id = 'randomPostBtn';
+    button.className = 'ux-floating-btn'; // Reuses styles defined in createZenModeButton
+    button.innerHTML = '<i class="fas fa-dice"></i>';
+    button.setAttribute('aria-label', 'Random Post');
+    button.title = 'ভাগ্য পরীক্ষা (Random Post)';
+
+    // No need to append style again as it's handled in createZenModeButton
+    // But we need to ensure createZenModeButton runs first or we duplicate/miss styles.
+    // To be safe, we can check if style exists or just rely on the fact that both run.
+    // Actually, simpler to just append the button here. The CSS covers both IDs.
+
+    document.body.appendChild(button);
+
+    button.addEventListener('click', async () => {
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        try {
+            const response = await fetch('posts-index.json');
+            const posts = await response.json();
+            const currentPost = window.location.pathname.split('/').pop();
+
+            // Filter out current post and non-blog pages
+            const validPosts = posts.filter(post =>
+                post !== currentPost &&
+                post.endsWith('.html') &&
+                !['index.html', 'about.html', 'contact.html'].includes(post)
+            );
+
+            if (validPosts.length > 0) {
+                const randomPost = validPosts[Math.floor(Math.random() * validPosts.length)];
+                window.location.href = randomPost;
+            } else {
+                showToast('আর কোন লেখা পাওয়া যায়নি!');
+                button.innerHTML = '<i class="fas fa-dice"></i>';
+            }
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+            showToast('দুঃখিত, কিছু ভুল হয়েছে!');
+            button.innerHTML = '<i class="fas fa-dice"></i>';
+        }
+    });
+
+    // Show/hide logic
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 100) { // Lowered threshold
+            button.style.opacity = '1';
+            button.style.visibility = 'visible';
+        } else {
+            button.style.opacity = '0';
+            button.style.visibility = 'hidden';
+        }
+    });
+}
+
+// 6. Custom Text Selection
+function applyCustomSelection() {
+    const style = document.createElement('style');
+    style.textContent = `
+        ::selection {
+            background: #EDA73B;
+            color: white;
+        }
+        ::-moz-selection {
+            background: #EDA73B;
+            color: white;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Helper: Toast Notification
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(34, 49, 66, 0.9);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 14px;
+        z-index: 2000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    `;
+    document.body.appendChild(toast);
+
+    // Trigger reflow
+    toast.offsetHeight;
+    toast.style.opacity = '1';
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
+// 7. Mobile-specific adjustments
 function mobileAdjustments() {
     if (window.innerWidth <= 768) {
         const backToTop = document.getElementById('backToTop');
+        const zenMode = document.getElementById('zenModeBtn');
+        const randomPost = document.getElementById('randomPostBtn');
+
         if (backToTop) {
             backToTop.style.bottom = '20px';
             backToTop.style.right = '20px';
             backToTop.style.width = '45px';
             backToTop.style.height = '45px';
+        }
+        if (zenMode) {
+            zenMode.style.bottom = '75px';
+            zenMode.style.right = '20px';
+            zenMode.style.width = '45px';
+            zenMode.style.height = '45px';
+        }
+        if (randomPost) {
+            randomPost.style.bottom = '130px';
+            randomPost.style.right = '20px';
+            randomPost.style.width = '45px';
+            randomPost.style.height = '45px';
         }
 
         const readingBadge = document.querySelector('.reading-time-badge');
@@ -231,6 +482,9 @@ document.addEventListener('DOMContentLoaded', () => {
     addLazyLoading();
     calculateReadingTime();
     createBackToTopButton();
+    createZenModeButton();
+    createRandomPostButton();
+    applyCustomSelection();
     mobileAdjustments();
 });
 
