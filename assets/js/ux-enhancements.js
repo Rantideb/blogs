@@ -165,6 +165,11 @@ function createBackToTopButton() {
         visibility: hidden;
         transition: all 0.3s ease;
         z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        line-height: 1;
     `;
 
     document.body.appendChild(button);

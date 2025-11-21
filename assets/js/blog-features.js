@@ -5,6 +5,9 @@
  */
 
 // ==================== 1. READING TIME ESTIMATOR ====================
+// DISABLED: Now using ux-enhancements.js for reading time
+// This old version created duplicate badges on mobile
+/*
 function calculateReadingTime() {
     const article = document.querySelector('.blog-post-body');
     if (!article) return;
@@ -66,6 +69,7 @@ function calculateReadingTime() {
         metaContainer.appendChild(badge);
     }
 }
+*/
 
 // ==================== 2. READING PROGRESS BAR ====================
 function createReadingProgressBar() {
@@ -82,7 +86,7 @@ function createReadingProgressBar() {
         transition: width 0.1s ease;
     `;
     document.body.appendChild(progressBar);
-    
+
     window.addEventListener('scroll', () => {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight - windowHeight;
@@ -96,10 +100,10 @@ function createReadingProgressBar() {
 function generateTableOfContents() {
     const article = document.querySelector('.blog-post-body');
     if (!article) return;
-    
+
     const headings = article.querySelectorAll('h1, h2, h3, h4');
     if (headings.length < 3) return; // Only show if there are multiple sections
-    
+
     const tocContainer = document.createElement('div');
     tocContainer.id = 'table-of-contents';
     tocContainer.innerHTML = '<h3 style="margin-bottom: 15px;">সূচিপত্র</h3>';
@@ -110,24 +114,24 @@ function generateTableOfContents() {
         margin: 20px 0;
         border-left: 4px solid #223142;
     `;
-    
+
     const tocList = document.createElement('ul');
     tocList.style.cssText = `
         list-style: none;
         padding: 0;
         margin: 0;
     `;
-    
+
     headings.forEach((heading, index) => {
         const id = `heading-${index}`;
         heading.id = id;
-        
+
         const li = document.createElement('li');
         li.style.cssText = `
             margin: 8px 0;
             padding-left: ${(parseInt(heading.tagName.charAt(1)) - 1) * 15}px;
         `;
-        
+
         const link = document.createElement('a');
         link.href = `#${id}`;
         link.textContent = heading.textContent;
@@ -140,11 +144,11 @@ function generateTableOfContents() {
             e.preventDefault();
             heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
-        
+
         li.appendChild(link);
         tocList.appendChild(li);
     });
-    
+
     tocContainer.appendChild(tocList);
     article.insertBefore(tocContainer, article.firstChild);
 }
@@ -153,7 +157,7 @@ function generateTableOfContents() {
 function createShareButtons() {
     const article = document.querySelector('.blog-post-body');
     if (!article) return;
-    
+
     const shareContainer = document.createElement('div');
     shareContainer.className = 'share-buttons';
     shareContainer.style.cssText = `
@@ -166,10 +170,10 @@ function createShareButtons() {
         background: #f8f9fa;
         border-radius: 8px;
     `;
-    
+
     const pageUrl = encodeURIComponent(window.location.href);
     const pageTitle = encodeURIComponent(document.title);
-    
+
     const shareButtons = [
         {
             name: 'Facebook',
@@ -202,7 +206,7 @@ function createShareButtons() {
             action: 'copy'
         }
     ];
-    
+
     const title = document.createElement('div');
     title.textContent = 'শেয়ার করুন:';
     title.style.cssText = `
@@ -212,7 +216,7 @@ function createShareButtons() {
         color: #333;
     `;
     shareContainer.appendChild(title);
-    
+
     shareButtons.forEach(button => {
         const btn = document.createElement('a');
         btn.className = 'share-button';
@@ -230,7 +234,7 @@ function createShareButtons() {
             transition: all 0.3s;
             cursor: pointer;
         `;
-        
+
         if (button.action === 'copy') {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -246,20 +250,20 @@ function createShareButtons() {
             btn.href = button.url;
             btn.target = '_blank';
         }
-        
+
         btn.addEventListener('mouseenter', () => {
             btn.style.transform = 'translateY(-2px)';
             btn.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
         });
-        
+
         btn.addEventListener('mouseleave', () => {
             btn.style.transform = 'translateY(0)';
             btn.style.boxShadow = 'none';
         });
-        
+
         shareContainer.appendChild(btn);
     });
-    
+
     article.appendChild(shareContainer);
 }
 
@@ -282,15 +286,15 @@ function createFontSizeAdjuster() {
         flex-direction: column;
         gap: 5px;
     `;
-    
+
     const sizes = [
         { label: 'A+', size: 1.2, title: 'বড়' },
         { label: 'A', size: 1.0, title: 'স্বাভাবিক' },
         { label: 'A-', size: 0.9, title: 'ছোট' }
     ];
-    
+
     const currentSize = parseFloat(localStorage.getItem('fontSize')) || 1.0;
-    
+
     sizes.forEach(({ label, size, title }) => {
         const btn = document.createElement('button');
         btn.textContent = label;
@@ -305,13 +309,13 @@ function createFontSizeAdjuster() {
             font-weight: 600;
             transition: all 0.3s;
         `;
-        
+
         btn.addEventListener('click', () => {
             document.querySelectorAll('.blog-post-body p').forEach(p => {
                 p.style.fontSize = `${size}em`;
             });
             localStorage.setItem('fontSize', size);
-            
+
             // Update button styles
             adjuster.querySelectorAll('button').forEach(b => {
                 b.style.border = '2px solid #ddd';
@@ -322,12 +326,12 @@ function createFontSizeAdjuster() {
             btn.style.background = '#223142';
             btn.style.color = 'white';
         });
-        
+
         adjuster.appendChild(btn);
     });
-    
+
     document.body.appendChild(adjuster);
-    
+
     // Apply saved font size
     if (currentSize !== 1.0) {
         document.querySelectorAll('.blog-post-body p').forEach(p => {
@@ -340,7 +344,7 @@ function createFontSizeAdjuster() {
 function createPrintButton() {
     const article = document.querySelector('.blog-post-body');
     if (!article) return;
-    
+
     // Create button container if it doesn't exist
     let buttonContainer = article.querySelector('.blog-action-buttons');
     if (!buttonContainer) {
@@ -353,7 +357,7 @@ function createPrintButton() {
             margin: 20px 0;
             max-width: 100%;
         `;
-        
+
         // Responsive: ensure 2 columns max on all devices
         const style = document.createElement('style');
         style.textContent = `
@@ -374,7 +378,7 @@ function createPrintButton() {
             }
         `;
         document.head.appendChild(style);
-        
+
         // Insert after meta container if exists, otherwise at the start
         const metaContainer = article.querySelector('.blog-meta-container');
         if (metaContainer) {
@@ -383,7 +387,7 @@ function createPrintButton() {
             article.insertBefore(buttonContainer, article.firstChild);
         }
     }
-    
+
     const printBtn = document.createElement('button');
     printBtn.className = 'print-button';
     printBtn.innerHTML = '<i class="fas fa-print"></i> প্রিন্ট করুন';
@@ -405,21 +409,21 @@ function createPrintButton() {
         text-decoration: none;
         font-weight: normal;
     `;
-    
+
     printBtn.addEventListener('click', () => {
         window.print();
     });
-    
+
     printBtn.addEventListener('mouseenter', () => {
         printBtn.style.color = '#EEA73B';
     });
-    
+
     printBtn.addEventListener('mouseleave', () => {
         printBtn.style.color = '#223142';
     });
-    
+
     buttonContainer.appendChild(printBtn);
-    
+
     // Add print styles
     if (!document.getElementById('print-styles')) {
         const style = document.createElement('style');
@@ -441,7 +445,7 @@ function createPrintButton() {
 function createImageLightbox() {
     const images = document.querySelectorAll('.blog-post-body img');
     if (images.length === 0) return;
-    
+
     // Create lightbox container
     const lightbox = document.createElement('div');
     lightbox.id = 'image-lightbox';
@@ -457,14 +461,14 @@ function createImageLightbox() {
         justify-content: center;
         align-items: center;
     `;
-    
+
     const lightboxImg = document.createElement('img');
     lightboxImg.style.cssText = `
         max-width: 90%;
         max-height: 90%;
         object-fit: contain;
     `;
-    
+
     const closeBtn = document.createElement('button');
     closeBtn.innerHTML = '&times;';
     closeBtn.style.cssText = `
@@ -477,21 +481,21 @@ function createImageLightbox() {
         border: none;
         cursor: pointer;
     `;
-    
+
     closeBtn.addEventListener('click', () => {
         lightbox.style.display = 'none';
     });
-    
+
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
             lightbox.style.display = 'none';
         }
     });
-    
+
     lightbox.appendChild(lightboxImg);
     lightbox.appendChild(closeBtn);
     document.body.appendChild(lightbox);
-    
+
     // Add click handlers to images
     images.forEach(img => {
         img.style.cursor = 'pointer';
@@ -506,17 +510,17 @@ function createImageLightbox() {
 function implementViewCounter() {
     const pageUrl = window.location.href;
     const viewKey = `views_${pageUrl}`;
-    
+
     let views = parseInt(localStorage.getItem(viewKey)) || 0;
     views++;
     localStorage.setItem(viewKey, views);
-    
+
     const article = document.querySelector('.blog-post-body');
     if (!article) return;
-    
+
     const metaContainer = article.querySelector('.blog-meta-container');
     if (!metaContainer) return;
-    
+
     const viewCounter = document.createElement('div');
     viewCounter.className = 'view-counter';
     viewCounter.innerHTML = `<i class="fas fa-eye"></i> ${views} বার পড়া হয়েছে`;
@@ -537,25 +541,25 @@ function implementViewCounter() {
         transition: all 0.3s ease;
         cursor: default;
     `;
-    
+
     // Add hover effect
     viewCounter.addEventListener('mouseenter', () => {
         viewCounter.style.transform = 'translateY(-2px)';
         viewCounter.style.boxShadow = '0 4px 12px rgba(40, 167, 69, 0.4)';
     });
-    
+
     viewCounter.addEventListener('mouseleave', () => {
         viewCounter.style.transform = 'translateY(0)';
         viewCounter.style.boxShadow = '0 2px 8px rgba(40, 167, 69, 0.3)';
     });
-    
+
     metaContainer.appendChild(viewCounter);
 }
 
 // ==================== 11. LAZY LOADING IMAGES ====================
 function implementLazyLoading() {
     const images = document.querySelectorAll('.blog-post-body img');
-    
+
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -567,7 +571,7 @@ function implementLazyLoading() {
                 }
             });
         });
-        
+
         images.forEach(img => {
             imageObserver.observe(img);
         });
@@ -622,7 +626,7 @@ function initKeyboardNavigationPreference() {
 }
 
 // Expose for modal toggle
-window.__toggleKeyboardNav = function(state) {
+window.__toggleKeyboardNav = function (state) {
     if (state) enableKeyboardNavigation(); else disableKeyboardNavigation();
 };
 
@@ -630,7 +634,7 @@ window.__toggleKeyboardNav = function(state) {
 async function loadGlobalPostOrder() {
     if (globalPostManifestLoaded) return globalPostOrder;
     // Prefer dedicated posts-index.json for precise ordering
-    const sources = ['posts-index.json','pages-index.json'];
+    const sources = ['posts-index.json', 'pages-index.json'];
     for (const src of sources) {
         try {
             const res = await fetch(src);
@@ -640,7 +644,7 @@ async function loadGlobalPostOrder() {
             if (src === 'posts-index.json') {
                 globalPostOrder = list.filter(p => p.endsWith('.html'));
             } else {
-                const exclude = new Set(['index.html','index-1.html','about.html','archive.html','blog.html','blog-post.html','search-results.html','google32f4039fea15063c.html','head.html']);
+                const exclude = new Set(['index.html', 'index-1.html', 'about.html', 'archive.html', 'blog.html', 'blog-post.html', 'search-results.html', 'google32f4039fea15063c.html', 'head.html']);
                 globalPostOrder = list.filter(p => p.endsWith('.html') && !exclude.has(p));
             }
             break;
@@ -703,7 +707,7 @@ function addCommentsSection() {
 // ==================== INITIALIZE ALL FEATURES ====================
 document.addEventListener('DOMContentLoaded', () => {
     // Execute all features
-    calculateReadingTime();
+    // calculateReadingTime(); // DISABLED - now using ux-enhancements.js
     createReadingProgressBar();
     generateTableOfContents();
     createShareButtons();
@@ -732,6 +736,6 @@ document.addEventListener('DOMContentLoaded', () => {
         script.onerror = () => console.warn('highlight.js fallback failed to load');
         document.head.appendChild(script);
     })();
-    
+
     console.log('✅ All blog features loaded successfully!');
 });
