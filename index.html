@@ -13,7 +13,7 @@
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rantideb.github.io/blogs/">
+    <meta property="og:url" content="https://textandtech.me/">
     <meta property="og:title" content="রন্তিদেব | হিজিবিজি কথন">
     <meta property="og:description" content="প্রেম, জীবন এবং অনুভূতির গল্প">
     <meta property="og:image" content="https://textandtech.me/assets/images/profile.jpg">
@@ -27,53 +27,123 @@
 
     <!-- Schema.org Markup -->
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "রন্তিদেবের ব্লগ",
-        "alternateName": ["Rantideb's Blog", "হিজিবিজি কথন"],
-        "url": "https://rantideb.github.io/blogs/",
-        "author": {
-            "@type": "Person",
-            "name": "Rantideb",
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "রন্তিদেব | হিজিবিজি কথন",
+            "url": "https://textandtech.me/",
+            "description": "প্রেম, জীবন এবং অনুভূতির গল্প - Rantideb's personal blog landing page",
+            "inLanguage": ["bn", "en"],
+            "isPartOf": {
+                "@type": "WebSite",
+                "@id": "https://textandtech.me/#website"
+            },
+            "about": {
+                "@type": "Thing",
+                "name": "Mental Health and Personal Experiences"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Rantideb",
+                "url": "https://textandtech.me/about.html",
+                "sameAs": [
+                    "https://twitter.com/r4ntide3",
+                    "https://github.com/Rantideb",
+                    "https://www.facebook.com/R4ntideb",
+                    "https://www.linkedin.com/in/rantideb/"
+                ]
+            },
+            "mainEntity": {
+                "@type": "Article",
+                "headline": "My Apologies - A Note on Mental Health",
+                "author": {
+                    "@type": "Person",
+                    "name": "Rantideb"
+                },
+                "about": "Mental Health",
+                "inLanguage": "en"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": "https://textandtech.me/#website",
+            "name": "রন্তিদেবের ব্লগ",
+            "alternateName": ["Rantideb's Blog", "হিজিবিজি কথন"],
+            "url": "https://textandtech.me/",
+            "description": "প্রেম, জীবন এবং অনুভূতির গল্প - A Bengali blog about life, love, and personal experiences",
+            "inLanguage": ["bn", "en"],
+            "author": {
+                "@type": "Person",
+                "name": "Rantideb"
+            },
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://textandtech.me/search-results.html?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+            },
+            "hasPart": [
+                {
+                    "@type": "WebPage",
+                    "@id": "https://textandtech.me/index-1.html",
+                    "name": "প্রলাপের পত্রসূচি",
+                    "description": "Blog posts listing - হিজিবিজি কথন",
+                    "url": "https://textandtech.me/index-1.html"
+                },
+                {
+                    "@type": "WebPage",
+                    "@id": "https://textandtech.me/about.html",
+                    "name": "প্রলাপের ভুতপত্তি",
+                    "description": "About Rantideb - আমার সম্পর্কে",
+                    "url": "https://textandtech.me/about.html"
+                },
+                {
+                    "@type": "WebPage",
+                    "@id": "https://textandtech.me/archive.html",
+                    "name": "Archive",
+                    "description": "Blog archive - সংরক্ষণাগার",
+                    "url": "https://textandtech.me/archive.html"
+                },
+                {
+                    "@type": "WebPage",
+                    "@id": "https://textandtech.me/search-results.html",
+                    "name": "Search",
+                    "description": "Search blog posts",
+                    "url": "https://textandtech.me/search-results.html"
+                }
+            ]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Rantideb's Blog",
+            "alternateName": "হিজিবিজি কথন",
+            "url": "https://textandtech.me/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://textandtech.me/assets/images/profile.jpg"
+            },
             "sameAs": [
                 "https://twitter.com/r4ntide3",
                 "https://github.com/Rantideb",
-                "https://www.facebook.com/R4ntideb"
-            ]
-        },
-        "description": "প্রেম, জীবন এবং অনুভূতির গল্প",
-        "inLanguage": ["bn", "en"],
-        "about": ["Mental Health", "Life", "Love", "Personal Blog"],
-        "keywords": ["মানসিক স্বাস্থ্য", "প্রেম", "জীবন", "বাংলা ব্লগ"],
-        "mainEntity": {
-            "@type": "ItemList",
-            "itemListElement": [
-                {
-                    "@type": "BlogPosting",
-                    "position": 1,
-                    "name": "হিজিবিজি কথন",
-                    "url": "https://rantideb.github.io/blogs/index.html"
-                },
-                {
-                    "@type": "BlogPosting",
-                    "position": 2,
-                    "name": "Random Rants",
-                    "url": "https://rantideb.github.io/blogs/index-1.html"
-                },
-                {
-                    "@type": "BlogPosting",
-                    "position": 3,
-                    "name": "আমার সম্পর্কে",
-                    "url": "https://rantideb.github.io/blogs/about.html"
-                }
-            ]
+                "https://www.facebook.com/R4ntideb",
+                "https://www.linkedin.com/in/rantideb/"
+            ],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Author",
+                "url": "https://textandtech.me/about.html"
+            }
         }
-    }
+    ]
     </script>
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://rantideb.github.io/blogs/">
+    <link rel="canonical" href="https://textandtech.me/">
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
 
