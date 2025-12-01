@@ -29,7 +29,7 @@ def fix_sitemap():
             continue
             
         # Handle root
-        if url == 'https://textandtech.me/' or url == 'https://textandtech.me':
+        if url == 'https://textandtech.me/' or url == 'https://textandtech.me' or url.endswith('/index.html'):
             normalized_urls.add('https://textandtech.me/')
             continue
             
@@ -51,9 +51,6 @@ def fix_sitemap():
         
         if url == 'https://textandtech.me/':
             priority = "1.0"
-            changefreq = "weekly"
-        elif 'index-1.html' in url:
-            priority = "0.9"
             changefreq = "weekly"
         elif 'about.html' in url or 'archive.html' in url:
             priority = "0.8"

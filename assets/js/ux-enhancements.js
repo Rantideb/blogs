@@ -16,7 +16,7 @@ function calculateReadingTime() {
     // List of hub pages that should NOT show reading time
     const hubPages = [
         'index.html',
-        'index-1.html',
+        'index.html',
         'blog.html',
         'blog-1.html',
         'blog-2.html',

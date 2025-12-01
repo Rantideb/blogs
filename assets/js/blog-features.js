@@ -644,7 +644,7 @@ async function loadGlobalPostOrder() {
             if (src === 'posts-index.json') {
                 globalPostOrder = list.filter(p => p.endsWith('.html'));
             } else {
-                const exclude = new Set(['index.html', 'index-1.html', 'about.html', 'archive.html', 'blog.html', 'blog-post.html', 'search-results.html', 'google32f4039fea15063c.html', 'head.html']);
+                const exclude = new Set(['index.html', 'index.html', 'about.html', 'archive.html', 'blog.html', 'blog-post.html', 'search-results.html', 'google32f4039fea15063c.html', 'head.html']);
                 globalPostOrder = list.filter(p => p.endsWith('.html') && !exclude.has(p));
             }
             break;

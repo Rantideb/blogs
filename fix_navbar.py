@@ -8,7 +8,7 @@ directory = '/Users/rantideb/Downloads/blogs'
 # This prevents the FOUC/glitch caused by unstyled SVGs loading before FontAwesome JS
 new_navbar = """<ul class="navbar-nav flex-column text-start">
 					<li class="nav-item">
-					    <a class="nav-link" href="index-1.html"><i class="fas fa-home fa-fw me-2"></i>প্রলাপের পত্রসূচি <span class="sr-only">(current)</span></a>
+					    <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw me-2"></i>প্রলাপের পত্রসূচি <span class="sr-only">(current)</span></a>
 					</li>
 
 					<li class="nav-item">

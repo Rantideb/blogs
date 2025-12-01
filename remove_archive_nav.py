@@ -9,7 +9,7 @@ from pathlib import Path
 # All HTML pages to check
 all_pages = [
     # Blog hub pages
-    "index-1.html", "blog.html", "blog-1.html", "blog-2.html", "blog-3.html",
+    "index.html", "blog.html", "blog-1.html", "blog-2.html", "blog-3.html",
     "blog-4.html", "blog-5.html", "blog-6.html", "blog-7.html", "blog-8.html",
     "blog-9.html", "blog-10.html",
     # Blog post pages
