@@ -81,6 +81,11 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://textandtech.me/devops-engineer-roadmap-guide.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://textandtech.me/durjhodhon.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
