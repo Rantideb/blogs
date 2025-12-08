@@ -1,0 +1,806 @@
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8340971949778309"
+        crossorigin="anonymous"></script>
+
+    <title>Docker Tutorial for DevOps Beginners (2025): Build a Tiny App and Containerize It from Scratch</title>
+    <link rel="canonical" href="https://textandtech.me/docker-tutorial-for-beginners.html">
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A complete Docker tutorial for DevOps beginners in 2025. Learn to build a tiny Node.js or Python app and containerize it from scratch. Resume-ready project included.">
+    <meta name="author" content="Rantideb">
+    <meta property="og:image" content="assets/images/blog/docker_tutorial_cover.webp">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="assets/plugins/highlight/styles/monokai-sublime.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-5.css">
+
+    <!-- Sidebar Scroll Fix -->
+    <link rel="stylesheet" href="assets/css/sidebar-scroll-fix.css">
+
+    <!-- Blog Responsive Fix CSS - Include this in all blog posts with blog-features.js -->
+    <link rel="stylesheet" href="assets/css/blog-responsive-fix.css">
+
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://textandtech.me/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://textandtech.me/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Docker Tutorial for DevOps Beginners",
+          "item": "https://textandtech.me/docker-tutorial-for-beginners.html"
+        }
+      ]
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Docker Tutorial for DevOps Beginners (2025): Build a Tiny App and Containerize It from Scratch",
+      "description": "A complete Docker tutorial for DevOps beginners in 2025. Learn to build a tiny Node.js or Python app and containerize it from scratch. Resume-ready project included.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://textandtech.me/docker-tutorial-for-beginners.html"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Rantideb",
+        "url": "https://textandtech.me/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Rantideb's Blog",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://textandtech.me/assets/images/profile.jpg"
+        }
+      },
+      "datePublished": "2025-12-08",
+      "dateModified": "2025-12-08",
+      "image": "assets/images/blog/docker_tutorial_cover.webp"
+    }
+  ]
+}
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2HHJ2NJSM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-E2HHJ2NJSM');
+    </script>
+
+</head>
+
+<body>
+    <!-- AdSense Responsive Ad Unit -->
+    <div style="max-width:100%; margin:20px 0; text-align:center;">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8340971949778309" data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <header class="header text-center">
+        <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">DevOps Guide</a></h1>
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
+                aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="navigation" class="collapse navbar-collapse flex-column">
+                <div class="profile-section pt-3 pt-lg-0">
+                    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.jpg" alt="image">
+
+                    <div class="bio mb-3">Tech enthusiast, storyteller, and dreamer. Exploring the intersection of code
+                        and creativity.</div><!--//bio-->
+                    <ul class="social-list list-inline py-3 mx-auto">
+                        <li class="list-inline-item"><a target="_blank" href="https://twitter.com/r4ntide3"><i
+                                    class="fab fa-twitter fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://www.linkedin.com/in/rantideb/"><i
+                                    class="fab fa-linkedin-in fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://github.com/Rantideb"><i
+                                    class="fab fa-github-alt fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://www.facebook.com/R4ntideb"><i
+                                    class="fab fa-facebook fa-fw"></i></a></li>
+                    </ul><!--//social-list-->
+                    <hr>
+                </div><!--//profile-section-->
+
+                <ul class="navbar-nav flex-column text-start">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw me-2"></i>প্রলাপের পত্রসূচি
+                            <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>প্রলাপের
+                            ভুতপত্তি</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="privacy-bn.html" id="privacy-policy-link"><i
+                                class="fas fa-shield-alt fa-fw me-2"></i><span class="privacy-text">গোপনীয়তা
+                                নীতি</span></a>
+                    </li>
+                </ul>
+
+                <div class="my-2 my-md-3">
+
+                    <a class="btn btn-primary" href="https://www.ranti.dev/" target="_blank">আমার নিরালা চরনভুমি</a>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-wrapper">
+
+        <article class="blog-post px-3 py-5 p-md-5">
+            <div class="container single-col-max-width">
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="blog-10.html">Blog</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Docker Tutorial for Beginners</li>
+                    </ol>
+                </nav>
+
+                <div class="blog-post-body">
+                    <figure class="blog-banner">
+                        <img class="img-fluid" src="assets/images/blog/docker_tutorial_cover.webp"
+                            alt="Docker Tutorial for DevOps Beginners">
+                        <figcaption class="mt-2 text-center image-caption">Building your first containerized
+                            application: A journey from code to cloud.</figcaption>
+                    </figure>
+                    <!-- AdSense Responsive Ad Unit -->
+                    <div style="max-width:100%; margin:20px 0; text-align:center;">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8340971949778309"
+                            data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+
+                    <h2 class="title mb-3">Docker Tutorial for DevOps Beginners (2025): Build a Tiny App and
+                        Containerize It from Scratch</h2>
+
+                    <p align="justify">You have mastered the basics of Git. You understand the concept of CI/CD. But
+                        there is one giant, whale-shaped elephant in the room: <strong>Docker</strong>. In this
+                        <strong>Docker tutorial for DevOps beginners</strong>, we are going to demystify
+                        containerization once and for all.
+                    </p>
+
+                    <p align="justify">When I first started my DevOps journey, Docker felt like magic. I would type a
+                        command, and suddenly a database would appear. I would type another, and my app was running. But
+                        "magic" is dangerous in engineering. If you don't understand how the trick works, you can't fix
+                        it when it breaks. And trust me, in production, things <em>will</em> break.</p>
+
+                    <p align="justify">Most tutorials assume you already have an application to work with. But what if
+                        you are coming from an infrastructure background and don't have a "Hello World" app ready to go?
+                        You end up stuck in "tutorial hell," trying to find code that works before you can even learn
+                        the tool you came for.</p>
+
+                    <p align="justify">We are going to change that today. In this comprehensive guide, we will:</p>
+                    <ol>
+                        <li><strong>Build a tiny, working web app from scratch</strong> (Node.js or Python—your choice).
+                        </li>
+                        <li><strong>Deep dive into Core Docker Concepts</strong> so you sound like a senior engineer.
+                        </li>
+                        <li><strong>Write a Dockerfile line-by-line</strong>, explaining the "why" behind every
+                            instruction.</li>
+                        <li><strong>Build and Run your container locally</strong>, mastering the CLI commands.</li>
+                        <li><strong>Push to Docker Hub</strong>, effectively "publishing" your work for the world.</li>
+                    </ol>
+
+                    <p align="justify">By the end of this article, you won't just understand <strong>Docker for
+                            DevOps</strong> theory—you will have a tangible project on your resume that proves you can
+                        take raw code and turn it into a deployable artifact.</p>
+
+
+
+                    <h3 class="mt-4 mb-3">What Is Docker and Why DevOps Engineers Use It</h3>
+
+                    <p align="justify">To understand why Docker is revolutionary, we have to look at the dark ages of
+                        software deployment (a.k.a. pre-2013). Back then, if you wanted to deploy an application, you
+                        had to manually configure a server. You had to install the exact version of Python, the exact
+                        libraries, set environment variables, and pray that the OS updates didn't break anything.</p>
+
+                    <div class="alert alert-warning">
+                        <strong>The Problem:</strong> "It works on my machine!"<br>
+                        Dependencies were hell. Your laptop might have Python 3.9, but the production server has Python
+                        3.6. Your code runs locally but crashes instantly in production. Debugging this was a nightmare.
+                    </div>
+
+                    <p align="justify"><strong>Enter Docker.</strong> Docker solves this by using
+                        <strong>containers</strong>.
+                    </p>
+
+                    <h4 class="mt-4">Containers vs. Virtual Machines (VMs)</h4>
+                    <p align="justify">This is the most common interview question for junior DevOps roles, so pay
+                        attention.</p>
+                    <ul>
+                        <li align="justify"><strong>Virtual Machines (VMs):</strong> A VM is like a digital house. It
+                            has its own heavy foundation (Operating System), its own plumbing, and its own furniture. If
+                            you want to run three apps using VMs, you need three full Operating Systems. This is heavy,
+                            slow to start (minutes), and uses a lot of RAM.</li>
+                        <li align="justify"><strong>Containers:</strong> A container is like a hotel room. It uses the
+                            building's existing foundation and plumbing (the Host OS Kernel) but provides a private,
+                            isolated space for the guest (the App). It only contains what the app needs—code and
+                            lightweight libraries. This makes them incredibly lightweight, fast to start (milliseconds),
+                            and efficient.</li>
+                    </ul>
+
+                    <p align="justify"><strong>Why DevOps engineers take Docker seriously:</strong></p>
+                    <ul>
+                        <li><strong>Consistency:</strong> Detailed reproducibility. The container works exactly the same
+                            on your laptop, your colleague's laptop, and the AWS production server.</li>
+                        <li><strong>Speed:</strong> Containers allow for rapid scaling. Need to handle 10,000 more
+                            users? Spin up 50 more containers in seconds.</li>
+                        <li><strong>Isolation:</strong> You can run a Java 8 legacy app next to a Node.js 18 modern app
+                            on the same server without them fighting over dependencies.</li>
+                        <li><strong>Microservices:</strong> Docker is the enabler of microservices architecture, where
+                            apps are broken down into small, communicating pieces.</li>
+                    </ul>
+
+                    <p align="justify">In 2025, knowing Docker isn't "nice to have"—it is the standard unit of
+                        deployment. If you can't containerize an app, you can't deploy it in a modern cloud environment.
+                    </p>
+
+                    <h4 class="mt-4">Prerequisites</h4>
+                    <p>Before we start coding, ensure you have the following:</p>
+                    <ul>
+                        <li><strong>Git</strong> and a code editor (I highly recommend <strong>VS Code</strong>).</li>
+                        <li><strong>Docker Desktop</strong> (Windows/Mac) or <strong>Docker Engine</strong> (Linux)
+                            installed and running. verify this by running `docker --version` in your terminal.</li>
+                        <li>Basic familiarity with the terminal (cd, ls, mkdir).</li>
+                        <li><strong>No prior app code required</strong>—we will build it together in Step 1.</li>
+                    </ul>
+
+
+
+                    <h3 class="mt-4 mb-3">Step 1: Build a Tiny Demo App from Scratch</h3>
+                    <p align="justify">You cannot learn to containerize if you don't have something to put in the
+                        container. We are going to build a "Minimal Viable App." Choose your path below—Node.js or
+                        Python. Both are industry standards.</p>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card p-3 h-100 border-primary">
+                                <h5 class="text-primary"><i class="fab fa-node-js"></i> Option A: Node.js Mini App</h5>
+                                <p align="justify">Node.js is perfect for microservices. We will use the
+                                    <strong>Express</strong> framework to create a web server.
+                                </p>
+
+                                <p><strong>1. Initialize the Project:</strong></p>
+                                <pre><code class="language-bash">mkdir minimal-node-app
+cd minimal-node-app
+npm init -y  # Creates package.json with defaults
+npm install express # Installs web server framework</code></pre>
+
+                                <p><strong>2. Create `index.js`:</strong></p>
+                                <p>Create a file named `index.js` and paste this code. This is your entire application
+                                    logic.</p>
+                                <pre><code class="language-javascript">const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello from Docker! 🐳 \n Node.js Version');
+});
+
+app.listen(port, () => {
+  console.log(`App running at http://localhost:${port}`);
+});</code></pre>
+
+                                <p><strong>3. Configure `package.json`:</strong></p>
+                                <p>Open `package.json` and ensure the "scripts" section looks like this. This tells Node
+                                    how to start your app.</p>
+                                <pre><code class="language-json">"scripts": {
+  "start": "node index.js"
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="card p-3 h-100 border-warning">
+                                <h5 class="text-warning" style="color:#d39e00 !important"><i class="fab fa-python"></i>
+                                    Option B: Python Mini App</h5>
+                                <p align="justify">Python is the language of AI/ML and scripting. We will use
+                                    <strong>Flask</strong>, a lightweight web framework.
+                                </p>
+
+                                <p><strong>1. Initialize the Project:</strong></p>
+                                <pre><code class="language-bash">mkdir minimal-python-app
+cd minimal-python-app
+# Optional but recommended: 
+# python3 -m venv venv 
+# source venv/bin/activate
+pip install flask</code></pre>
+
+                                <p><strong>2. Create `app.py`:</strong></p>
+                                <p>Create `app.py`. This simple script listens for requests and returns greeting.</p>
+                                <pre><code class="language-python">from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello from Docker! 🐍 \n Python Version'
+
+if __name__ == '__main__':
+    # '0.0.0.0' is critical for Docker! 
+    # It allows external access.
+    app.run(host='0.0.0.0', port=5000)</code></pre>
+
+                                <p><strong>3. Create `requirements.txt`:</strong></p>
+                                <p>This file lists your dependencies so Docker knows what to install.</p>
+                                <pre><code class="language-text">flask</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p align="justify"><strong>Verification:</strong> Before using Docker, run the app locally to ensure
+                        the code works. Run `npm start` or `python app.py`. Visit `localhost:3000` (or 5000). You should
+                        see the message. Stop it with `Ctrl+C`.</p>
+
+
+
+                    <h3 class="mt-4 mb-3">Step 2: Core Docker Concepts for DevOps Beginners</h3>
+
+                    <p align="justify">Before we write the Dockerfile, let's learn the vocabulary. You will use these
+                        terms every day as a DevOps engineer.</p>
+
+                    <dl class="row">
+                        <dt class="col-sm-3">Dockerfile</dt>
+                        <dd class="col-sm-9">The <strong>Recipe</strong>. It's a simple text file with instructions on
+                            how to build your application. It says things like "Start with Linux", "Copy my code here",
+                            "Install these libraries".</dd>
+
+                        <dt class="col-sm-3">Image</dt>
+                        <dd class="col-sm-9">The <strong>Cake</strong>. This is the read-only template created from the
+                            Dockerfile. It contains your code, libraries, dependencies, and OS tools all frozen in time.
+                            Images are built in "layers".</dd>
+
+                        <dt class="col-sm-3">Container</dt>
+                        <dd class="col-sm-9">The <strong>Slice of Cake</strong> you are actually eating. A container is
+                            a running instance of an Image. You can start, stop, delete, and restart containers without
+                            affecting the original Image.</dd>
+
+                        <dt class="col-sm-3">Registry</dt>
+                        <dd class="col-sm-9">The <strong>Bakery</strong>. A remote storage location for your Images.
+                            Docker Hub is the most popular public registry (like GitHub for Docker images). Private
+                            companies usage registries like AWS ECR or Azure ACR.</dd>
+                    </dl>
+
+                    <p align="justify"><strong>The Docker Workflow:</strong></p>
+                    <div class="text-center my-4">
+                        <div class="p-3 bg-light border rounded">
+                            <strong>Dockerfile</strong> (Code) &rarr; <small>docker build</small> &rarr;
+                            <strong>Image</strong> (Artifact) &rarr; <small>docker run</small> &rarr;
+                            <strong>Container</strong> (Process)
+                        </div>
+                        <p class="text-muted small mt-2">Memorize this flow. It is the lifecycle of every containerized
+                            app.</p>
+                    </div>
+
+
+
+                    <h3 class="mt-4 mb-3">Step 3: Write a Dockerfile for the Tiny App</h3>
+                    <p align="justify">This is where the magic happens. We need to tell Docker how to build our specific
+                        application in a way that is automated. Create a file named just `Dockerfile` (no extension) in
+                        your project folder.</p>
+
+                    <p align="justify">We will go through this line-by-line. This is a critical skill for DevOps.</p>
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <h5 class="text-primary">Option A: Node.js Dockerfile</h5>
+                            <pre><code class="language-dockerfile"># 1. Base Image
+FROM node:18-alpine
+
+# 2. Working Directory
+WORKDIR /app
+
+# 3. Copy Dependency Definitions
+COPY package.json .
+
+# 4. Install Dependencies
+RUN npm install
+
+# 5. Copy Application Code
+COPY . .
+
+# 6. Expose Port
+EXPOSE 3000
+
+# 7. Startup Command
+CMD ["npm", "start"]</code></pre>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <h5 class="text-warning" style="color:#d39e00 !important">Option B: Python Dockerfile</h5>
+                            <pre><code class="language-dockerfile"># 1. Base Image
+FROM python:3.9-slim
+
+# 2. Working Directory
+WORKDIR /app
+
+# 3. Copy Dependency Definitions
+COPY requirements.txt .
+
+# 4. Install Dependencies
+RUN pip install -r requirements.txt
+
+# 5. Copy Application Code
+COPY . .
+
+# 6. Expose Port
+EXPOSE 5000
+
+# 7. Startup Command
+CMD ["python", "app.py"]</code></pre>
+                        </div>
+                    </div>
+
+                    <h4 class="mt-4">Detailed Explanation of Instructions</h4>
+                    <ul>
+                        <li align="justify"><strong>FROM:</strong> Every Dockerfile starts here. We are saying "don't
+                            build an Operating System from scratch." Use an official image (Node or Python) maintained
+                            by experts. `alpine` and `slim` refer to lightweight versions of Linux to keep our image
+                            small.</li>
+                        <li align="justify"><strong>WORKDIR:</strong> Sets the default folder inside the container. It's
+                            like running `mkdir /app` and `cd /app` combined.</li>
+                        <li align="justify"><strong>COPY:</strong> Moves files from your laptop (Host) to the Container.
+                            Notice we copy `package.json`/`requirements.txt` <em>before</em> the rest of the code. This
+                            is a best practice called <strong>Layer Caching</strong>. It means if you change your code
+                            but not your dependencies, Docker skips the slow install step next time!</li>
+                        <li align="justify"><strong>RUN:</strong> Executes a command <em>during the build process</em>.
+                            This is where we install libraries. It happens once, when the image is created.</li>
+                        <li align="justify"><strong>EXPOSE:</strong> Documentation for humans and Docker features. It
+                            says "This app listens on this port."</li>
+                        <li align="justify"><strong>CMD:</strong> The command that runs when the container
+                            <em>starts</em>. Unlike `RUN`, this happens every time a container launches.
+                        </li>
+                    </ul>
+
+                    <h4 class="mt-4">The Secret Weapon: .dockerignore</h4>
+                    <p align="justify">Before you build, create a file named `.dockerignore`. It works exactly like
+                        `.gitignore`. We want to prevent heavy local folders (like `node_modules` or `venv`) from being
+                        copied into the container.</p>
+                    <pre><code class="language-text">node_modules
+venv
+.git
+__pycache__</code></pre>
+                    <p align="justify">If you forget this, your build will be slow, and you might accidentally overwrite
+                        the container's installed modules with your local ones (which might be for a different OS!).</p>
+
+
+
+                    <h3 class="mt-4 mb-3">Step 4: Build and Run the Container Locally</h3>
+                    <p align="justify">Now that we have our recipe (Dockerfile), let's bake the cake.</p>
+
+                    <h5 class="mt-4">1. Build the Image</h5>
+                    <p>Run the following command in your terminal. Ensure you are in the directory with your Dockerfile.
+                    </p>
+                    <pre><code class="language-bash">docker build -t my-first-docker-app .</code></pre>
+                    <ul>
+                        <li>`build`: The command to create an image.</li>
+                        <li>`-t`: Stands for "tag". We are naming our image `my-first-docker-app`.</li>
+                        <li>`.`: The dot is crucial! It tells Docker to look for the Dockerfile in the <em>current
+                                directory</em>.</li>
+                    </ul>
+                    <img class="img-fluid my-3 border rounded shadow-sm"
+                        src="assets/images/blog/docker_build_terminal.webp"
+                        alt="Terminal showing successful Docker build output">
+
+                    <h5 class="mt-4">2. Run the Container</h5>
+                    <p>The image is ready. Let's run it. This is where port mapping comes in.</p>
+                    <pre><code class="language-bash"># Syntax: docker run -p [HOST_PORT]:[CONTAINER_PORT] [IMAGE_NAME]
+
+# For Node (Maps laptop port 3000 to container port 3000)
+docker run -p 3000:3000 my-first-docker-app
+
+# For Python (Maps laptop port 5000 to container port 5000)
+docker run -p 5000:5000 my-first-docker-app</code></pre>
+
+                    <p align="justify">If successful, you will see output saying the app is running. Open your browser
+                        to `localhost:3000` (or 5000). You should see your "Hello from Docker!" message.</p>
+
+                    <h5 class="mt-4">3. Operating in "Detached" Mode</h5>
+                    <p align="justify">Currently, your terminal is stuck running the app. Most of the time, we want
+                        containers to run in the background. Stop the container with `Ctrl+C` and try this:</p>
+                    <pre><code class="language-bash">docker run -d -p 3000:3000 --name my-running-app my-first-docker-app</code></pre>
+                    <ul>
+                        <li>`-d`: Detached mode. Runs in background.</li>
+                        <li>`--name`: Gives the container a friendly name so we can find it later.</li>
+                    </ul>
+
+                    <h5 class="mt-4">4. Managing Containers</h5>
+                    <p>Now that it's running in background, how do you see it?</p>
+                    <pre><code class="language-bash"># List running containers
+docker ps
+
+# View logs (if something goes wrong)
+docker logs my-running-app
+
+# Stop the container
+docker stop my-running-app
+
+# Remove the container (cleanup)
+docker rm my-running-app</code></pre>
+
+                    <hr class="my-5">
+
+                    <h3 class="mt-4 mb-3">Step 5: Tagging and Pushing the Image to a Registry</h3>
+                    <p align="justify">Right now, the image only exists on your laptop. In a real DevOps workflow, you
+                        build an image and push it to a central "Registry" so your servers can pull it down and run it.
+                    </p>
+                    <p align="justify">We will use <strong>Docker Hub</strong>, the default public registry.</p>
+
+                    <ol>
+                        <li><strong>Create an Account:</strong> Go to <a href="https://hub.docker.com"
+                                target="_blank">hub.docker.com</a> and sign up (it's free).</li>
+                        <li><strong>Login:</strong> In your terminal, run `docker login` and enter your
+                            username/password.</li>
+                        <li><strong>Tag the Image:</strong> Docker Hub needs to know <em>where</em> to put the image. We
+                            rename it to match your username.
+                            <pre><code class="language-bash"># Docker Image Naming Convention: [USERNAME]/[REPO]:[TAG]
+docker tag my-first-docker-app rantideb/my-first-docker-app:v1.0</code></pre>
+                        </li>
+                        <li><strong>Push the Image:</strong> Upload it to the cloud.
+                            <pre><code class="language-bash">docker push rantideb/my-first-docker-app:v1.0</code></pre>
+                        </li>
+                    </ol>
+                    <img class="img-fluid my-3 border rounded shadow-sm"
+                        src="assets/images/blog/docker_hub_dashboard.webp"
+                        alt="Docker Hub dashboard showing pushed image">
+
+                    <p align="justify"><strong>The "Aha!" Moment:</strong> Delete the image from your local computer
+                        (`docker rmi ...`). Then run the `docker run` command again. Docker will automatically notice
+                        you don't have the image, pull it from the internet (Docker Hub), and run it. </p>
+
+
+
+                    <h3 class="mt-4 mb-3">Docker Best Practices for 2025</h3>
+                    <p align="justify">As you move from beginner to pro, adopt these habits early.</p>
+
+                    <h5 class="mt-4">1. Use Specific Tags, Never `latest`</h5>
+                    <p align="justify">In production, `latest` is a lie. It changes every time you push. If you deploy
+                        `latest` today and it works, and deploy `latest` tomorrow and it breaks, you have no way to know
+                        what changed. Always use version numbers (v1.0, v1.1) or Git commit hashes (sha-a1b2c3).</p>
+
+                    <h5 class="mt-4">2. Don't Run as Root</h5>
+                    <p align="justify">By default, Docker containers run as the `root` user. This is a security risk. If
+                        a hacker escapes the container, they have root access to your host. In advanced production
+                        Dockerfiles, you will see `USER node` or `USER app` to restrict permissions.</p>
+
+                    <h5 class="mt-4">3. Keep Images Small (Multi-Stage Builds)</h5>
+                    <p align="justify">Small images transfer faster and save money. You don't need the entire Go
+                        compiler or Node build tools in your final production image—you just need the compiled binary or
+                        the runtime. Multi-stage builds allow you to build in one container and copy only the artifacts
+                        to a second, tiny container.</p>
+
+
+
+                    <h5 class="mt-4">4. Never Bake Secrets into Images</h5>
+                    <p align="justify"><strong>Hard-coding passwords or API keys in your Dockerfile is a major security
+                            sin.</strong> Anyone who downloads your image can see them. Always pass secrets as
+                        environment variables (`-e MY_PASSWORD=...`) when running the container, never build them in.
+                    </p>
+
+
+
+                    <h3 class="mt-4 mb-3">Troubleshooting Common Beginner Errors</h3>
+
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Error: "connection refused" or "Empty response"
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Check your IP binding.</strong> If your app listens on
+                                    <code>127.0.0.1</code> or
+                                    <code>localhost</code>, it will accept connections <em>only</em> from inside the
+                                    container.
+                                    Docker port mapping won't work. You must configure your app (Flask/Express) to
+                                    listen on <code>0.0.0.0</code> (all interfaces) to allow external traffic from the
+                                    Docker host.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Error: "bind: address already in use"
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    You are trying to map to a port on your laptop that is already taken. Maybe you have
+                                    another container running? Or a local server? Change the first number in the
+                                    <code>-p</code>
+                                    flag: <code>docker run -p 8080:3000 ...</code>. Now your app is at
+                                    <code>localhost:8080</code> (while
+                                    still listening on 3000 inside).
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Changes to code aren't showing up
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    Remember: <strong>Images are read-only</strong>. If you change <code>index.js</code>
+                                    on your
+                                    laptop, the running container doesn't know. You must rebuild the image (<code>docker
+                                    build...</code>) and restart the container (<code>docker run...</code>) to see
+                                    changes. For
+                                    development, we use "Volume Mounting" to map live files, but that's an advanced
+                                    topic!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <h3 class="mt-4 mb-3">Real-Life Mini-Project: "Hello from Docker" Web Service</h3>
+                    <p align="justify">Want to prove to a recruiter you know this? Don't just say "I know Docker." Show
+                        them. Complete this project brief and pin it to your GitHub.</p>
+
+                    <div class="card bg-light p-4 mb-4">
+                        <h4 class="mb-3">Project Brief: The Containerized Microservice</h4>
+                        <p><strong>Objective:</strong> Create a public repository that demonstrates a fully
+                            containerized web application.</p>
+
+                        <h5 class="mt-4">Checklist of Criteria:</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Web App created
+                                (Node/Python) with a custom API endpoint.</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Dockerfile created
+                                using an Official Alpine/Slim base image.</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>
+                                <code>.dockerignore</code> file
+                                implemented to exclude junk.
+                            </li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Image built, tagged,
+                                and tested locally.</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Image pushed to
+                                Docker Hub public registry.</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> README.md explains
+                                detailed run instructions.</li>
+                        </ul>
+                    </div>
+
+                    <h4 class="mt-4">How to Present This on Your Resume</h4>
+                    <p>Add <strong>Docker</strong> to your Skills section. Then, under "Projects", add this:</p>
+                    <ul>
+                        <li align="justify"><strong>Containerized Web Service:</strong> Developed a Python/Node.js
+                            microservice and containerized it using Docker. Optimized Dockerfile for minimal image size
+                            (using Alpine Linux) and published artifacts to Docker Hub registry for simplified
+                            deployment.</li>
+                    </ul>
+
+
+
+                    <h3 class="mt-4 mb-3">How Docker Fits into CI/CD</h3>
+                    <p align="justify">In our previous <a href="github-actions-cicd-tutorial.html">GitHub Actions
+                            Tutorial</a>, we just tested code. In the real world, the "CD" (Delivery) part usually
+                        involves Docker.</p>
+                    <p align="justify">A typical modern DevOps pipeline looks like this:</p>
+                    <ol>
+                        <li><strong>Push Code</strong> (to GitHub).</li>
+                        <li><strong>Test Code</strong> (GitHub Actions runs unit tests).</li>
+                        <li><strong>Build Docker Image</strong> (Only IF tests pass).</li>
+                        <li><strong>Push to Registry</strong> (Docker Hub / AWS ECR).</li>
+                        <li><strong>Deploy</strong> (Server pulls the new image and restarts).</li>
+                    </ol>
+                    <p>This ensures that what is tested is exactly what is deployed. No more drift. No more surprises.
+                    </p>
+
+
+
+                    <h2 class="title mb-3">Conclusion: You Have Leveled Up</h2>
+                    <p align="justify">Congratulations! You have completed this <strong>Docker tutorial for DevOps
+                            beginners</strong> and went from "no app" to a running, containerized application accessible
+                        from the cloud. You have bridged the gap between basic coding and professional infrastructure
+                        engineering.</p>
+
+                    <p align="justify">You learned how to build an app, containerize it, optimize it with layers and
+                        ignore files, and distribute it via a registry. These are the fundamental skills of a Site
+                        Reliability Engineer (SRE) or DevOps Engineer.</p>
+
+                    <p align="justify"><strong>What is next?</strong> Now that you have an image, you need a place to
+                        run it. In the next tutorial, we will explore <strong>Cloud Fundamentals</strong>—learning how
+                        to spin up a server on Docker-focused cloud platforms like AWS App Runner or Render to host this
+                        container permanently.</p>
+
+                </div><!--//blog-post-body-->
+
+                <!-- Blog Navigation (needed for proper script injection positioning) -->
+                <nav class="blog-nav nav nav-justified my-5">
+                    <a class="nav-link-prev nav-item nav-link rounded-left" href="devops-projects-for-beginners.html">
+                        <i class="arrow-prev fas fa-long-arrow-alt-left"></i> Previous: 10 DevOps Projects
+                    </a>
+                    <a class="nav-link-next nav-item nav-link rounded" href="blog-10.html">
+                        Back to Blog <i class="arrow-next fas fa-long-arrow-alt-right"></i>
+                    </a>
+                </nav>
+
+            </div><!--//main-wrapper-->
+
+            <!-- Javascript -->
+            <script src="assets/plugins/popper.min.js"></script>
+            <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+            <!-- Page Specific JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+            <!-- Custom JS -->
+            <script src="assets/js/blog.js"></script>
+
+            <!-- Blog Features JS -->
+            <script src="assets/js/blog-features.js"></script>
+            <script src="assets/js/search.js"></script>
+            <script src="assets/js/global-search.js"></script>
+            <script src="assets/js/newsletter.js"></script>
+            <script src="assets/js/related-posts.js"></script>
+            <script src="assets/js/accessibility.js"></script>
+
+            <!-- Firebase Comments System (Universal) -->
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+            <script src="assets/js/firebase-comments.js"></script>
+
+            <!-- Privacy & Cookie Consent -->
+            <script src="assets/js/privacy-consent.js"></script>
+            <!-- UX Enhancements -->
+            <script src="assets/js/ux-enhancements.js"></script>
+            <script src="assets/js/article-schema.js"></script>
+
+</body>
