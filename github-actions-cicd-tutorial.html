@@ -272,7 +272,7 @@
                         <li align="justify">A simple project (we will create one below).</li>
                     </ul>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Step 1: Prepare a Simple Project</h2>
                     <p align="justify">You can't automate nothing. Let's create a minimal project to test our pipeline.
@@ -344,7 +344,7 @@ if __name__ == '__main__':
 
                     <p align="justify">Run <code>python3 -m unittest test_app.py</code> locally to verify it works.</p>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Step 2: Push Your Project to GitHub</h2>
                     <p align="justify">Now we need to get this code onto GitHub. The <strong>GitHub Actions workflow
@@ -367,7 +367,7 @@ git push -u origin main</code></pre>
 
                     <p align="justify"><em>(Replace `YOUR_USERNAME` with your actual GitHub username)</em>.</p>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Step 3: Create Your First GitHub Actions Workflow File</h2>
                     <p align="justify">This is where the magic happens. GitHub Actions looks for special YAML files in a
@@ -386,7 +386,7 @@ touch .github/workflows/ci.yml</code></pre>
                         <li align="justify"><strong>Jobs:</strong> The actual work to be done.</li>
                     </ol>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Step 4: Writing the CI Workflow</h2>
                     <p align="justify">Copy the code below that matches your chosen language.</p>
@@ -491,7 +491,7 @@ jobs:
                             this script flexible.</li>
                     </ul>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Step 5: Triggering the Workflow and Reading Logs</h2>
                     <p align="justify">Now for the satisfying part.</p>
@@ -517,7 +517,7 @@ git push</code></pre>
                         Action turn red. You will get an email notification saying the build failed. That is the power
                         of CI—it prevents bad code from sneaking in.</p>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Optional Step 6: What about the "CD" part?</h2>
                     <p align="justify">We have covered Continuous Integration (Testing). Deployment (CD) is the next
@@ -541,7 +541,7 @@ git push</code></pre>
                         store them in
                         your repo settings under **Settings > Secrets and variables > Actions**.</p>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Best Practices for Beginner GitHub Actions Pipelines</h2>
                     <p align="justify">Writing a workflow that "just works" is great, but writing one that is
@@ -596,7 +596,7 @@ git push</code></pre>
                         allows GitHub to authenticate with your cloud provider using a temporary token rather than a
                         long-lived secret key. It is much more secure and becoming the industry standard.</p>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Troubleshooting Guide: When Things Go Red</h2>
                     <p align="justify">Your workflow <strong>will</strong> fail. It's a matter of <em>when</em>, not
@@ -629,7 +629,7 @@ git push</code></pre>
                         older ones use <code>master</code>. Verify which branch you are actually pushing to.
                     </p>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">FAQ: GitHub Actions CI/CD Tutorial</h2>
 
@@ -735,7 +735,7 @@ git push</code></pre>
                         </div>
                     </div>
 
-                    <hr class="my-5">
+
 
                     <h2 class="title mb-3">Conclusion</h2>
                     <p align="justify">Congratulations! You just went from zero to a fully functional <strong>GitHub
@@ -786,7 +786,10 @@ git push</code></pre>
                 <!-- Firebase Comments System (Universal) -->
                 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
                 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-                <script src="assets/js/firebase-comments.js"></script>
+                <!-- Firebase SDKs (Required for Comments) -->
+                <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+                <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+                <script type="module" src="assets/js/firebase-comments.js"></script>
 
 
 
