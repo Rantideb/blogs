@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8340971949778309"
+        crossorigin="anonymous"></script>
+
+    <title>From Zero to CI/CD: Build Your First GitHub Actions Pipeline for a Simple Node/Python App</title>
+    <link rel="canonical" href="https://textandtech.me/github-actions-cicd-tutorial.html">
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Learn how to build a CI/CD pipeline from scratch using GitHub Actions for Node.js and Python. A complete 2025 beginner's guide to automating your testing and deployment.">
+    <meta name="author" content="Rantideb">
+    <meta property="og:image" content="assets/images/blog/devops_roadmap_cover.webp">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="assets/plugins/highlight/styles/monokai-sublime.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-5.css">
+
+    <!-- Sidebar Scroll Fix -->
+    <link rel="stylesheet" href="assets/css/sidebar-scroll-fix.css">
+
+    <!-- Blog Responsive Fix CSS - Include this in all blog posts with blog-features.js -->
+    <link rel="stylesheet" href="assets/css/blog-responsive-fix.css">
+
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://textandtech.me/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://textandtech.me/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "GitHub Actions CI/CD Tutorial",
+          "item": "https://textandtech.me/github-actions-cicd-tutorial.html"
+        }
+      ]
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "From Zero to CI/CD: Build Your First GitHub Actions Pipeline for a Simple Node/Python App",
+      "description": "Learn how to build a CI/CD pipeline from scratch using GitHub Actions for Node.js and Python. A complete 2025 beginner's guide to automating your testing and deployment.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://textandtech.me/github-actions-cicd-tutorial.html"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Rantideb",
+        "url": "https://textandtech.me/about.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Rantideb's Blog",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://textandtech.me/assets/images/profile.jpg"
+        }
+      },
+      "datePublished": "2025-12-08",
+      "dateModified": "2025-12-08",
+      "image": "assets/images/blog/devops_roadmap_cover.webp"
+    }
+  ]
+}
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2HHJ2NJSM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-E2HHJ2NJSM');
+    </script>
+
+</head>
+
+<body>
+    <!-- AdSense Responsive Ad Unit -->
+    <div style="max-width:100%; margin:20px 0; text-align:center;">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8340971949778309" data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <header class="header text-center">
+        <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">DevOps Guide</a></h1>
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
+                aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="navigation" class="collapse navbar-collapse flex-column">
+                <div class="profile-section pt-3 pt-lg-0">
+                    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.jpg" alt="image">
+
+                    <div class="bio mb-3">Tech enthusiast, storyteller, and dreamer. Exploring the intersection of code
+                        and creativity.</div><!--//bio-->
+                    <ul class="social-list list-inline py-3 mx-auto">
+                        <li class="list-inline-item"><a target="_blank" href="https://twitter.com/r4ntide3"><i
+                                    class="fab fa-twitter fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://www.linkedin.com/in/rantideb/"><i
+                                    class="fab fa-linkedin-in fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://github.com/Rantideb"><i
+                                    class="fab fa-github-alt fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a target="_blank" href="https://www.facebook.com/R4ntideb"><i
+                                    class="fab fa-facebook fa-fw"></i></a></li>
+                    </ul><!--//social-list-->
+                    <hr>
+                </div><!--//profile-section-->
+
+                <ul class="navbar-nav flex-column text-start">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw me-2"></i>প্রলাপের পত্রসূচি
+                            <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>প্রলাপের
+                            ভুতপত্তি</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="privacy-bn.html" id="privacy-policy-link"><i
+                                class="fas fa-shield-alt fa-fw me-2"></i><span class="privacy-text">গোপনীয়তা
+                                নীতি</span></a>
+                    </li>
+                </ul>
+
+                <div class="my-2 my-md-3">
+
+                    <a class="btn btn-primary" href="https://www.ranti.dev/" target="_blank">আমার নিরালা চরনভুমি</a>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-wrapper">
+
+        <article class="blog-post px-3 py-5 p-md-5">
+            <div class="container single-col-max-width">
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.html">Blog</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">GitHub Actions CI/CD Tutorial</li>
+                    </ol>
+                </nav>
+
+                <div class="blog-post-body">
+                    <figure class="blog-banner">
+                        <img class="img-fluid" src="assets/images/blog/devops_roadmap_cover.webp"
+                            alt="GitHub Actions CI/CD Tutorial">
+                    </figure>
+                    <!-- AdSense Responsive Ad Unit -->
+                    <div style="max-width:100%; margin:20px 0; text-align:center;">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8340971949778309"
+                            data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+
+                    <h2 class="title mb-3">From Zero to CI/CD: Build Your First GitHub Actions Pipeline for a Simple
+                        Node/Python App</h2>
+
+                    <p align="justify">So, you've written some code. Maybe it's a sleek Node.js API or a clever Python
+                        script basically
+                        automating your life. You push it to GitHub, high-five yourself, and call it a day. But then, a
+                        week later, you change one line of code, push it again, and suddenly—everything breaks.</p>
+
+                    <p align="justify">We've all been there. The "it works on my machine" syndrome is a rite of passage
+                        for every
+                        developer. But what if you could have a robot assistant that automatically checks your code
+                        every single time you save it? What if this assistant could run your tests, verify your build,
+                        and even tell you if you broke something before you merge it?</p>
+
+                    <p align="justify">Enter <strong>CI/CD</strong> and <strong>GitHub Actions</strong>. In this
+                        <strong>GitHub Actions
+                            CI/CD tutorial</strong>, we are going to take you from absolute zero to a fully automated
+                        pipeline. Whether you are a Node.js fan or a Pythonista, by the end of this guide, you will have
+                        a professional-grade workflow running on your repository.
+                    </p>
+
+                    <h3 class="mt-4 mb-3">What is CI/CD (in Plain English)?</h3>
+                    <p align="justify">Before we touch a single line of YAML, let's demystify these acronyms. You'll
+                        hear them thrown
+                        around in every DevOps conversation, but the concept is surprisingly simple.</p>
+
+                    <ul>
+                        <li align="justify"><strong>CI (Continuous Integration):</strong> This is the practice of
+                            merging code changes
+                            frequently. Imagine you are writing a book with a co-author. CI is like checking each
+                            other's paragraphs every hour to make sure the story still makes sense, rather than waiting
+                            until the entire book is finished to realize the plot is full of holes. In code terms, CI
+                            automates the "Build" and "Test" phases.</li>
+
+                        <li align="justify"><strong>CD (Continuous Delivery/Deployment):</strong> This takes CI a step
+                            further. Once
+                            your code passes all those tests, CD is the process of automatically preparing it for
+                            release (Delivery) or actually pushing it to your live servers (Deployment). It’s like
+                            hitting "Publish" on your blog post automatically the moment your editor approves the draft.
+                        </li>
+                    </ul>
+
+                    <p align="justify">Together, <strong>CI/CD</strong> creates a loop where you Plan, Code, Build,
+                        Test, Release,
+                        Deploy, Operate, and Monitor—constantly and smoothly.</p>
+
+                    <h3 class="mt-4 mb-3">Why Use GitHub Actions for CI/CD?</h3>
+                    <p align="justify">There are dozens of CI/CD tools out there—Jenkins, CircleCI, GitLab CI, Travis
+                        CI. So, why are we
+                        focusing on a <strong>GitHub Actions pipeline</strong>?</p>
+
+                    <ol>
+                        <li align="justify"><strong>It's Integrated:</strong> You don't need to sign up for a separate
+                            service or deal
+                            with complex webhooks. It lives right inside your repository.</li>
+                        <li align="justify"><strong>It's Free:</strong> For public repositories, GitHub Actions is
+                            completely free. for
+                            private repos, you get a generous 2000 free minutes per month.</li>
+                        <li align="justify"><strong>It's Community-Driven:</strong> There is a massive marketplace of
+                            pre-built
+                            "Actions" (like plugins) that you can drag and drop into your workflow, saving you hours of
+                            scripting.</li>
+                        <li align="justify"><strong>It's Perfect for Beginners:</strong> If you know basic YAML (which
+                            is just text with
+                            indentation), you can write a workflow.</li>
+                    </ol>
+
+                    <h3 class="mt-4 mb-3">Prerequisites</h3>
+                    <p align="justify">To follow along, you will need:</p>
+                    <ul>
+                        <li align="justify">A <strong>GitHub Account</strong>.</li>
+                        <li align="justify"><strong>Git</strong> installed on your local machine.</li>
+                        <li align="justify">A basic understanding of using a terminal/command prompt.</li>
+                        <li align="justify">A simple project (we will create one below).</li>
+                    </ul>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Step 1: Prepare a Simple Project</h2>
+                    <p align="justify">You can't automate nothing. Let's create a minimal project to test our pipeline.
+                        Choose your
+                        fighter: **Option A (Node.js)** or **Option B (Python)**.</p>
+
+                    <div class="alert alert-info" role="alert">
+                        <strong>Note:</strong> You only need to do one of these options, but reading both helps you
+                        understand how similar the process is across languages!
+                    </div>
+
+                    <h3 class="mt-4 mb-3">Option A: Simple Node.js Example</h3>
+                    <p align="justify">Open your terminal and create a new folder:</p>
+                    <pre><code class="language-bash">mkdir ci-cd-demo-node
+cd ci-cd-demo-node
+npm init -y</code></pre>
+
+                    <p align="justify">Now, create a simple file called <code>index.js</code>:</p>
+                    <pre><code class="language-javascript">// index.js
+function add(a, b) {
+  return a + b;
+}
+module.exports = add;</code></pre>
+
+                    <p align="justify">And a simple test file. We will use <code>Jest</code> for testing, so install it
+                        first:</p>
+                    <pre><code class="language-bash">npm install --save-dev jest</code></pre>
+
+                    <p align="justify">Create <code>index.test.js</code>:</p>
+                    <pre><code class="language-javascript">// index.test.js
+const add = require('./index');
+
+test('adds 1 + 2 to equal 3', () => {
+  expect(add(1, 2)).toBe(3);
+});</code></pre>
+
+                    <p align="justify">Finally, update your <code>package.json</code> to run jest when we type `npm
+                        test`:</p>
+                    <pre><code class="language-json">"scripts": {
+  "test": "jest"
+}</code></pre>
+                    <p align="justify">Run <code>npm test</code> locally to make sure it passes. If you see a green
+                        checkmark, you are
+                        ready to move on.</p>
+
+                    <h3 class="mt-4 mb-3">Option B: Simple Python Example</h3>
+                    <p align="justify">Prefer snakes? Let's do this in Python. Create a folder:</p>
+                    <pre><code class="language-bash">mkdir ci-cd-demo-python
+cd ci-cd-demo-python</code></pre>
+
+                    <p align="justify">Create a file called <code>app.py</code>:</p>
+                    <pre><code class="language-python"># app.py
+def add(a, b):
+    return a + b</code></pre>
+
+                    <p align="justify">Create a test file called <code>test_app.py</code> utilizing the built-in
+                        `unittest` framework:
+                    </p>
+                    <pre><code class="language-python"># test_app.py
+import unittest
+from app import add
+
+class TestApp(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(add(1, 2), 3)
+
+if __name__ == '__main__':
+    unittest.main()</code></pre>
+
+                    <p align="justify">Run <code>python3 -m unittest test_app.py</code> locally to verify it works.</p>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Step 2: Push Your Project to GitHub</h2>
+                    <p align="justify">Now we need to get this code onto GitHub. The <strong>GitHub Actions workflow
+                            file</strong> lives
+                        in your repository, so the repo needs to exist first.</p>
+
+                    <ol>
+                        <li align="justify">Go to <a href="https://github.com/new" target="_blank">github.com/new</a>
+                            and create a
+                            repository named <code>ci-cd-demo</code>.</li>
+                        <li align="justify">Initialize git in your local folder and push:</li>
+                    </ol>
+
+                    <pre><code class="language-bash">git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/ci-cd-demo.git
+git push -u origin main</code></pre>
+
+                    <p align="justify"><em>(Replace `YOUR_USERNAME` with your actual GitHub username)</em>.</p>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Step 3: Create Your First GitHub Actions Workflow File</h2>
+                    <p align="justify">This is where the magic happens. GitHub Actions looks for special YAML files in a
+                        specific
+                        directory: <code>.github/workflows/</code>.</p>
+
+                    <p align="justify">Create this directory structure in your project root:</p>
+                    <pre><code class="language-bash">mkdir -p .github/workflows
+touch .github/workflows/ci.yml</code></pre>
+
+                    <p align="justify">Open <code>ci.yml</code> in your code editor. A workflow file has three main
+                        components:</p>
+                    <ol>
+                        <li align="justify"><strong>Name:</strong> What appears in the UI.</li>
+                        <li align="justify"><strong>On:</strong> The triggers (events) that start the workflow.</li>
+                        <li align="justify"><strong>Jobs:</strong> The actual work to be done.</li>
+                    </ol>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Step 4: Writing the CI Workflow</h2>
+                    <p align="justify">Copy the code below that matches your chosen language.</p>
+
+                    <h3 class="mt-4 mb-3">Workflow for Node.js (CI/CD for Node.js)</h3>
+                    <p align="justify">Paste this into <code>.github/workflows/ci.yml</code>:</p>
+
+                    <pre><code class="language-yaml">name: Node.js CI
+
+# Trigger the workflow on push or pull request events but only for the main branch
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    # The type of runner that the job will run on (Ubuntu is standard)
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    # Step 1: Check out the repository code
+    - uses: actions/checkout@v4
+
+    # Step 2: Set up Node.js environment
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    # Step 3: Install dependencies
+    - name: Install Dependencies
+      run: npm ci
+
+    # Step 4: Run the actual build (if you have a build script)
+    - name: Build
+      run: npm run build --if-present
+
+    # Step 5: Run tests
+    - name: Run Tests
+      run: npm test</code></pre>
+
+                    <p align="justify"><strong>Explanation:</strong></p>
+                    <ul>
+                        <li align="justify"><code>matrix: node-version: [18.x, 20.x]</code>: This is a cool feature. It
+                            runs your tests
+                            <em>twice</em>—once on Node 18 and once on Node 20—in parallel. This ensures your app works
+                            on multiple versions.
+                        </li>
+                        <li align="justify"><code>npm ci</code>: Similar to `npm install`, but meant for automated
+                            environments (Clean
+                            Install). It's faster and stricter.</li>
+                    </ul>
+
+                    <h3 class="mt-4 mb-3">Workflow for Python (CI/CD for Python)</h3>
+                    <p align="justify">Paste this into <code>.github/workflows/ci.yml</code>:</p>
+
+                    <pre><code class="language-yaml">name: Python Application CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out repo
+    - uses: actions/checkout@v4
+
+    # Step 2: Set up Python
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+        
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        
+    # Step 4: Run tests
+    - name: Test with unittest
+      run: python -m unittest discover</code></pre>
+
+                    <p align="justify"><strong>Explanation:</strong></p>
+                    <ul>
+                        <li align="justify">The <code>run: |</code> syntax allows multi-line commands.</li>
+                        <li align="justify">We check if <code>requirements.txt</code> exists before trying to install
+                            from it, making
+                            this script flexible.</li>
+                    </ul>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Step 5: Triggering the Workflow and Reading Logs</h2>
+                    <p align="justify">Now for the satisfying part.</p>
+
+                    <ol>
+                        <li align="justify">Commit your new YAML file:
+                            <pre><code class="language-bash">git add .
+git commit -m "Add GitHub Actions workflow"
+git push</code></pre>
+                        </li>
+                        <li align="justify">Go to your repository on GitHub.</li>
+                        <li align="justify">Click on the <strong>Actions</strong> tab at the top.</li>
+                    </ol>
+
+                    <p align="justify">You should see a workflow run listed there, probably spinning yellow (in
+                        progress) or green
+                        (success). Click on it. You can drill down into the "build" job and verify that every step
+                        passed. You will see the output of `npm test` or `python test` right there in the browser logs.
+                    </p>
+
+                    <p align="justify"><strong>Try breaking it!</strong> Change your code so 1 + 2 = 4, commit, and
+                        push. Watch the
+                        Action turn red. You will get an email notification saying the build failed. That is the power
+                        of CI—it prevents bad code from sneaking in.</p>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Optional Step 6: What about the "CD" part?</h2>
+                    <p align="justify">We have covered Continuous Integration (Testing). Deployment (CD) is the next
+                        logical step. While
+                        specific deployment steps depend heavily on where you are hosting (AWS, Heroku, Vercel,
+                        DigitalOcean), the concept is the same.</p>
+
+                    <p align="justify">You would add a new step at the end of your job (or a new job that `needs:
+                        build`) to run the
+                        deployment command. For example, deploying a Node site to Vercel might look like this:</p>
+
+                    <pre><code class="language-yaml">    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v20
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.ORG_ID}}
+        vercel-project-id: ${{ secrets.PROJECT_ID}}
+        vercel-args: '--prod'</code></pre>
+
+                    <p align="justify">Notice the <code>${{ secrets... }}</code>? You never put passwords in YAML. You
+                        store them in
+                        your repo settings under **Settings > Secrets and variables > Actions**.</p>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Best Practices for Beginner GitHub Actions Pipelines</h2>
+                    <p align="justify">Writing a workflow that "just works" is great, but writing one that is
+                        maintainable, secure, and
+                        fast is better. Here are some pro tips to level up your game.</p>
+
+                    <h3 class="mt-4 mb-3">1. Pin Your Actions (Version Control)</h3>
+                    <p align="justify">In our examples, we used <code>actions/checkout@v4</code>. The <code>v4</code>
+                        part is crucial.
+                        If you just use <code>@main</code> or <code>@latest</code>, the author of that action might push
+                        a breaking change tomorrow that crashes your pipeline. By pinning to a specific version (or even
+                        a specific commit hash for maximum security), you ensure stability.</p>
+
+                    <h3 class="mt-4 mb-3">2. Smart Caching Strategies</h3>
+                    <p align="justify">We touched on <code>cache: 'npm'</code>, but caching is a deep topic. GitHub
+                        provides a specific
+                        <code>actions/cache</code> action that allows you to cache any directory.
+                    </p>
+                    <ul>
+                        <li align="justify"><strong>For Node:</strong> Cache your <code>node_modules</code> (or
+                            <code>~/.npm</code>).
+                        </li>
+                        <li align="justify"><strong>For Python:</strong> Cache your <code>pip</code> cache or virtual
+                            environment.</li>
+                        <li align="justify"><strong>For Java:</strong> Cache Maven or Gradle dependencies.</li>
+                    </ul>
+                    <p align="justify">Effective caching can reduce your build time from 10 minutes to 2 minutes, saving
+                        you time and
+                        money (if you are on a paid plan).</p>
+
+                    <h3 class="mt-4 mb-3">3. Fail Fast and Separate Jobs</h3>
+                    <p align="justify">Don't put everything in one giant job. If you have "Linting", "Unit Tests", and
+                        "Integration
+                        Tests", separate them.</p>
+                    <pre><code class="language-yaml">jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps: ...
+  test:
+    needs: lint  # Only runs if lint passes!
+    runs-on: ubuntu-latest
+    steps: ...</code></pre>
+                    <p align="justify">Using <code>needs: lint</code> creates a dependency. If linting fails (which
+                        takes 30 seconds),
+                        the heavy tests (which take 5 minutes) won't even start. This is the definition of "Fail Fast."
+                    </p>
+
+                    <h3 class="mt-4 mb-3">4. Security First: Secrets and OIDC</h3>
+                    <p align="justify">Never, ever commit API keys, passwords, or tokens to your code. Use GitHub
+                        Secrets. For advanced
+                        users deploying to AWS or Google Cloud, look into <strong>OpenID Connect (OIDC)</strong>. OIDC
+                        allows GitHub to authenticate with your cloud provider using a temporary token rather than a
+                        long-lived secret key. It is much more secure and becoming the industry standard.</p>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Troubleshooting Guide: When Things Go Red</h2>
+                    <p align="justify">Your workflow <strong>will</strong> fail. It's a matter of <em>when</em>, not
+                        <em>if</em>. Here
+                        is how to debug common issues.
+                    </p>
+
+                    <h3 class="mt-4 mb-3">Indentations Matter (YAML Hell)</h3>
+                    <p align="justify">YAML is strict about spacing. If you use 2 spaces for one line and 4 for the
+                        next, it will break.
+                        Use a linter or a VS Code extension like "YAML support by Red Hat" to catch these before you
+                        push.</p>
+
+                    <h3 class="mt-4 mb-3">"Command not found"</h3>
+                    <p align="justify">If you see <code>npm: command not found</code> or
+                        <code>pytest: command not found</code>, you
+                        likely forgot the Setup step. You cannot run <code>npm test</code> if you haven't run
+                        <code>actions/setup-node</code> first.
+                    </p>
+
+                    <h3 class="mt-4 mb-3">Permission Denied</h3>
+                    <p align="justify">If your script fails with <code>EACCES: permission denied</code>, you might need
+                        to make your
+                        script executable. add <code>chmod +x ./your-script.sh</code> as a step before running it.</p>
+
+                    <h3 class="mt-4 mb-3">Wrong Branch Triggers</h3>
+                    <p align="justify">Did you push code but nothing happened? Check your <code>on:</code> section.
+                        usage of
+                        <code>main</code> vs <code>master</code> is a common culprit. Newer repos use <code>main</code>,
+                        older ones use <code>master</code>. Verify which branch you are actually pushing to.
+                    </p>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">FAQ: GitHub Actions CI/CD Tutorial</h2>
+
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Is GitHub Actions free for CI/CD?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes! For public repositories, it is completely free with no limit on minutes. For
+                                    private repositories, Free accounts get 2,000 minutes per month, which is plenty for
+                                    most beginner to intermediate projects.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Can I use the same workflow for Node and Python?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    You can put multiple jobs in one file, or have multiple files (e.g., `node.yml` and
+                                    `python.yml`). However, usually, a single project uses one primary language, so you
+                                    would pick the workflow that matches your codebase.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    How do I stop a failing workflow from blocking my work?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    A failing workflow is <em>supposed</em> to block you—that's the point! It prevents
+                                    you from merging broken code. You should fix the error in your code. However, you
+                                    can configure GitHub Repository rules to allow merging even if checks fail (though
+                                    this is not recommended).
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Can GitHub Actions build Docker images?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutely. It is one of the most common use cases. You can use the
+                                    `docker/build-push-action` to build an image and push it to Docker Hub or GitHub
+                                    Container Registry automatically.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    What is a Matrix Strategy?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    A matrix strategy allows you to run the same job multiple times with different
+                                    variables. For example, you can test your code on Node.js 14, 16, and 18, and on
+                                    Ubuntu, Windows, and macOS simultaneously. It creates a combinatorics of jobs to
+                                    ensure maximum compatibility.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    How do I debug a failed action?
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                                data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    First, read the logs in the Actions tab. If that isn't enough, you can enable "Debug
+                                    Logging" by setting a secret named <code>ACTIONS_STEP_DEBUG</code> to
+                                    <code>true</code>. This will make the runner output much more verbose information
+                                    about what it is doing underground.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-5">
+
+                    <h2 class="title mb-3">Conclusion</h2>
+                    <p align="justify">Congratulations! You just went from zero to a fully functional <strong>GitHub
+                            Actions
+                            pipeline</strong>. You have automated the boring stuff so you can focus on the fun
+                        stuff—building your app.</p>
+
+                    <p align="justify">This is just the beginning. You can extend this pipeline to run security audits,
+                        generate
+                        documentation, or notify your Slack channel when a deploy finishes. The possibilities are
+                        endless. If you found this guide helpful, bookmark it and share it with a friend who's still
+                        manually testing their code!</p>
+
+                    <p align="justify"><em>Happy Automating!</em></p>
+
+
+                </div>
+
+                <nav class="blog-nav nav nav-justified my-5">
+                    <a class="nav-link-prev nav-item nav-link  rounded-left"
+                        href="devops-engineer-roadmap-guide.html">Back to DevOps Roadmap<i
+                            class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
+                    <a class="nav-link-next nav-item nav-link rounded" href="index.html"> Back to Home <i
+                            class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+                </nav>
+
+
+                <!-- Javascript -->
+                <script src="assets/plugins/popper.min.js"></script>
+                <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+                <!-- Page Specific JS -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+
+                <!-- Custom JS -->
+                <script src="assets/js/blog.js"></script>
+
+                <!-- Blog Features JS -->
+                <script src="assets/js/blog-features.js"></script>
+                <script src="assets/js/search.js"></script>
+                <script src="assets/js/global-search.js"></script>
+                <script src="assets/js/newsletter.js"></script>
+                <script src="assets/js/related-posts.js"></script>
+                <script src="assets/js/accessibility.js"></script>
+
+                <!-- Firebase Comments System (Universal) -->
+                <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+                <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+                <script src="assets/js/firebase-comments.js"></script>
+
+
+
+
+                <!-- Privacy & Cookie Consent -->
+                <script src="assets/js/privacy-consent.js"></script>
+                <!-- UX Enhancements -->
+                <script src="assets/js/ux-enhancements.js"></script>
+                <script src="assets/js/article-schema.js"></script>
+
+
+</body>
+
+</html>

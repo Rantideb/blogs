@@ -5,6 +5,8 @@
 
 // Seed list of known blog posts (will be augmented by auto-discovery)
 let allBlogPosts = [
+    { title: 'From Zero to CI/CD: Build Your First GitHub Actions Pipeline for a Simple Node/Python App', url: 'github-actions-cicd-tutorial.html', tags: ['DevOps', 'CI/CD', 'GitHub Actions', 'Automation'], excerpt: "Learn how to build a CI/CD pipeline from scratch using GitHub Actions for Node.js and Python. A complete 2025 beginner's guide to automating your testing and deployment.", image: 'assets/images/blog/devops_roadmap_cover.webp' },
+    { title: 'DevOps for Beginners: Roadmap, Skills, Jobs, and Salary (2025 Guide)', url: 'devops-engineer-roadmap-guide.html', tags: ['DevOps', 'Career', 'Roadmap', 'Guide'], excerpt: "Want to become a DevOps engineer? Discover the ultimate DevOps roadmap, essential skills, tools, salary insights, and how to get hired in this complete guide.", image: 'assets/images/blog/devops_roadmap_cover.webp' },
     { title: 'পুরুষতন্ত্র', url: 'man.html', tags: ['জুয়েল', 'মুখবইয়ের পৃষ্ঠা'], excerpt: 'পুরুষ জানে না তার বুকে কেন এতো বেদনা, সে প্রতি মুহূর্তে ব্যস্ত পরিবারের বেদনা তাড়ানোয়।', image: 'assets/images/blog/man.jpg', content: 'পুরুষ জানে না তার বুকে কেন এতো বেদনা সে প্রতি মুহূর্তে ব্যস্ত পরিবারের বেদনা তাড়ানোয় পরিবার পরিজন সমাজ সংসার দায়িত্ব কর্তব্য নারী শিশু সন্তান বাবা মা' },
     { title: 'হারিয়ে গিয়েছি', url: 'lost.html', tags: ['চলতে পথে', 'উপেক্ষিত ক্রেঙ্কার'], excerpt: 'এখানে নয়, যতটা পথ তুমি হেঁটে এসেছো, তার কোথাও না কোথাও তুমি ঠিক দাঁড়িয়ে পড়তে পারতে!', image: 'assets/images/blog/broken-blog.jpg', content: 'হারিয়ে যাওয়া পথ খোঁজা জীবন সংগ্রাম দিশা দিক চলা হাঁটা থামা দাঁড়ানো' },
     { title: 'Philosophy Of My Life, You Should Probably Ignore', url: 'life.html', tags: ['Life & Philosophy', 'The Sands of Time'], excerpt: "I've put you on an podestal it's true, Now I want to kick it from under you.", image: 'assets/images/blog/life.jpg', content: 'philosophy life living thoughts thinking existence meaning purpose love hate happiness sadness' },
@@ -77,7 +79,7 @@ function initGlobalSearch() {
     if (!searchInput) {
         console.warn('Global search input not found; skipping interactive search binding.');
     }
-    
+
     // Display all unique tags (seed list only initially)
     displayAllTags();
 
@@ -93,24 +95,24 @@ function initGlobalSearch() {
             });
         }
     });
-    
+
     // If tag parameter exists, filter by that tag
     if (tag) {
         searchTitle.textContent = `"${decodeURIComponent(tag)}" ট্যাগের পোস্ট`;
         searchSubtitle.textContent = 'নিচে সব পোস্ট দেখানো হচ্ছে';
         const filteredPosts = filterByTag(decodeURIComponent(tag));
         displayResults(filteredPosts, `"${decodeURIComponent(tag)}" ট্যাগে`);
-    } 
+    }
     // If query parameter exists, search
     else if (query) {
         searchInput.value = decodeURIComponent(query);
         searchTitle.textContent = 'সার্চ ফলাফল';
         searchSubtitle.textContent = `"${decodeURIComponent(query)}" খুঁজছেন`;
-        
+
         // Show quick results first
         const quickResults = searchPostsSync(decodeURIComponent(query));
         displayResults(quickResults, `"${decodeURIComponent(query)}" এর জন্য খুঁজছি...`);
-        
+
         // Then do full HTML search
         searchPosts(decodeURIComponent(query)).then(searchResults => {
             displayResults(searchResults, `"${decodeURIComponent(query)}" এর জন্য`);
@@ -122,39 +124,39 @@ function initGlobalSearch() {
         searchSubtitle.textContent = 'নিচে সব পোস্ট দেখানো হচ্ছে';
         displayResults(allBlogPosts, '');
     }
-    
+
     // Add search input listener with debouncing for performance
     let searchTimeout;
     if (searchInput) {
-    searchInput.addEventListener('input', async (e) => {
-        const searchQuery = e.target.value.toLowerCase().trim();
-        
-        // Clear previous timeout
-        if (searchTimeout) clearTimeout(searchTimeout);
-        
-        if (searchQuery) {
-            // Show immediate results from metadata
-            const quickResults = searchPostsSync(searchQuery);
-            displayResults(quickResults, `"${searchQuery}" এর জন্য খুঁজছি...`);
-            
-            // Debounce the full HTML content search (wait 500ms after user stops typing)
-            searchTimeout = setTimeout(async () => {
-                const fullResults = await searchPosts(searchQuery);
-                displayResults(fullResults, `"${searchQuery}" এর জন্য`);
-            }, 500);
-        } else {
-            displayResults(allBlogPosts, '');
-        }
-    });
+        searchInput.addEventListener('input', async (e) => {
+            const searchQuery = e.target.value.toLowerCase().trim();
+
+            // Clear previous timeout
+            if (searchTimeout) clearTimeout(searchTimeout);
+
+            if (searchQuery) {
+                // Show immediate results from metadata
+                const quickResults = searchPostsSync(searchQuery);
+                displayResults(quickResults, `"${searchQuery}" এর জন্য খুঁজছি...`);
+
+                // Debounce the full HTML content search (wait 500ms after user stops typing)
+                searchTimeout = setTimeout(async () => {
+                    const fullResults = await searchPosts(searchQuery);
+                    displayResults(fullResults, `"${searchQuery}" এর জন্য`);
+                }, 500);
+            } else {
+                displayResults(allBlogPosts, '');
+            }
+        });
     }
-    
+
     // Focus styling
     if (searchInput) {
         searchInput.addEventListener('focus', () => {
             searchInput.style.borderColor = '#EEA73B';
             searchInput.style.boxShadow = '0 0 0 3px rgba(238, 167, 59, 0.2)';
         });
-        
+
         searchInput.addEventListener('blur', () => {
             searchInput.style.borderColor = '#223142';
             searchInput.style.boxShadow = 'none';
@@ -165,20 +167,20 @@ function initGlobalSearch() {
 // Display all unique tags
 function displayAllTags() {
     const allTagsContainer = document.getElementById('all-tags');
-    
+
     // Only display tags if the container exists (on search results page)
     if (!allTagsContainer) {
         return;
     }
-    
+
     const tagsSet = new Set();
-    
+
     allBlogPosts.forEach(post => {
         post.tags.forEach(tag => tagsSet.add(tag));
     });
-    
+
     const sortedTags = Array.from(tagsSet).sort();
-    
+
     sortedTags.forEach(tag => {
         const tagButton = document.createElement('a');
         tagButton.href = `search-results.html?tag=${encodeURIComponent(tag)}`;
@@ -195,26 +197,26 @@ function displayAllTags() {
             text-decoration: none;
             display: inline-block;
         `;
-        
+
         tagButton.addEventListener('mouseenter', () => {
             tagButton.style.background = '#EEA73B';
             tagButton.style.color = 'white';
             tagButton.style.borderColor = '#EEA73B';
         });
-        
+
         tagButton.addEventListener('mouseleave', () => {
             tagButton.style.background = 'white';
             tagButton.style.color = '#223142';
             tagButton.style.borderColor = '#223142';
         });
-        
+
         allTagsContainer.appendChild(tagButton);
     });
 }
 
 // Filter posts by tag
 function filterByTag(tag) {
-    return allBlogPosts.filter(post => 
+    return allBlogPosts.filter(post =>
         post.tags.some(t => t.toLowerCase().includes(tag.toLowerCase()))
     );
 }
@@ -226,17 +228,17 @@ const htmlContentCache = {};
 function extractTextFromHTML(html) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    
+
     // Remove script, style, and navigation elements
     const elementsToRemove = doc.querySelectorAll('script, style, nav, header, .navbar, .blog-nav');
     elementsToRemove.forEach(el => el.remove());
-    
+
     // Get text from blog-post-body or main content area
     const contentArea = doc.querySelector('.blog-post-body, article, .main-wrapper');
     if (contentArea) {
         return contentArea.textContent.replace(/\s+/g, ' ').trim().toLowerCase();
     }
-    
+
     return doc.body.textContent.replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
@@ -245,11 +247,11 @@ async function loadHTMLContent(url) {
     if (htmlContentCache[url]) {
         return htmlContentCache[url];
     }
-    
+
     try {
         const response = await fetch(url);
         if (!response.ok) return '';
-        
+
         const html = await response.text();
         const textContent = extractTextFromHTML(html);
         htmlContentCache[url] = textContent;
@@ -340,7 +342,7 @@ async function discoverAllPages() {
         const manifestPages = await loadPagesManifest();
         manifestPages.forEach(p => sitePages.add(p));
         try {
-            const sitemapUrl = `${location.origin}${location.pathname.replace(/\/[^/]*$/, '/') }sitemap.xml`;
+            const sitemapUrl = `${location.origin}${location.pathname.replace(/\/[^/]*$/, '/')}sitemap.xml`;
             const res = await fetch('sitemap.xml');
             if (res.ok) {
                 const text = await res.text();
@@ -372,7 +374,7 @@ async function discoverAllPages() {
         const additions = [];
         sitePages.forEach(url => {
             if (!existing.has(url) && !/^(assets|plugins|fontawesome)\//.test(url) && url !== 'search-results.html') {
-                additions.push({ title: url.replace(/[-_]/g,' ').replace(/\.html$/i,''), url, tags: [], excerpt: '', content: '' });
+                additions.push({ title: url.replace(/[-_]/g, ' ').replace(/\.html$/i, ''), url, tags: [], excerpt: '', content: '' });
             }
         });
         if (additions.length) {
@@ -413,7 +415,7 @@ async function discoverAllPages() {
 // Display results
 function displayResults(posts, searchInfo) {
     const resultsContainer = document.getElementById('results-container');
-    
+
     if (posts.length === 0) {
         resultsContainer.innerHTML = `
             <div style="
@@ -430,8 +432,8 @@ function displayResults(posts, searchInfo) {
         `;
         return;
     }
-    
-    const countMessage = searchInfo ? 
+
+    const countMessage = searchInfo ?
         `<div style="
             padding: 15px;
             background: #e8f5e9;
@@ -443,7 +445,7 @@ function displayResults(posts, searchInfo) {
         ">
             ${searchInfo} ${posts.length} টি পোস্ট পাওয়া গেছে
         </div>` : '';
-    
+
     const postsHTML = posts.map(post => `
         <div class="item mb-5" style="
             background: white;
@@ -486,7 +488,7 @@ function displayResults(posts, searchInfo) {
             </a>
         </div>
     `).join('');
-    
+
     resultsContainer.innerHTML = countMessage + postsHTML;
 }
 
