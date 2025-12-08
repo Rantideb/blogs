@@ -4,7 +4,7 @@
  * Manages cookie consent banner and AdSense loading
  */
 
-(function() {
+(function () {
     'use strict';
 
     // Configuration
@@ -28,58 +28,61 @@
             callback(manualLang === 'bn', manualLang);
             return;
         }
-        
+
         // Check if running on localhost - use multiple fallback methods
-        const isLocalhost = window.location.hostname === 'localhost' || 
-                           window.location.hostname === '127.0.0.1' || 
-                           window.location.hostname === '';
-        
+        const isLocalhost = window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.hostname === '';
+
         if (isLocalhost) {
             console.log('Running on localhost - using fallback detection methods');
-            
+
             // Method 1: Check browser language first
             const browserLang = navigator.language || navigator.userLanguage || '';
             console.log('Browser language:', browserLang);
-            
+
             if (browserLang.startsWith('bn') || browserLang.includes('BD')) {
                 console.log('Detected Bengali from browser language');
                 callback(true, 'bn');
                 return;
             }
-            
+
             // Method 2: Check timezone as additional hint
             const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             console.log('Timezone:', timezone);
-            
+
             if (timezone === 'Asia/Dhaka' || timezone === 'Asia/Kolkata') {
                 console.log('Detected Bangladesh/West Bengal from timezone');
                 callback(true, 'bn');
                 return;
             }
-            
-            // Method 3: Try alternative geo API that works on localhost
-            fetch('https://ipapi.co/json/')
-                .then(response => response.json())
+
+            // Method 3: Try alternative geo API (GeoJS) that is more CORS friendly
+            fetch('https://get.geojs.io/v1/ip/geo.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
                 .then(data => {
                     console.log('Geo-detection data:', data);
                     const country = data.country_code || data.country || '';
                     const region = data.region || '';
                     const city = data.city || '';
-                    
+
                     if (country === 'BD' || CONFIG.BANGLADESH_REGIONS.includes(country)) {
                         console.log('Detected Bangladesh from geo API');
                         callback(true, 'bn');
                         return;
                     }
-                    
-                    if (country === 'IN' && CONFIG.WEST_BENGAL_KEYWORDS.some(kw => 
+
+                    if (country === 'IN' && CONFIG.WEST_BENGAL_KEYWORDS.some(kw =>
                         region.includes(kw) || city.includes(kw)
                     )) {
                         console.log('Detected West Bengal from geo API');
                         callback(true, 'bn');
                         return;
                     }
-                    
+
                     // Default to English
                     console.log('Defaulting to English');
                     callback(false, 'en');
@@ -88,32 +91,35 @@
                     console.log('All detection methods failed on localhost, defaulting to English:', err);
                     callback(false, 'en');
                 });
-            
+
             return;
         }
-        
-        // Production: Use ipapi.co (free, no API key needed)
-        fetch('https://ipapi.co/json/')
-            .then(response => response.json())
+
+        // Production: Use GeoJS (free, CORS friendly, HTTPS supported)
+        fetch('https://get.geojs.io/v1/ip/geo.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
             .then(data => {
                 const country = data.country_code || data.country || '';
                 const region = data.region || '';
                 const city = data.city || '';
-                
+
                 // Check for Bangladesh
                 if (country === 'BD' || CONFIG.BANGLADESH_REGIONS.includes(country)) {
                     callback(true, 'bn');
                     return;
                 }
-                
+
                 // Check for West Bengal (India)
-                if (country === 'IN' && CONFIG.WEST_BENGAL_KEYWORDS.some(kw => 
+                if (country === 'IN' && CONFIG.WEST_BENGAL_KEYWORDS.some(kw =>
                     region.includes(kw) || city.includes(kw)
                 )) {
                     callback(true, 'bn');
                     return;
                 }
-                
+
                 // Default to English for other regions
                 callback(false, 'en');
             })
@@ -125,14 +131,14 @@
                     callback(true, 'bn');
                     return;
                 }
-                
+
                 // Fallback 2: check timezone
                 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                 if (timezone === 'Asia/Dhaka' || timezone === 'Asia/Kolkata') {
                     callback(true, 'bn');
                     return;
                 }
-                
+
                 // Final fallback: English
                 callback(false, 'en');
             });
@@ -151,16 +157,16 @@
     function autoRedirectPrivacyPage() {
         const currentPage = window.location.pathname;
         const isOnPrivacyPage = currentPage.includes('privacy-en.html') || currentPage.includes('privacy-bn.html');
-        
+
         if (!isOnPrivacyPage) {
             return; // Not on a privacy page, no need to redirect
         }
-        
-        detectBengaliRegion(function(isBengali, lang) {
+
+        detectBengaliRegion(function (isBengali, lang) {
             const correctPage = getPrivacyPolicyUrl(lang);
             const onEnglishPage = currentPage.includes('privacy-en.html');
             const onBengaliPage = currentPage.includes('privacy-bn.html');
-            
+
             // Redirect if on wrong language page
             if (lang === 'bn' && onEnglishPage) {
                 // User is from Bangladesh/West Bengal but on English page - redirect to Bengali
@@ -177,7 +183,7 @@
      * Update all privacy policy links on the page
      */
     function updatePrivacyLinks() {
-        detectBengaliRegion(function(isBengali, lang) {
+        detectBengaliRegion(function (isBengali, lang) {
             const privacyUrl = getPrivacyPolicyUrl(lang);
             const labelBn = 'গোপনীয়তা নীতি';
             const labelEn = 'Privacy Policy';
@@ -225,9 +231,9 @@
         }
 
         // Detect region and create banner with appropriate language
-        detectBengaliRegion(function(isBengali, lang) {
+        detectBengaliRegion(function (isBengali, lang) {
             const privacyUrl = getPrivacyPolicyUrl(lang);
-            
+
             // Banner text in both languages
             const bannerText = {
                 en: {
@@ -245,9 +251,9 @@
                     declineBtn: '✕ প্রত্যাখ্যান'
                 }
             };
-            
+
             const text = bannerText[lang];
-            
+
             // Create banner HTML
             const bannerHTML = `
                 <div id="cookie-consent-banner" style="
@@ -304,57 +310,57 @@
             </div>
         `;
 
-        // Inject banner
-        const bannerContainer = document.createElement('div');
-        bannerContainer.innerHTML = bannerHTML;
-        document.body.appendChild(bannerContainer);
+            // Inject banner
+            const bannerContainer = document.createElement('div');
+            bannerContainer.innerHTML = bannerHTML;
+            document.body.appendChild(bannerContainer);
 
-        // Add hover effects
-        const acceptBtn = document.getElementById('cookie-accept-btn');
-        const declineBtn = document.getElementById('cookie-decline-btn');
+            // Add hover effects
+            const acceptBtn = document.getElementById('cookie-accept-btn');
+            const declineBtn = document.getElementById('cookie-decline-btn');
 
-        acceptBtn.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-            this.style.boxShadow = '0 6px 15px rgba(78, 204, 163, 0.4)';
-        });
-        acceptBtn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = '0 4px 10px rgba(78, 204, 163, 0.3)';
-        });
+            acceptBtn.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 6px 15px rgba(78, 204, 163, 0.4)';
+            });
+            acceptBtn.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 10px rgba(78, 204, 163, 0.3)';
+            });
 
-        declineBtn.addEventListener('mouseenter', function() {
-            this.style.background = 'rgba(255,255,255,0.1)';
-            this.style.borderColor = 'rgba(255,255,255,0.5)';
-        });
-        declineBtn.addEventListener('mouseleave', function() {
-            this.style.background = 'transparent';
-            this.style.borderColor = 'rgba(255,255,255,0.3)';
-        });
+            declineBtn.addEventListener('mouseenter', function () {
+                this.style.background = 'rgba(255,255,255,0.1)';
+                this.style.borderColor = 'rgba(255,255,255,0.5)';
+            });
+            declineBtn.addEventListener('mouseleave', function () {
+                this.style.background = 'transparent';
+                this.style.borderColor = 'rgba(255,255,255,0.3)';
+            });
 
-        // Handle Accept button
-        acceptBtn.addEventListener('click', function() {
-            localStorage.setItem(CONFIG.CONSENT_KEY, 'accepted');
-            hideBanner();
-            loadAdSense();
-        });
+            // Handle Accept button
+            acceptBtn.addEventListener('click', function () {
+                localStorage.setItem(CONFIG.CONSENT_KEY, 'accepted');
+                hideBanner();
+                loadAdSense();
+            });
 
-        // Handle Decline button
-        declineBtn.addEventListener('click', function() {
-            localStorage.setItem(CONFIG.CONSENT_KEY, 'declined');
-            hideBanner();
-            // Don't load AdSense if declined
-        });
+            // Handle Decline button
+            declineBtn.addEventListener('click', function () {
+                localStorage.setItem(CONFIG.CONSENT_KEY, 'declined');
+                hideBanner();
+                // Don't load AdSense if declined
+            });
 
-        function hideBanner() {
-            const banner = document.getElementById('cookie-consent-banner');
-            if (banner) {
-                banner.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                banner.style.opacity = '0';
-                banner.style.transform = 'translateY(100%)';
-                setTimeout(() => banner.remove(), 300);
+            function hideBanner() {
+                const banner = document.getElementById('cookie-consent-banner');
+                if (banner) {
+                    banner.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    banner.style.opacity = '0';
+                    banner.style.transform = 'translateY(100%)';
+                    setTimeout(() => banner.remove(), 300);
+                }
             }
-        }
-    });
+        });
     }
 
     /**
@@ -373,14 +379,14 @@
         script.async = true;
         script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${CONFIG.ADSENSE_CLIENT}`;
         script.crossOrigin = 'anonymous';
-        
-        script.onload = function() {
+
+        script.onload = function () {
             console.log('AdSense loaded successfully');
             // Initialize any waiting ad units
             initializeWaitingAdUnits();
         };
 
-        script.onerror = function() {
+        script.onerror = function () {
             console.error('Failed to load AdSense');
         };
 
@@ -392,7 +398,7 @@
      */
     function initializeWaitingAdUnits() {
         const waitingAds = document.querySelectorAll('ins.adsbygoogle[data-wait="1"]');
-        waitingAds.forEach(function(adElement) {
+        waitingAds.forEach(function (adElement) {
             try {
                 adElement.removeAttribute('data-wait');
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -408,12 +414,12 @@
     function init() {
         // Auto-redirect to correct privacy page if needed
         autoRedirectPrivacyPage();
-        
+
         // Update privacy policy links
         updatePrivacyLinks();
 
         // Show cookie banner after a delay
-        setTimeout(function() {
+        setTimeout(function () {
             createCookieBanner();
         }, CONFIG.BANNER_DELAY);
 
@@ -433,19 +439,19 @@
 
     // Expose functions globally for debugging
     window.CookieConsentManager = {
-        reset: function() {
+        reset: function () {
             localStorage.removeItem(CONFIG.CONSENT_KEY);
             sessionStorage.removeItem(CONFIG.ADSENSE_LOADED_KEY);
             window.adsenseLoaded = false;
             location.reload();
         },
-        getConsent: function() {
+        getConsent: function () {
             return localStorage.getItem(CONFIG.CONSENT_KEY);
         },
         detectRegion: detectBengaliRegion,
-        
+
         // Manual language override for testing
-        setLanguage: function(lang) {
+        setLanguage: function (lang) {
             if (lang === 'bn' || lang === 'bengali') {
                 localStorage.setItem('manual_language_override', 'bn');
                 console.log('✓ Language set to Bengali. Reloading page...');
@@ -458,22 +464,22 @@
                 console.error('Invalid language. Use "bn" or "en"');
             }
         },
-        
+
         // Clear manual override
-        clearLanguageOverride: function() {
+        clearLanguageOverride: function () {
             localStorage.removeItem('manual_language_override');
             console.log('✓ Language override cleared. Will use auto-detection.');
             console.log('Run: location.reload()');
         },
-        
+
         // Check current settings
-        getSettings: function() {
+        getSettings: function () {
             return {
                 consent: localStorage.getItem(CONFIG.CONSENT_KEY),
                 languageOverride: localStorage.getItem('manual_language_override'),
                 hostname: window.location.hostname,
-                isLocalhost: window.location.hostname === 'localhost' || 
-                            window.location.hostname === '127.0.0.1',
+                isLocalhost: window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1',
                 browserLanguage: navigator.language,
                 timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
             };
