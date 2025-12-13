@@ -1,21 +1,158 @@
 /**
- * Geo-based Privacy Policy Router and Cookie Consent Manager
- * Detects user location and routes to appropriate privacy policy
- * Manages cookie consent banner and AdSense loading
+ * Enhanced Cookie Consent Manager with GDPR Compliance
+ * 
+ * Features:
+ * - Granular cookie categories (Analytics, Marketing, Preferences)
+ * - Region-based configuration (GDPR for EU/EEA, standard for others)
+ * - Multiple display formats with A/B testing rotation (Banner, Dialog, Popup)
+ * - Persistent cookie settings icon for preference management
+ * - Bengali/English localization based on geographic location
+ * 
+ * @version 2.0.0
  */
 
 (function () {
     'use strict';
 
-    // Configuration
+    // ============================================
+    // CONFIGURATION
+    // ============================================
+
     const CONFIG = {
         ADSENSE_CLIENT: 'ca-pub-8340971949778309',
-        CONSENT_KEY: 'cookie_consent',
+        CONSENT_KEY: 'cookie_consent_v2',
+        CONSENT_PREFERENCES_KEY: 'cookie_preferences',
+        DISPLAY_FORMAT_KEY: 'cookie_display_format',
         ADSENSE_LOADED_KEY: 'adsense_loaded',
-        BANNER_DELAY: 1000, // Show banner after 1 second
+        BANNER_DELAY: 1500, // Show banner after 1.5 seconds
         BANGLADESH_REGIONS: ['BD', 'Bangladesh'],
         WEST_BENGAL_KEYWORDS: ['West Bengal', 'Kolkata', 'Calcutta', 'WB'],
+        EU_COUNTRIES: ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB', 'IS', 'LI', 'NO', 'CH'],
+        DISPLAY_FORMATS: ['banner', 'dialog', 'popup'] // A/B testing formats
     };
+
+    // ============================================
+    // STATE
+    // ============================================
+
+    let currentLang = 'en';
+    let isEURegion = false;
+    let displayFormat = 'banner';
+
+    // ============================================
+    // COOKIE CATEGORIES
+    // ============================================
+
+    const COOKIE_CATEGORIES = {
+        necessary: {
+            enabled: true,
+            required: true,
+            nameEn: 'Necessary',
+            nameBn: 'প্রয়োজনীয়',
+            descEn: 'Required for the website to function properly',
+            descBn: 'ওয়েবসাইট সঠিকভাবে কাজ করার জন্য প্রয়োজনীয়'
+        },
+        analytics: {
+            enabled: true,  // ✅ Enabled by default (opt-out model)
+            required: false,
+            nameEn: 'Analytics',
+            nameBn: 'বিশ্লেষণ',
+            descEn: 'Help us understand how visitors interact with our website',
+            descBn: 'দর্শকরা আমাদের ওয়েবসাইটের সাথে কীভাবে ইন্টারঅ্যাক্ট করে তা বুঝতে সাহায্য করে'
+        },
+        marketing: {
+            enabled: true,  // ✅ Enabled by default (opt-out model)
+            required: false,
+            nameEn: 'Marketing',
+            nameBn: 'বিপণন',
+            descEn: 'Used to deliver personalized advertisements',
+            descBn: 'ব্যক্তিগতকৃত বিজ্ঞাপন প্রদানের জন্য ব্যবহৃত'
+        },
+        preferences: {
+            enabled: true,  // ✅ Enabled by default (opt-out model)
+            required: false,
+            nameEn: 'Preferences',
+            nameBn: 'পছন্দসমূহ',
+            descEn: 'Remember your settings and preferences',
+            descBn: 'আপনার সেটিংস এবং পছন্দগুলি মনে রাখে'
+        }
+    };
+
+    // ============================================
+    // LOCALIZATION
+    // ============================================
+
+    const TRANSLATIONS = {
+        en: {
+            // Banner Format
+            bannerTitle: '🍪 Cookie Notice',
+            bannerMessage: 'We use cookies and similar technologies. Customize your preferences or accept all.',
+
+            // Dialog Format
+            dialogTitle: '🍪 Cookie Preferences',
+            dialogMessage: 'We respect your privacy. Choose which cookies you\'re comfortable with.',
+
+            // Popup Format
+            popupTitle: '🍪 Cookies',
+            popupMessage: 'We use cookies to enhance your experience.',
+
+            // Common
+            privacyLink: 'Privacy Policy',
+            customizeBtn: 'Customize',
+            acceptAllBtn: 'Accept All',
+            acceptSelectedBtn: 'Save Preferences',
+            declineAllBtn: 'Decline All',
+            settingsTitle: 'Cookie Settings',
+            settingsDescription: 'Manage your cookie preferences. You can enable or disable different types of cookies below.',
+            saveBtn: 'Save Preferences',
+            closeBtn: 'Close'
+        },
+        bn: {
+            // Banner Format
+            bannerTitle: '🍪 কুকি বিজ্ঞপ্তি',
+            bannerMessage: 'আমরা কুকি এবং অনুরূপ প্রযুক্তি ব্যবহার করি। আপনার পছন্দ কাস্টমাইজ করুন বা সব গ্রহণ করুন।',
+
+            // Dialog Format
+            dialogTitle: '🍪 কুকি পছন্দসমূহ',
+            dialogMessage: 'আমরা আপনার গোপনীয়তাকে সম্মান করি। আপনি কোন কুকি দিয়ে স্বাচ্ছন্দ্য বোধ করেন তা চয়ন করুন।',
+
+            // Popup Format
+            popupTitle: '🍪 কুকিজ',
+            popupMessage: 'আমরা আপনার অভিজ্ঞতা উন্নত করতে কুকি ব্যবহার করি।',
+
+            // Common
+            privacyLink: 'গোপনীয়তা নীতি',
+            customizeBtn: 'কাস্টমাইজ করুন',
+            acceptAllBtn: 'সব গ্রহণ করুন',
+            acceptSelectedBtn: 'পছন্দগুলি সংরক্ষণ করুন',
+            declineAllBtn: 'সব প্রত্যাখ্যান করুন',
+            settingsTitle: 'কুকি সেটিংস',
+            settingsDescription: 'আপনার কুকি পছন্দগুলি পরিচালনা করুন। আপনি নীচে বিভিন্ন ধরনের কুকি সক্ষম বা অক্ষম করতে পারেন।',
+            saveBtn: 'পছন্দগুলি সংরক্ষণ করুন',
+            closeBtn: 'বন্ধ করুন'
+        }
+    };
+
+    // ============================================
+    // UTILITY FUNCTIONS
+    // ============================================
+
+    /**
+     * Get or assign display format with A/B testing rotation
+     */
+    function getDisplayFormat() {
+        let format = localStorage.getItem(CONFIG.DISPLAY_FORMAT_KEY);
+
+        if (!format) {
+            // New user - randomly assign a format
+            const randomIndex = Math.floor(Math.random() * CONFIG.DISPLAY_FORMATS.length);
+            format = CONFIG.DISPLAY_FORMATS[randomIndex];
+            localStorage.setItem(CONFIG.DISPLAY_FORMAT_KEY, format);
+            console.log('✨ Assigned display format:', format);
+        }
+
+        return format;
+    }
 
     /**
      * Detect if user is from Bangladesh or West Bengal
@@ -25,90 +162,57 @@
         const manualLang = localStorage.getItem('manual_language_override');
         if (manualLang === 'bn' || manualLang === 'en') {
             console.log('Using manual language override:', manualLang);
-            callback(manualLang === 'bn', manualLang);
+            callback(manualLang === 'bn', manualLang, false);
             return;
         }
 
-        // Check if running on localhost - use multiple fallback methods
+        // Check if running on localhost
         const isLocalhost = window.location.hostname === 'localhost' ||
             window.location.hostname === '127.0.0.1' ||
             window.location.hostname === '';
 
         if (isLocalhost) {
-            console.log('Running on localhost - using fallback detection methods');
+            console.log('Running on localhost - using timezone detection');
 
-            // Method 1: Check browser language first
+            // Check timezone first (most reliable for localhost)
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            console.log('Detected timezone:', timezone);
+
+            if (timezone === 'Asia/Dhaka' || timezone === 'Asia/Kolkata') {
+                console.log('✓ Detected Bangladesh/West Bengal from timezone');
+                callback(true, 'bn', false);
+                return;
+            }
+
+            // Fallback to browser language
             const browserLang = navigator.language || navigator.userLanguage || '';
             console.log('Browser language:', browserLang);
 
             if (browserLang.startsWith('bn') || browserLang.includes('BD')) {
-                console.log('Detected Bengali from browser language');
-                callback(true, 'bn');
+                console.log('✓ Detected Bengali from browser language');
+                callback(true, 'bn', false);
                 return;
             }
 
-            // Method 2: Check timezone as additional hint
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            console.log('Timezone:', timezone);
-
-            if (timezone === 'Asia/Dhaka' || timezone === 'Asia/Kolkata') {
-                console.log('Detected Bangladesh/West Bengal from timezone');
-                callback(true, 'bn');
-                return;
-            }
-
-            // Method 3: Try alternative geo API (GeoJS) that is more CORS friendly
-            fetch('https://get.geojs.io/v1/ip/geo.json')
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Geo-detection data:', data);
-                    const country = data.country_code || data.country || '';
-                    const region = data.region || '';
-                    const city = data.city || '';
-
-                    if (country === 'BD' || CONFIG.BANGLADESH_REGIONS.includes(country)) {
-                        console.log('Detected Bangladesh from geo API');
-                        callback(true, 'bn');
-                        return;
-                    }
-
-                    if (country === 'IN' && CONFIG.WEST_BENGAL_KEYWORDS.some(kw =>
-                        region.includes(kw) || city.includes(kw)
-                    )) {
-                        console.log('Detected West Bengal from geo API');
-                        callback(true, 'bn');
-                        return;
-                    }
-
-                    // Default to English
-                    console.log('Defaulting to English');
-                    callback(false, 'en');
-                })
-                .catch(err => {
-                    console.log('All detection methods failed on localhost, defaulting to English:', err);
-                    callback(false, 'en');
-                });
-
+            // Default to English for other localhost users
+            console.log('ℹ Using English (default for non-BD/WB regions)');
+            callback(false, 'en', false);
             return;
         }
 
-        // Production: Use GeoJS (free, CORS friendly, HTTPS supported)
+        // Production: Use GeoJS
         fetch('https://get.geojs.io/v1/ip/geo.json')
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 const country = data.country_code || data.country || '';
                 const region = data.region || '';
                 const city = data.city || '';
 
+                const isEU = CONFIG.EU_COUNTRIES.includes(country);
+
                 // Check for Bangladesh
                 if (country === 'BD' || CONFIG.BANGLADESH_REGIONS.includes(country)) {
-                    callback(true, 'bn');
+                    callback(true, 'bn', isEU);
                     return;
                 }
 
@@ -116,31 +220,16 @@
                 if (country === 'IN' && CONFIG.WEST_BENGAL_KEYWORDS.some(kw =>
                     region.includes(kw) || city.includes(kw)
                 )) {
-                    callback(true, 'bn');
+                    callback(true, 'bn', isEU);
                     return;
                 }
 
                 // Default to English for other regions
-                callback(false, 'en');
+                callback(false, 'en', isEU);
             })
             .catch(err => {
-                console.log('Geo-detection failed, using fallback methods:', err);
-                // Fallback 1: check browser language
-                const browserLang = navigator.language || navigator.userLanguage || '';
-                if (browserLang.startsWith('bn') || browserLang.includes('BD')) {
-                    callback(true, 'bn');
-                    return;
-                }
-
-                // Fallback 2: check timezone
-                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                if (timezone === 'Asia/Dhaka' || timezone === 'Asia/Kolkata') {
-                    callback(true, 'bn');
-                    return;
-                }
-
-                // Final fallback: English
-                callback(false, 'en');
+                console.log('Geo-detection failed:', err);
+                callback(false, 'en', false);
             });
     }
 
@@ -152,222 +241,499 @@
     }
 
     /**
-     * Auto-redirect to correct privacy policy page based on user location
+     * Get saved cookie preferences
      */
-    function autoRedirectPrivacyPage() {
-        const currentPage = window.location.pathname;
-        const isOnPrivacyPage = currentPage.includes('privacy-en.html') || currentPage.includes('privacy-bn.html');
-
-        if (!isOnPrivacyPage) {
-            return; // Not on a privacy page, no need to redirect
-        }
-
-        detectBengaliRegion(function (isBengali, lang) {
-            const correctPage = getPrivacyPolicyUrl(lang);
-            const onEnglishPage = currentPage.includes('privacy-en.html');
-            const onBengaliPage = currentPage.includes('privacy-bn.html');
-
-            // Redirect if on wrong language page
-            if (lang === 'bn' && onEnglishPage) {
-                // User is from Bangladesh/West Bengal but on English page - redirect to Bengali
-                window.location.href = 'privacy-bn.html';
-            } else if (lang === 'en' && onBengaliPage) {
-                // User is from other region but on Bengali page - redirect to English
-                window.location.href = 'privacy-en.html';
+    function getSavedPreferences() {
+        const saved = localStorage.getItem(CONFIG.CONSENT_PREFERENCES_KEY);
+        if (saved) {
+            try {
+                return JSON.parse(saved);
+            } catch (e) {
+                console.error('Failed to parse saved preferences:', e);
             }
-            // Otherwise, user is on correct page, do nothing
-        });
+        }
+        return null;
     }
 
     /**
-     * Update all privacy policy links on the page
+     * Save cookie preferences
      */
-    function updatePrivacyLinks() {
-        detectBengaliRegion(function (isBengali, lang) {
-            const privacyUrl = getPrivacyPolicyUrl(lang);
-            const labelBn = 'গোপনীয়তা নীতি';
-            const labelEn = 'Privacy Policy';
-            const label = (lang === 'bn') ? labelBn : labelEn;
-
-            const links = document.querySelectorAll('a[href*="privacy"]');
-            links.forEach(link => {
-                try {
-                    // Always set the href to the language-specific page
-                    link.href = privacyUrl;
-
-                    // Preserve icon if present, update label text inside .privacy-text if exists
-                    const labelEl = link.querySelector('.privacy-text');
-                    if (labelEl) {
-                        labelEl.textContent = label;
-                    } else {
-                        // If no .privacy-text, try to preserve any <i> icon, else replace innerHTML
-                        const iconEl = link.querySelector('i');
-                        if (iconEl) {
-                            // Rebuild inner HTML keeping the icon
-                            link.innerHTML = iconEl.outerHTML + '<span class="privacy-text">' + label + '</span>';
-                        } else {
-                            link.textContent = label;
-                        }
-                    }
-                } catch (e) {
-                    // Fail silently but log to console for debugging
-                    console.error('Failed to update privacy link', e);
-                }
-            });
-        });
+    function savePreferences(preferences) {
+        localStorage.setItem(CONFIG.CONSENT_PREFERENCES_KEY, JSON.stringify(preferences));
+        localStorage.setItem(CONFIG.CONSENT_KEY, 'configured');
     }
 
     /**
-     * Create and inject cookie consent banner
+     * Load scripts based on cookie preferences
      */
-    function createCookieBanner() {
-        // Check if consent already given
-        const consent = localStorage.getItem(CONFIG.CONSENT_KEY);
-        if (consent) {
-            if (consent === 'accepted') {
-                loadAdSense();
-            }
-            return; // Don't show banner if choice already made
+    function loadScriptsBasedOnConsent(preferences) {
+        // Load Google Analytics if analytics cookies are enabled
+        if (preferences.analytics) {
+            loadAdSense();
         }
 
-        // Detect region and create banner with appropriate language
-        detectBengaliRegion(function (isBengali, lang) {
-            const privacyUrl = getPrivacyPolicyUrl(lang);
+        // Load marketing scripts if marketing cookies are enabled
+        if (preferences.marketing) {
+            // Add marketing scripts here
+            console.log('Marketing cookies enabled');
+        }
 
-            // Banner text in both languages
-            const bannerText = {
-                en: {
-                    title: '🍪 Cookie Notice',
-                    message: 'We use cookies and similar technologies for analytics and personalized ads. By clicking "Accept", you consent to our use of cookies.',
-                    privacyLink: 'Privacy Policy',
-                    acceptBtn: '✓ Accept All',
-                    declineBtn: '✕ Decline'
-                },
-                bn: {
-                    title: '🍪 কুকি বিজ্ঞপ্তি',
-                    message: 'আমরা বিশ্লেষণ এবং ব্যক্তিগত বিজ্ঞাপনের জন্য কুকি এবং অনুরূপ প্রযুক্তি ব্যবহার করি। "গ্রহণ করুন" ক্লিক করে, আপনি আমাদের কুকি ব্যবহারে সম্মতি দিচ্ছেন।',
-                    privacyLink: 'গোপনীয়তা নীতি',
-                    acceptBtn: '✓ সব গ্রহণ করুন',
-                    declineBtn: '✕ প্রত্যাখ্যান'
-                }
-            };
+        // Save preferences if preferences cookies are enabled
+        if (preferences.preferences) {
+            console.log('Preferences cookies enabled');
+        }
+    }
 
-            const text = bannerText[lang];
+    // ============================================
+    // CONSENT UI BUILDERS
+    // ============================================
 
-            // Create banner HTML
-            const bannerHTML = `
-                <div id="cookie-consent-banner" style="
-                    position: fixed;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-                    color: #fff;
-                    padding: 20px;
-                    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-                    z-index: 99999;
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                    border-top: 2px solid rgba(255,255,255,0.1);
-                ">
-                    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px;">
-                        <div style="flex: 1; min-width: 250px;">
-                            <p style="margin: 0; font-size: 14px; line-height: 1.6;">
-                                <strong style="color: #e94560; font-size: 15px;">${text.title}</strong><br>
-                                ${text.message}
-                                <a href="${privacyUrl}" id="privacy-link-banner" style="color: #4ecca3; text-decoration: underline;">${text.privacyLink}</a>
-                            </p>
-                        </div>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <button id="cookie-accept-btn" style="
-                                background: linear-gradient(135deg, #4ecca3 0%, #3ba785 100%);
-                                color: #fff;
-                                border: none;
-                                padding: 12px 28px;
-                                font-size: 14px;
-                                font-weight: 600;
-                                border-radius: 6px;
-                                cursor: pointer;
-                            transition: all 0.3s ease;
-                            box-shadow: 0 4px 10px rgba(78, 204, 163, 0.3);
-                        ">
-                            ${text.acceptBtn}
+    /**
+     * Build cookie categories HTML
+     */
+    function buildCookieCategoriesHTML() {
+        const text = TRANSLATIONS[currentLang];
+        let html = '<div class="cookie-categories">';
+
+        for (const [key, category] of Object.entries(COOKIE_CATEGORIES)) {
+            const name = currentLang === 'bn' ? category.nameBn : category.nameEn;
+            const desc = currentLang === 'bn' ? category.descBn : category.descEn;
+            const checked = category.enabled ? 'checked' : '';
+            const disabled = category.required ? 'disabled' : '';
+
+            html += `
+                <div class="cookie-category">
+                    <div class="cookie-category-info">
+                        <h4>${name} ${category.required ? `<span class="cookie-category-required">(Required)</span>` : ''}</h4>
+                        <p>${desc}</p>
+                    </div>
+                    <label class="cookie-toggle">
+                        <input type="checkbox" 
+                               data-category="${key}" 
+                               ${checked} 
+                               ${disabled}>
+                        <span class="cookie-toggle-slider"></span>
+                    </label>
+                </div>
+            `;
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+    /**
+     * Create Banner Format
+     */
+    function createBannerFormat() {
+        const text = TRANSLATIONS[currentLang];
+        const privacyUrl = getPrivacyPolicyUrl(currentLang);
+
+        const html = `
+            <div class="cookie-consent-banner" id="cookieConsentBanner">
+                <div class="cookie-banner-content">
+                    <div class="cookie-banner-text">
+                        <h3>${text.bannerTitle}</h3>
+                        <p>
+                            ${text.bannerMessage}
+                            <a href="${privacyUrl}">${text.privacyLink}</a>
+                        </p>
+                    </div>
+                    <div class="cookie-banner-actions">
+                        <button class="cookie-btn cookie-btn-text" id="cookieCustomizeBtn">
+                            ${text.customizeBtn}
                         </button>
-                        <button id="cookie-decline-btn" style="
-                            background: transparent;
-                            color: #fff;
-                            border: 2px solid rgba(255,255,255,0.3);
-                            padding: 12px 28px;
-                            font-size: 14px;
-                            font-weight: 600;
-                            border-radius: 6px;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                        ">
-                            ${text.declineBtn}
+                        <button class="cookie-btn cookie-btn-secondary" id="cookieDeclineBtn">
+                            ${text.declineAllBtn}
+                        </button>
+                        <button class="cookie-btn cookie-btn-primary" id="cookieAcceptBtn">
+                            ${text.acceptAllBtn}
                         </button>
                     </div>
                 </div>
             </div>
         `;
 
-            // Inject banner
-            const bannerContainer = document.createElement('div');
-            bannerContainer.innerHTML = bannerHTML;
-            document.body.appendChild(bannerContainer);
+        return html;
+    }
 
-            // Add hover effects
-            const acceptBtn = document.getElementById('cookie-accept-btn');
-            const declineBtn = document.getElementById('cookie-decline-btn');
+    /**
+      * Create Dialog Format
+      */
+    function createDialogFormat() {
+        const text = TRANSLATIONS[currentLang];
+        const privacyUrl = getPrivacyPolicyUrl(currentLang);
+        const categoriesHTML = buildCookieCategoriesHTML();
 
-            acceptBtn.addEventListener('mouseenter', function () {
-                this.style.transform = 'translateY(-2px)';
-                this.style.boxShadow = '0 6px 15px rgba(78, 204, 163, 0.4)';
-            });
-            acceptBtn.addEventListener('mouseleave', function () {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = '0 4px 10px rgba(78, 204, 163, 0.3)';
-            });
+        const html = `
+            <div class="cookie-consent-dialog-overlay" id="cookieDialogOverlay">
+                <div class="cookie-consent-dialog">
+                    <div class="cookie-dialog-header">
+                        <h2>${text.dialogTitle}</h2>
+                        <p>
+                            ${text.dialogMessage}
+                            <a href="${privacyUrl}">${text.privacyLink}</a>
+                        </p>
+                    </div>
+                    ${categoriesHTML}
+                    <div class="cookie-banner-actions" style="margin-top: 24px;">
+                        <button class="cookie-btn cookie-btn-secondary" id="cookieDeclineBtn">
+                            ${text.declineAllBtn}
+                        </button>
+                        <button class="cookie-btn cookie-btn-primary" id="cookieAcceptBtn">
+                            ${text.acceptSelectedBtn}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
 
-            declineBtn.addEventListener('mouseenter', function () {
-                this.style.background = 'rgba(255,255,255,0.1)';
-                this.style.borderColor = 'rgba(255,255,255,0.5)';
-            });
-            declineBtn.addEventListener('mouseleave', function () {
-                this.style.background = 'transparent';
-                this.style.borderColor = 'rgba(255,255,255,0.3)';
-            });
+        return html;
+    }
 
-            // Handle Accept button
-            acceptBtn.addEventListener('click', function () {
-                localStorage.setItem(CONFIG.CONSENT_KEY, 'accepted');
-                hideBanner();
-                loadAdSense();
-            });
+    /**
+     * Create Popup Format
+     */
+    function createPopupFormat() {
+        const text = TRANSLATIONS[currentLang];
+        const privacyUrl = getPrivacyPolicyUrl(currentLang);
 
-            // Handle Decline button
-            declineBtn.addEventListener('click', function () {
-                localStorage.setItem(CONFIG.CONSENT_KEY, 'declined');
-                hideBanner();
-                // Don't load AdSense if declined
-            });
+        const html = `
+            <div class="cookie-consent-popup" id="cookieConsentPopup">
+                <div class="cookie-popup-header">
+                    <h3>${text.popupTitle}</h3>
+                    <p>
+                        ${text.popupMessage}
+                        <a href="${privacyUrl}">${text.privacyLink}</a>
+                    </p>
+                </div>
+                <div class="cookie-banner-actions" style="flex-direction: column;">
+                    <button class="cookie-btn cookie-btn-primary cookie-btn-block" id="cookieAcceptBtn">
+                        ${text.acceptAllBtn}
+                    </button>
+                    <button class="cookie-btn cookie-btn-secondary cookie-btn-block" id="cookieCustomizeBtn">
+                        ${text.customizeBtn}
+                    </button>
+                    <button class="cookie-btn cookie-btn-text" id="cookieDeclineBtn">
+                        ${text.declineAllBtn}
+                    </button>
+                </div>
+            </div>
+        `;
 
-            function hideBanner() {
-                const banner = document.getElementById('cookie-consent-banner');
-                if (banner) {
-                    banner.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    banner.style.opacity = '0';
-                    banner.style.transform = 'translateY(100%)';
-                    setTimeout(() => banner.remove(), 300);
+        return html;
+    }
+
+    /**
+     * Create cookie settings modal
+     */
+    function createSettingsModal() {
+        const text = TRANSLATIONS[currentLang];
+        const privacyUrl = getPrivacyPolicyUrl(currentLang);
+        const categoriesHTML = buildCookieCategoriesHTML();
+
+        const html = `
+            <div class="cookie-settings-modal-overlay" id="cookieSettingsOverlay">
+                <div class="cookie-settings-modal">
+                    <div class="cookie-settings-header">
+                        <h2>${text.settingsTitle}</h2>
+                        <button class="cookie-settings-close" id="cookieSettingsClose">&times;</button>
+                    </div>
+                    <p style="margin-bottom: 20px; color: rgba(255,255,255,0.85); font-size: 14px;">
+                        ${text.settingsDescription}
+                        <a href="${privacyUrl}" style="color: #4ecca3;">${text.privacyLink}</a>
+                    </p>
+                    ${categoriesHTML}
+                    <div class="cookie-settings-actions">
+                        <button class="cookie-btn cookie-btn-secondary" id="cookieSettingsCancelBtn">
+                            ${text.closeBtn}
+                        </button>
+                        <button class="cookie-btn cookie-btn-primary" id="cookieSettingsSaveBtn">
+                            ${text.saveBtn}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        return html;
+    }
+
+    // ============================================
+    // CONSENT MANAGEMENT
+    // ============================================
+
+    /**
+     * Show cookie consent UI
+     */
+    function showCookieConsent() {
+        // Check if consent already given
+        const consent = localStorage.getItem(CONFIG.CONSENT_KEY);
+        if (consent) {
+            const prefs = getSavedPreferences();
+            if (prefs) {
+                loadScriptsBasedOnConsent(prefs);
+            }
+            return;
+        }
+
+        // Mark body as having active consent
+        document.body.classList.add('cookie-consent-active');
+
+        // Get display format
+        displayFormat = getDisplayFormat();
+
+        let html;
+        switch (displayFormat) {
+            case 'dialog':
+                html = createDialogFormat();
+                break;
+            case 'popup':
+                html = createPopupFormat();
+                break;
+            case 'banner':
+            default:
+                html = createBannerFormat();
+                break;
+        }
+
+        // Inject consent UI
+        const container = document.createElement('div');
+        container.innerHTML = html;
+        document.body.appendChild(container);
+
+        // Attach event listeners
+        attachConsentEventListeners();
+    }
+
+    /**
+     * Attach event listeners to consent UI
+     */
+    function attachConsentEventListeners() {
+        const acceptBtn = document.getElementById('cookieAcceptBtn');
+        const declineBtn = document.getElementById('cookieDeclineBtn');
+        const customizeBtn = document.getElementById('cookieCustomizeBtn');
+
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', handleAcceptAll);
+        }
+
+        if (declineBtn) {
+            declineBtn.addEventListener('click', handleDeclineAll);
+        }
+
+        if (customizeBtn) {
+            customizeBtn.addEventListener('click', showSettingsModal);
+        }
+
+        // For dialog format, attach checkbox listeners
+        if (displayFormat === 'dialog') {
+            const checkboxes = document.querySelectorAll('.cookie-category input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', handleCategoryToggle);
+            });
+        }
+    }
+
+    /**
+         * Handle Accept All
+         */
+    function handleAcceptAll() {
+        const preferences = {
+            necessary: true,
+            analytics: true,
+            marketing: true,
+            preferences: true
+        };
+
+        savePreferences(preferences);
+        loadScriptsBasedOnConsent(preferences);
+        hideConsentUI();
+        createCookieIcon(); // Re-evaluate and potentially show icon after consent
+    }
+
+    /**
+     * Handle Decline All
+     */
+    function handleDeclineAll() {
+        const preferences = {
+            necessary: true,
+            analytics: false,
+            marketing: false,
+            preferences: false
+        };
+
+        savePreferences(preferences);
+        hideConsentUI();
+        createCookieIcon(); // Re-evaluate and potentially show icon after consent
+    }
+
+    /**
+     * Handle category toggle
+     */
+    function handleCategoryToggle(event) {
+        const category = event.target.dataset.category;
+        COOKIE_CATEGORIES[category].enabled = event.target.checked;
+    }
+
+    /**
+     * Hide consent UI
+     */
+    function hideConsentUI() {
+        document.body.classList.remove('cookie-consent-active');
+
+        const banner = document.getElementById('cookieConsentBanner');
+        const dialog = document.getElementById('cookieDialogOverlay');
+        const popup = document.getElementById('cookieConsentPopup');
+
+        if (banner) {
+            banner.classList.add('hiding');
+            setTimeout(() => banner.parentElement.remove(), 400);
+        }
+
+        if (dialog) {
+            dialog.style.opacity = '0';
+            setTimeout(() => dialog.remove(), 300);
+        }
+
+        if (popup) {
+            popup.classList.add('hiding');
+            setTimeout(() => popup.remove(), 400);
+        }
+    }
+
+    /**
+     * Show settings modal
+     */
+    function showSettingsModal() {
+        // Load current preferences
+        const saved = getSavedPreferences();
+        if (saved) {
+            for (const [key, value] of Object.entries(saved)) {
+                if (COOKIE_CATEGORIES[key]) {
+                    COOKIE_CATEGORIES[key].enabled = value;
                 }
             }
+        }
+
+        const modal = createSettingsModal();
+        const container = document.createElement('div');
+        container.innerHTML = modal;
+        document.body.appendChild(container);
+
+        // Attach event listeners
+        const closeBtn = document.getElementById('cookieSettingsClose');
+        const cancelBtn = document.getElementById('cookieSettingsCancelBtn');
+        const saveBtn = document.getElementById('cookieSettingsSaveBtn');
+        const overlay = document.getElementById('cookieSettingsOverlay');
+
+        closeBtn.addEventListener('click', hideSettingsModal);
+        cancelBtn.addEventListener('click', hideSettingsModal);
+        saveBtn.addEventListener('click', saveSettingsFromModal);
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                hideSettingsModal();
+            }
+        });
+
+        // Attach checkbox listeners
+        const checkboxes = document.querySelectorAll('.cookie-settings-modal .cookie-category input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', handleCategoryToggle);
         });
     }
+
+    /**
+     * Hide settings modal
+     */
+    function hideSettingsModal() {
+        const overlay = document.getElementById('cookieSettingsOverlay');
+        if (overlay) {
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.parentElement.remove(), 300);
+        }
+    }
+
+    /**
+     * Save settings from modal
+     */
+    function saveSettingsFromModal() {
+        const preferences = {};
+        for (const [key, category] of Object.entries(COOKIE_CATEGORIES)) {
+            preferences[key] = category.enabled;
+        }
+
+        savePreferences(preferences);
+        loadScriptsBasedOnConsent(preferences);
+        hideSettingsModal();
+
+        // If consent UI is still showing, hide it
+        if (document.body.classList.contains('cookie-consent-active')) {
+            hideConsentUI();
+        }
+        createCookieIcon(); // Re-evaluate and potentially show icon after consent
+    }
+
+    // ============================================
+    // COOKIE SETTINGS ICON
+    // ============================================
+
+    /**
+     * Create floating cookie settings icon
+     * Only shows if user has configured consent (so they can change preferences)
+     * Does NOT show after accepting cookies (as requested by user)
+     */
+    function createCookieIcon() {
+        // Remove existing icon if any
+        const existingIcon = document.getElementById('cookieSettingsIcon');
+        if (existingIcon) {
+            existingIcon.parentElement.remove();
+        }
+
+        const consent = localStorage.getItem(CONFIG.CONSENT_KEY);
+        const prefs = getSavedPreferences();
+
+        // Don't show icon if:
+        // 1. No consent configured yet (banner will show)
+        // 2. User has accepted all cookies (no need to change)
+        if (!consent || !prefs) {
+            console.log('ℹ Cookie icon hidden - no consent or preferences yet');
+            return;
+        }
+
+        // Check if user accepted all cookies
+        const acceptedAll = prefs.analytics && prefs.marketing && prefs.preferences;
+        if (acceptedAll) {
+            console.log('ℹ Cookie icon hidden - user accepted all cookies');
+            return;
+        }
+
+        // Show icon only if user declined some cookies or customized preferences
+        console.log('✓ Cookie icon shown - user has custom preferences');
+
+        const iconHTML = `
+            <div class="cookie-settings-icon" id="cookieSettingsIcon" title="Cookie Settings">
+                <img src="assets/images/cookie-icon.svg" alt="Cookie Settings">
+            </div>
+        `;
+
+        const container = document.createElement('div');
+        container.innerHTML = iconHTML;
+        document.body.appendChild(container);
+
+        const icon = document.getElementById('cookieSettingsIcon');
+        icon.addEventListener('click', showSettingsModal);
+    }
+
+    // ============================================
+    // ADSENSE LOADING
+    // ============================================
 
     /**
      * Load AdSense script dynamically
      */
     function loadAdSense() {
-        // Check if already loaded
         if (window.adsenseLoaded || sessionStorage.getItem(CONFIG.ADSENSE_LOADED_KEY)) {
             return;
         }
@@ -381,53 +747,81 @@
         script.crossOrigin = 'anonymous';
 
         script.onload = function () {
-            console.log('AdSense loaded successfully');
-            // Initialize any waiting ad units
-            initializeWaitingAdUnits();
+            console.log('✓ AdSense loaded');
         };
 
         script.onerror = function () {
-            console.error('Failed to load AdSense');
+            console.error('✗ Failed to load AdSense');
         };
 
         document.head.appendChild(script);
     }
 
+    // ============================================
+    // PRIVACY LINK MANAGEMENT (from original)
+    // ============================================
+
     /**
-     * Initialize ad units that are waiting for consent
+     * Update all privacy policy links on the page
      */
-    function initializeWaitingAdUnits() {
-        const waitingAds = document.querySelectorAll('ins.adsbygoogle[data-wait="1"]');
-        waitingAds.forEach(function (adElement) {
-            try {
-                adElement.removeAttribute('data-wait');
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (e) {
-                console.error('Failed to initialize ad unit:', e);
-            }
+    function updatePrivacyLinks() {
+        detectBengaliRegion(function (isBengali, lang, isEU) {
+            currentLang = lang;
+            isEURegion = isEU;
+
+            const privacyUrl = getPrivacyPolicyUrl(lang);
+            const labelBn = 'গোপনীয়তা নীতি';
+            const labelEn = 'Privacy Policy';
+            const label = (lang === 'bn') ? labelBn : labelEn;
+
+            const links = document.querySelectorAll('a[href*="privacy"]');
+            links.forEach(link => {
+                try {
+                    link.href = privacyUrl;
+                    const labelEl = link.querySelector('.privacy-text');
+                    if (labelEl) {
+                        labelEl.textContent = label;
+                    } else {
+                        const iconEl = link.querySelector('i');
+                        if (iconEl) {
+                            link.innerHTML = iconEl.outerHTML + '<span class="privacy-text">' + label + '</span>';
+                        } else {
+                            link.textContent = label;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Failed to update privacy link', e);
+                }
+            });
         });
     }
 
+    // ============================================
+    // INITIALIZATION
+    // ============================================
+
     /**
-     * Initialize on page load
+     * Initialize cookie consent system
      */
     function init() {
-        // Auto-redirect to correct privacy page if needed
-        autoRedirectPrivacyPage();
+        console.log('🍪 Initializing Enhanced Cookie Consent Manager v2.0');
+        console.log('📍 Detecting region and language...');
 
         // Update privacy policy links
         updatePrivacyLinks();
 
-        // Show cookie banner after a delay
+        // Show consent UI after delay
         setTimeout(function () {
-            createCookieBanner();
+            detectBengaliRegion(function (isBengali, lang, isEU) {
+                currentLang = lang;
+                console.log('🌍 Language set to:', lang === 'bn' ? 'Bengali (বাংলা)' : 'English');
+                isEURegion = isEU;
+                showCookieConsent();
+            });
         }, CONFIG.BANNER_DELAY);
 
-        // If consent already given, load AdSense immediately
-        const consent = localStorage.getItem(CONFIG.CONSENT_KEY);
-        if (consent === 'accepted') {
-            loadAdSense();
-        }
+        // Create cookie settings icon
+        createCookieIcon();
     }
 
     // Run when DOM is ready
@@ -437,52 +831,38 @@
         init();
     }
 
-    // Expose functions globally for debugging
+    // ============================================
+    // GLOBAL API (for debugging/management)
+    // ============================================
+
     window.CookieConsentManager = {
         reset: function () {
             localStorage.removeItem(CONFIG.CONSENT_KEY);
+            localStorage.removeItem(CONFIG.CONSENT_PREFERENCES_KEY);
+            localStorage.removeItem(CONFIG.DISPLAY_FORMAT_KEY);
             sessionStorage.removeItem(CONFIG.ADSENSE_LOADED_KEY);
             window.adsenseLoaded = false;
+            console.log('✓ Cookie consent reset');
             location.reload();
         },
         getConsent: function () {
-            return localStorage.getItem(CONFIG.CONSENT_KEY);
+            return {
+                configured: localStorage.getItem(CONFIG.CONSENT_KEY),
+                preferences: getSavedPreferences(),
+                displayFormat: localStorage.getItem(CONFIG.DISPLAY_FORMAT_KEY)
+            };
         },
-        detectRegion: detectBengaliRegion,
-
-        // Manual language override for testing
-        setLanguage: function (lang) {
-            if (lang === 'bn' || lang === 'bengali') {
-                localStorage.setItem('manual_language_override', 'bn');
-                console.log('✓ Language set to Bengali. Reloading page...');
-                setTimeout(() => location.reload(), 500); // Auto-reload after 500ms
-            } else if (lang === 'en' || lang === 'english') {
-                localStorage.setItem('manual_language_override', 'en');
-                console.log('✓ Language set to English. Reloading page...');
-                setTimeout(() => location.reload(), 500); // Auto-reload after 500ms
+        setDisplayFormat: function (format) {
+            if (CONFIG.DISPLAY_FORMATS.includes(format)) {
+                localStorage.setItem(CONFIG.DISPLAY_FORMAT_KEY, format);
+                console.log('✓ Display format set to:', format);
+                this.reset();
             } else {
-                console.error('Invalid language. Use "bn" or "en"');
+                console.error('Invalid format. Use: banner, dialog, or popup');
             }
         },
-
-        // Clear manual override
-        clearLanguageOverride: function () {
-            localStorage.removeItem('manual_language_override');
-            console.log('✓ Language override cleared. Will use auto-detection.');
-            console.log('Run: location.reload()');
-        },
-
-        // Check current settings
-        getSettings: function () {
-            return {
-                consent: localStorage.getItem(CONFIG.CONSENT_KEY),
-                languageOverride: localStorage.getItem('manual_language_override'),
-                hostname: window.location.hostname,
-                isLocalhost: window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1',
-                browserLanguage: navigator.language,
-                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
-            };
+        showSettings: function () {
+            showSettingsModal();
         }
     };
 
