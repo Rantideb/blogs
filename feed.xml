@@ -1,38 +1,270 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-    <title>বোধিদ্রুমে ধরেছে হতবুদ্ধির ঘুন</title>
-    <link>https://rantideb.github.io/blogs/</link>
-    <description>জীবন থমেক যাওয়ার পর হাঁটেত হাঁটেত ভাবি স্বর্গে হাটার রাস্তা আছে কতটুকু?</description>
-    <language>bn</language>
-    <lastBuildDate>Fri, 03 Oct 2025 00:00:00 GMT</lastBuildDate>
-    <atom:link href="https://rantideb.github.io/blogs/feed.xml" rel="self" type="application/rss+xml" />
+    <title>বোধিদ্রুমে ধরেছে হতবুদ্ধির ঘুন - Text & Tech</title>
+    <link>https://textandtech.me/</link>
+    <description>DevOps tutorials, cloud computing guides, and Bengali poetry. From CI/CD pipelines to life reflections.</description>
+    <language>en</language>
+    <lastBuildDate>Thu, 19 Dec 2024 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://textandtech.me/feed.xml" rel="self" type="application/rss+xml" />
+    
+    <!-- Latest DevOps & Tech Articles -->
+    <item>
+        <title>10 Beginner DevOps Projects You Can Build in 2025 (GitHub Actions, Docker, Terraform &amp; More)</title>
+        <link>https://textandtech.me/devops-projects-for-beginners.html</link>
+        <description>Looking for DevOps project ideas for beginners? Here are 10 hands-on DevOps projects using GitHub Actions, Docker, and Terraform to build your resume in 2025.</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/devops-projects-for-beginners.html</guid>
+    </item>
     
     <item>
+        <title>From Zero to CI/CD: Build Your First GitHub Actions Pipeline for a Simple Node/Python App</title>
+        <link>https://textandtech.me/github-actions-cicd-tutorial.html</link>
+        <description>Learn how to build a CI/CD pipeline from scratch using GitHub Actions for Node.js and Python. A complete 2025 beginner's guide to automating your testing and deployment.</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/github-actions-cicd-tutorial.html</guid>
+    </item>
+    
+    <item>
+        <title>Docker Tutorial for DevOps Beginners (2025): Build a Tiny App and Containerize It from Scratch</title>
+        <link>https://textandtech.me/docker-tutorial-for-beginners.html</link>
+        <description>A complete Docker tutorial for DevOps beginners in 2025. Learn to build a tiny Node.js or Python app and containerize it from scratch. Resume-ready project included.</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/docker-tutorial-for-beginners.html</guid>
+    </item>
+    
+    <item>
+        <title>Cloud Fundamentals for DevOps Beginners (2025): From Zero to Your First Free-Tier Server</title>
+        <link>https://textandtech.me/cloud-fundamentals-for-devops.html</link>
+        <description>A complete guide to cloud fundamentals for DevOps beginners in 2025. Learn AWS EC2 basics, set up a free-tier account, and launch your first cloud server.</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/cloud-fundamentals-for-devops.html</guid>
+    </item>
+    
+    <!-- Bengali Poetry & Life Reflections -->
+    <item>
         <title>আমার অস্থিরতা যদি তুমি দেখতে!</title>
-        <link>https://rantideb.github.io/blogs/amar-osthirota.html</link>
+        <link>https://textandtech.me/amar-osthirota.html</link>
         <description>গৌতম স্থির হলো বোধিবৃক্ষে, মুহম্মদ হেরায় কলিঙ্গে, অশোক জীবনানন্দ ধর্মতলায় আর আমার অস্থিরতা যদি তুমি দেখতে!</description>
-        <pubDate>Fri, 03 Oct 2025 00:00:00 GMT</pubDate>
-        <guid>https://rantideb.github.io/blogs/amar-osthirota.html</guid>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/amar-osthirota.html</guid>
+    </item>
+    
+    <item>
+        <title>আমার ক্ষমা প্রার্থনা</title>
+        <link>https://textandtech.me/ranti.html</link>
+        <description>আমার মাঝে মাঝে মরে যেতে ইচ্ছে করে।খুব নিঃশব্দে, কাউকে না জানিয়ে, অথবা কারও জন্যে কোনও ভাবে বিরক্তির তৈরি না করে। আমার চলে যেতে ইচ্ছে করে, যেন আমার জন্মই হয় নি অথবা আমার কোন অস্তিত্বই ছিল না।</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/ranti.html</guid>
     </item>
     
     <item>
         <title>সাথী</title>
-        <link>https://rantideb.github.io/blogs/sathi.html</link>
+        <link>https://textandtech.me/sathi.html</link>
         <description>কেউ হাহাকার করছে ছেড়ে যাওয়া মানুষটির স্মৃতিতে, পাশে দাঁড়িয়ে থাকা মানুষটিকে কেউ লক্ষ্যই করছে না</description>
-        <pubDate>Thu, 02 Oct 2025 00:00:00 GMT</pubDate>
-        <guid>https://rantideb.github.io/blogs/sathi.html</guid>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/sathi.html</guid>
     </item>
     
     <item>
-        <title>অপ্রাপ্তি</title>
-        <link>https://rantideb.github.io/blogs/oprapti.html</link>
-        <description>অপ্রাপ্তি নিয়ে চিন্তাভাবনা</description>
-        <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
-        <guid>https://rantideb.github.io/blogs/oprapti.html</guid>
+        <title>সুযোধন</title>
+        <link>https://textandtech.me/durjhodhon.html</link>
+        <description>মহাভারতের গল্প। হাজার বছর ধরে চলে আসছে। কোটি কোটি মানুষ গল্পটা জানেন। গল্পটা যদি অন্যভাবে লেখা হত!</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/durjhodhon.html</guid>
     </item>
     
-    <!-- Add more blog posts here as they are created -->
+    <item>
+        <title>নিঃসঙ্গ প্রেমিক</title>
+        <link>https://textandtech.me/prashanta.html</link>
+        <description>যুধিষ্ঠির, অর্জুন, নকুল, সহদেব সবাই এগিয়ে গেছে, শুধু তুমি কেন দাঁড়ালে আমার জন্যে ? আমি তো তাদেরও স্ত্রী, তাদের সন্তানদেরও জননী ! তবু শুধু তুমি একা কেন ?</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/prashanta.html</guid>
+    </item>
+    
+    <item>
+        <title>নির্বাসন</title>
+        <link>https://textandtech.me/nirbashon.html</link>
+        <description>যদি আমরা এক হতে নাও পারি তাও এই সময়গুলো তো আর মিথ্যে নয়। এই রাত, এই জ্যোৎস্না, এই সব কবিতা তো আর মিথ্যে নয়!</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/nirbashon.html</guid>
+    </item>
+    
+    <item>
+        <title>প্রেম</title>
+        <link>https://textandtech.me/prem.html</link>
+        <description>ভীষণ ঝড়ের শেষে যে-পাতাটি পড়ে রয় জলহীন চৌচির কলসির কিনারে, তার নাম প্রেম।</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/prem.html</guid>
+    </item>
+    
+    <item>
+        <title>ভাঙাচোরা অপ্রাপ্তি</title>
+        <link>https://textandtech.me/oprapti.html</link>
+        <description>অপ্রাপ্তি নিয়ে চিন্তাভাবনা</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/oprapti.html</guid>
+    </item>
+    
+    <item>
+        <title>তোমারে একনজর দেখার জন্য</title>
+        <link>https://textandtech.me/tomar.html</link>
+        <description>তোমারে একনজর দেখার জন্য আমি কতবার ছুটে যাই এই শহরের এমাথা থেকে ওমাথা প্রতিবার ভাবি, এবার শহরের সবচেয়ে তাজা আর সুন্দর ফুলগুলো তোমারে দেবো</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/tomar.html</guid>
+    </item>
+    
+    <item>
+        <title>হায় কৃষ্ণ</title>
+        <link>https://textandtech.me/gandhari.html</link>
+        <description>গান্ধারী এবং কৃষ্ণের কথোপকথন</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/gandhari.html</guid>
+    </item>
+    
+    <item>
+        <title>ইরাবতী</title>
+        <link>https://textandtech.me/iraboti.html</link>
+        <description>ওরা প্রথম দেখায় ভালোবাসা খুঁজে পায়, বুকের খাজে আর পেশিবহুল বাহুতে।</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/iraboti.html</guid>
+    </item>
+    
+    <item>
+        <title>আঁচল কেনো আর পায় না পুরুষ?</title>
+        <link>https://textandtech.me/goddessorhoe.html</link>
+        <description>ওরা প্রথম দেখায় ভালোবাসা খুঁজে পায়, বুকের খাজে আর পেশিবহুল বাহুতে।</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/goddessorhoe.html</guid>
+    </item>
+    
+    <item>
+        <title>পুরুষতন্ত্র</title>
+        <link>https://textandtech.me/man.html</link>
+        <description>পুরুষ জানে না তার বুকে কেন এতো বেদনা, সে প্রতি মুহূর্তে ব্যস্ত পরিবারের বেদনা তাড়ানোয়।</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/man.html</guid>
+    </item>
+    
+    <item>
+        <title>এপিকটেটাসের ডিসকোর্স: বন্ধুত্ব প্রসঙ্গে</title>
+        <link>https://textandtech.me/friend.html</link>
+        <description>যে ব্যক্তি ভালত্বকে বুঝতে পারে, সেই কেবল ভালবাসতে পারে। কিন্তু যে ব্যক্তি শুভ থেকে অশুভকে আলাদা করতে পারে না কিম্বা আলাদা করতে পারে না শুভ-অশুভ থেকে জীবনের তুচ্ছতাকে, কিভাবে তার পক্ষে ভালবাসা সম্ভব?</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/friend.html</guid>
+    </item>
+    
+    <item>
+        <title>Keutonoy</title>
+        <link>https://textandtech.me/keutonoy.html</link>
+        <description>সম্পর্ক ভাঙ্গার কারন খোঁজ করার প্রয়োজন নেই। বিষ্ণু পুরাণে পড়েছিলাম, আকাঙ্খা- প্রাপ্তির মোহ মায়ায় আটকে গঙ্গা এবং সরস্বতী দেবীও স্বয়ং শ্রী বিষ্ণু থেকে বিচ্ছেদ হয়েছিলো।</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/keutonoy.html</guid>
+    </item>
+    
+    <item>
+        <title>Living Without, Growing Within</title>
+        <link>https://textandtech.me/liveandgrow.html</link>
+        <description>And maybe love is supposed to feel easy, light, and free. that regardless if you end up together or not, your feelings will never falter—it will stay the same, regardless if it's expressed or unspoken.</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/liveandgrow.html</guid>
+    </item>
+    
+    <item>
+        <title>Writing A Scholarship-Awarding Motivation Letter</title>
+        <link>https://textandtech.me/sc.html</link>
+        <description>I had the pleasure to apply and be awarded a prestigious scholarship from Universität Hamburg for their Master's program in British and American Cultures: Texts and Media.</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/sc.html</guid>
+    </item>
+    
+    <item>
+        <title>জীবন সায়াহ্নে</title>
+        <link>https://textandtech.me/jibon-sahyane.html</link>
+        <description>Life reflections</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/jibon-sahyane.html</guid>
+    </item>
+    
+    <item>
+        <title>প্রাক্তন প্রেমিকাকে</title>
+        <link>https://textandtech.me/estrangement.html</link>
+        <description>Reflections on past relationships</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/estrangement.html</guid>
+    </item>
+    
+    <item>
+        <title>অরুন্ধুতী</title>
+        <link>https://textandtech.me/arundhuti.html</link>
+        <description>Bengali poetry</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/arundhuti.html</guid>
+    </item>
+    
+    <item>
+        <title>মাধবী</title>
+        <link>https://textandtech.me/madhovi.html</link>
+        <description>Bengali poetry</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/madhovi.html</guid>
+    </item>
+    
+    <item>
+        <title>রঙ্গবতী</title>
+        <link>https://textandtech.me/rangobati.html</link>
+        <description>Bengali poetry</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/rangobati.html</guid>
+    </item>
+    
+    <item>
+        <title>সমর্পণ</title>
+        <link>https://textandtech.me/somorpan.html</link>
+        <description>Surrender and devotion</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/somorpan.html</guid>
+    </item>
+    
+    <item>
+        <title>Letter to EveryOne</title>
+        <link>https://textandtech.me/hospital-days.html</link>
+        <description>Personal reflections from hospital days</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/hospital-days.html</guid>
+    </item>
+    
+    <item>
+        <title>Philosophy Of My Life, You Should Probably Ignore</title>
+        <link>https://textandtech.me/life.html</link>
+        <description>Personal philosophy and life musings</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/life.html</guid>
+    </item>
+    
+    <item>
+        <title>Rantideb's Random Rants</title>
+        <link>https://textandtech.me/koppa.html</link>
+        <description>Rantideb's Random Rants</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/koppa.html</guid>
+    </item>
+    
+    <item>
+        <title>শান্তিতে থাকো, ওঁ শান্তি</title>
+        <link>https://textandtech.me/who.html</link>
+        <description>Peace and tranquility</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/who.html</guid>
+    </item>
+    
+    <item>
+        <title>হারিয়ে গিয়েছি</title>
+        <link>https://textandtech.me/lost.html</link>
+        <description>Lost in thoughts</description>
+        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
+        <guid>https://textandtech.me/lost.html</guid>
+    </item>
     
 </channel>
 </rss>

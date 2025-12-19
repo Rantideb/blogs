@@ -36,6 +36,9 @@
     <meta property="og:description" content="Rantideb's Portfolio and Blog">
     <meta property="og:url" content="https://textandtech.me/pap.html">
     <meta property="og:type" content="website">
+    <meta property="article:published_time" content="2025-12-19T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-12-19T00:00:00+00:00">
+    <meta property="article:author" content="Rantideb">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="পাপ">
     <meta name="twitter:description" content="Rantideb's Portfolio and Blog">
@@ -68,6 +71,36 @@
         gtag('js', new Date());
 
         gtag('config', 'G-E2HHJ2NJSM');
+    </script>
+
+
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "হোম",
+          "item": "https://textandtech.me/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ব্লগ ২",
+          "item": "https://textandtech.me/blog-2.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Blog Post",
+          "item": "https://textandtech.me/pap.html"
+        }
+      ]
+    }
     </script>
 
 </head> 
@@ -151,7 +184,15 @@
 	    
 	    <article class="blog-post px-3 py-5 p-md-5">
 		    <div class="container single-col-max-width">
-			    <!-- <header class="blog-post-header">
+                
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">হোম</a></li>
+                        <li class="breadcrumb-item"><a href="blog-2.html">ব্লগ ২</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Blog Post</li>
+                    </ol>
+                </nav>
+<!-- <header class="blog-post-header">
 				    <h2 class="title mb-2">Why Every Developer Should Have A Blog</h2>
 				    <div class="meta mb-3"><span class="date">Published 2 days ago</span><span class="time">5 min read</span><span class="comment"><a  class="text-link" href="#">4 comments</a></span></div>
 			    </header> -->
