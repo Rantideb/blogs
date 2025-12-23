@@ -41,12 +41,12 @@ const blogPosts = [
 function createSearchBar() {
     // Check if we're on the index page
     const isIndexPage = window.location.pathname.includes('index') || window.location.pathname === '/' || window.location.pathname === '/blogs/';
-    
+
     if (!isIndexPage) return;
-    
+
     const header = document.querySelector('.header');
     if (!header) return;
-    
+
     const searchContainer = document.createElement('div');
     searchContainer.id = 'search-container';
     searchContainer.style.cssText = `
@@ -54,14 +54,14 @@ function createSearchBar() {
         max-width: 600px;
         margin: 0 auto;
     `;
-    
+
     const searchBox = document.createElement('div');
     searchBox.style.cssText = `
         position: relative;
         display: flex;
         align-items: center;
     `;
-    
+
     const searchInput = document.createElement('input');
     searchInput.type = 'text';
     searchInput.id = 'search-input';
@@ -75,7 +75,7 @@ function createSearchBar() {
         outline: none;
         transition: all 0.3s;
     `;
-    
+
     const searchIcon = document.createElement('i');
     searchIcon.className = 'fas fa-search';
     searchIcon.style.cssText = `
@@ -84,11 +84,11 @@ function createSearchBar() {
         color: #223142;
         font-size: 18px;
     `;
-    
+
     searchBox.appendChild(searchInput);
     searchBox.appendChild(searchIcon);
     searchContainer.appendChild(searchBox);
-    
+
     const searchResults = document.createElement('div');
     searchResults.id = 'search-results';
     searchResults.style.cssText = `
@@ -96,7 +96,7 @@ function createSearchBar() {
         display: none;
     `;
     searchContainer.appendChild(searchResults);
-    
+
     // Insert after navigation
     const navigation = header.querySelector('.navbar');
     if (navigation) {
@@ -104,30 +104,30 @@ function createSearchBar() {
     } else {
         header.appendChild(searchContainer);
     }
-    
+
     // Search functionality
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim();
-        
+
         if (query.length < 2) {
             searchResults.style.display = 'none';
             return;
         }
-        
-        const results = blogPosts.filter(post => 
+
+        const results = blogPosts.filter(post =>
             post.title.toLowerCase().includes(query) ||
             post.excerpt.toLowerCase().includes(query) ||
             post.tags.some(tag => tag.toLowerCase().includes(query))
         );
-        
+
         displaySearchResults(results, query);
     });
-    
+
     searchInput.addEventListener('focus', () => {
         searchInput.style.borderColor = '#EEA73B';
         searchInput.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.1)';
     });
-    
+
     searchInput.addEventListener('blur', () => {
         searchInput.style.borderColor = '#223142';
         searchInput.style.boxShadow = 'none';
@@ -136,7 +136,7 @@ function createSearchBar() {
 
 function displaySearchResults(results, query) {
     const searchResults = document.getElementById('search-results');
-    
+
     if (results.length === 0) {
         searchResults.innerHTML = `
             <div style="padding: 20px; text-align: center; color: #666;">
@@ -147,13 +147,13 @@ function displaySearchResults(results, query) {
         searchResults.style.display = 'block';
         return;
     }
-    
+
     searchResults.innerHTML = `
         <div style="padding: 10px 0; color: #223142; font-weight: 600;">
             ${results.length} টি ফলাফল পাওয়া গেছে
         </div>
     `;
-    
+
     results.forEach(post => {
         const resultItem = document.createElement('a');
         resultItem.href = post.url;
@@ -168,7 +168,7 @@ function displaySearchResults(results, query) {
             transition: all 0.3s;
             border: 1px solid #e0e0e0;
         `;
-        
+
         resultItem.innerHTML = `
             <h4 style="margin: 0 0 8px 0; color: #223142;">${highlightText(post.title, query)}</h4>
             <p style="margin: 0 0 8px 0; color: #666; font-size: 14px;">${highlightText(post.excerpt, query)}</p>
@@ -176,22 +176,22 @@ function displaySearchResults(results, query) {
                 ${post.tags.map(tag => `<span style="background: #f0f0f0; padding: 4px 10px; border-radius: 12px; font-size: 12px;">${tag}</span>`).join('')}
             </div>
         `;
-        
+
         resultItem.addEventListener('mouseenter', () => {
             resultItem.style.transform = 'translateY(-2px)';
             resultItem.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
             resultItem.style.borderColor = '#223142';
         });
-        
+
         resultItem.addEventListener('mouseleave', () => {
             resultItem.style.transform = 'translateY(0)';
             resultItem.style.boxShadow = 'none';
             resultItem.style.borderColor = '#e0e0e0';
         });
-        
+
         searchResults.appendChild(resultItem);
     });
-    
+
     searchResults.style.display = 'block';
 }
 
@@ -203,5 +203,5 @@ function highlightText(text, query) {
 // Initialize search on page load
 document.addEventListener('DOMContentLoaded', () => {
     createSearchBar();
-    console.log('✅ Search functionality loaded!');
+
 });

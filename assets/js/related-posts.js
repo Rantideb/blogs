@@ -6,7 +6,7 @@
 function getCurrentPageTags() {
     // Get current page URL filename
     const currentPage = window.location.pathname.split('/').pop();
-    
+
     // Try to get tags from global search data if available
     if (typeof allBlogPosts !== 'undefined') {
         const currentPost = allBlogPosts.find(post => post.url === currentPage);
@@ -14,7 +14,7 @@ function getCurrentPageTags() {
             return currentPost.tags;
         }
     }
-    
+
     // Fallback: Try to find tags from meta section in blog list format
     // Pattern: <div class="meta mb-1"><span class="date">Tag1</span><span class="time">Tag2</span></div>
     const metaSection = document.querySelector('.meta.mb-1');
@@ -22,19 +22,19 @@ function getCurrentPageTags() {
         const tags = [];
         const dateSpan = metaSection.querySelector('span.date');
         const timeSpan = metaSection.querySelector('span.time');
-        
+
         if (dateSpan && dateSpan.textContent.trim()) {
             tags.push(dateSpan.textContent.trim());
         }
         if (timeSpan && timeSpan.textContent.trim()) {
             tags.push(timeSpan.textContent.trim());
         }
-        
+
         if (tags.length > 0) {
             return tags;
         }
     }
-    
+
     return [];
 }
 
@@ -42,33 +42,33 @@ function getCurrentPageTags() {
 function createRelatedPosts() {
     const article = document.querySelector('.blog-post-body') || document.querySelector('.blog-post');
     if (!article) return;
-    
+
     // Get current page URL and tags
     const currentPage = window.location.pathname.split('/').pop();
     const currentTags = getCurrentPageTags();
-    
+
     if (currentTags.length === 0) {
-        console.log('No tags found in meta section');
+
         return;
     }
-    
-    console.log('Current page tags:', currentTags);
-    
+
+
+
     // Find related posts with same tags
     let relatedPosts = [];
     if (typeof allBlogPosts !== 'undefined') {
         // If any posts missing tags/image/excerpt, attempt auto-harvest from their HTML head
         const incomplete = allBlogPosts.filter(p => p.url !== currentPage && (!p.tags || p.tags.length === 0 || !p.image || !p.excerpt));
         // Harvest in parallel (limit concurrency lightly)
-        Promise.all(incomplete.slice(0,10).map(p => autoHarvestPostMetadata(p)))
+        Promise.all(incomplete.slice(0, 10).map(p => autoHarvestPostMetadata(p)))
             .then(() => { /* metadata enriched */ })
-            .catch(()=>{});
+            .catch(() => { });
         relatedPosts = allBlogPosts.filter(post => {
             if (post.url === currentPage) return false;
             return post.tags && post.tags.some(tag => currentTags.includes(tag));
         }).slice(0, 3);
     }
-    
+
     // Create tags section with related posts
     const tagsSection = document.createElement('div');
     tagsSection.id = 'current-tags';
@@ -80,7 +80,7 @@ function createRelatedPosts() {
         border-radius: 8px;
         border-left: 4px solid #223142;
     `;
-    
+
     // Build tags display
     let tagsHTML = `
         <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
@@ -110,7 +110,7 @@ function createRelatedPosts() {
             এই ট্যাগগুলোতে ক্লিক করে আরও পোস্ট দেখুন
         </p>
     `;
-    
+
     // Add related posts cards if available
     if (relatedPosts.length > 0) {
         tagsHTML += `
@@ -120,10 +120,10 @@ function createRelatedPosts() {
                 </h3>
                 <div class="related-posts-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                     ${relatedPosts.map(post => {
-                        // Extract image from og:image meta tag
-                        const imageUrl = post.image || 'assets/images/blog/default.jpg';
-                        
-                        return `
+            // Extract image from og:image meta tag
+            const imageUrl = post.image || 'assets/images/blog/default.jpg';
+
+            return `
                             <a href="${post.url}" style="text-decoration: none; display: block;">
                                 <div class="related-post-card" style="
                                     background: white;
@@ -178,14 +178,14 @@ function createRelatedPosts() {
                                 </div>
                             </a>
                         `;
-                    }).join('')}
+        }).join('')}
                 </div>
             </div>
         `;
     }
-    
+
     tagsSection.innerHTML = tagsHTML;
-    
+
     // Add dark mode styles
     const darkModeStyle = document.createElement('style');
     darkModeStyle.textContent = `
@@ -201,10 +201,10 @@ function createRelatedPosts() {
         }
     `;
     document.head.appendChild(darkModeStyle);
-    
+
     const nav = article.querySelector('.blog-nav');
     const newsletter = article.querySelector('#newsletter-subscription');
-    
+
     if (newsletter) {
         newsletter.parentNode.insertBefore(tagsSection, newsletter);
     } else if (nav) {
@@ -243,7 +243,7 @@ async function autoHarvestPostMetadata(post) {
             if (desc && desc.content) post.excerpt = desc.content.trim();
             if (!post.excerpt) {
                 const para = doc.querySelector('.blog-post-body p, article p, .intro, p');
-                if (para) post.excerpt = para.textContent.trim().slice(0,160) + (para.textContent.length>160?'…':'');
+                if (para) post.excerpt = para.textContent.trim().slice(0, 160) + (para.textContent.length > 160 ? '…' : '');
             }
         }
         // Tags: try meta keywords or spans using existing pattern
@@ -251,17 +251,17 @@ async function autoHarvestPostMetadata(post) {
             let tags = [];
             const kw = doc.querySelector('meta[name="keywords"]');
             if (kw && kw.content) {
-                tags = kw.content.split(',').map(s=>s.trim()).filter(Boolean);
+                tags = kw.content.split(',').map(s => s.trim()).filter(Boolean);
             } else {
                 const metaSpans = doc.querySelectorAll('.meta .date, .meta .time');
                 metaSpans.forEach(s => { const txt = s.textContent.trim(); if (txt) tags.push(txt); });
             }
-            post.tags = Array.from(new Set(tags)).slice(0,5);
+            post.tags = Array.from(new Set(tags)).slice(0, 5);
         }
         // Build meta text for search integration if available
         if (!post._metaText && typeof normalizeText === 'function') {
             post._metaText = normalizeText([
-                post.title||'', post.excerpt||'', (post.tags||[]).join(' ')
+                post.title || '', post.excerpt || '', (post.tags || []).join(' ')
             ].join(' '));
         }
         harvestCache[post.url] = true;
@@ -275,31 +275,31 @@ async function autoHarvestPostMetadata(post) {
 function displayTags() {
     // Tags are already displayed by createRelatedPosts()
     // This function is kept for compatibility
-    console.log('Tags displayed by createRelatedPosts()');
+
 }
 
 // ==================== CATEGORIES DISPLAY ====================
 function displayCategories() {
     // Categories can be derived from tags if needed
-    console.log('Categories feature - uses tags from meta section');
+
 }
 
 // ==================== CATEGORY DISPLAY ====================
 function displayCategory() {
     const article = document.querySelector('.blog-post-body');
     if (!article) return;
-    
+
     // Check if allBlogPosts is available from global-search.js
     if (typeof allBlogPosts === 'undefined') {
         console.warn('allBlogPosts not available for category display');
         return;
     }
-    
+
     const currentUrl = window.location.pathname.split('/').pop();
     const currentPost = allBlogPosts.find(post => post.url === currentUrl);
-    
+
     if (!currentPost || !currentPost.category) return;
-    
+
     const categoryBadge = document.createElement('div');
     categoryBadge.className = 'category-badge';
     categoryBadge.innerHTML = `
@@ -315,7 +315,7 @@ function displayCategory() {
         margin: 10px 10px 10px 0;
         font-weight: 500;
     `;
-    
+
     const lastUpdated = article.querySelector('.last-updated');
     if (lastUpdated) {
         lastUpdated.parentNode.insertBefore(categoryBadge, lastUpdated.nextSibling);
@@ -328,18 +328,18 @@ function createArchivePage() {
     if (!window.location.pathname.includes('archive') && !window.location.pathname.includes('timeline')) {
         return;
     }
-    
+
     const container = document.querySelector('.container');
     if (!container) return;
-    
+
     // Group posts by year and month
     const groupedPosts = {};
-    
+
     blogPostsMetadata.forEach(post => {
         const date = new Date(post.date);
         const year = date.getFullYear();
         const month = date.toLocaleDateString('bn-BD', { month: 'long' });
-        
+
         if (!groupedPosts[year]) {
             groupedPosts[year] = {};
         }
@@ -348,20 +348,20 @@ function createArchivePage() {
         }
         groupedPosts[year][month].push(post);
     });
-    
+
     let archiveHTML = '<h2 style="text-align: center; margin-bottom: 30px; color: #223142;">আর্কাইভ</h2>';
-    
+
     Object.keys(groupedPosts).sort((a, b) => b - a).forEach(year => {
         archiveHTML += `<div style="margin-bottom: 40px;">
             <h3 style="color: #223142; border-bottom: 2px solid #223142; padding-bottom: 10px; margin-bottom: 20px;">
                 <i class="fas fa-calendar-alt"></i> ${year}
             </h3>`;
-        
+
         Object.keys(groupedPosts[year]).forEach(month => {
             archiveHTML += `<div style="margin-bottom: 25px;">
                 <h4 style="color: #EEA73B; margin-bottom: 15px;">${month}</h4>
                 <ul style="list-style: none; padding: 0;">`;
-            
+
             groupedPosts[year][month].forEach(post => {
                 archiveHTML += `
                     <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
@@ -374,13 +374,13 @@ function createArchivePage() {
                         </span>
                     </li>`;
             });
-            
+
             archiveHTML += `</ul></div>`;
         });
-        
+
         archiveHTML += `</div>`;
     });
-    
+
     container.innerHTML = archiveHTML;
 }
 
@@ -389,19 +389,19 @@ function showPopularPosts() {
     // Only on index page
     const isIndexPage = window.location.pathname.includes('index') || window.location.pathname === '/' || window.location.pathname === '/blogs/';
     if (!isIndexPage) return;
-    
+
     const container = document.querySelector('.main-wrapper');
     if (!container) return;
-    
+
     // Get view counts from localStorage
     const postsWithViews = blogPostsMetadata.map(post => {
         const viewKey = `views_${window.location.origin}/${post.url}`;
         const views = parseInt(localStorage.getItem(viewKey)) || 0;
         return { ...post, views };
     }).sort((a, b) => b.views - a.views).slice(0, 5);
-    
+
     if (postsWithViews.every(post => post.views === 0)) return;
-    
+
     const popularSection = document.createElement('div');
     popularSection.id = 'popular-posts';
     popularSection.style.cssText = `
@@ -411,7 +411,7 @@ function showPopularPosts() {
         margin: 40px auto;
         max-width: 900px;
     `;
-    
+
     popularSection.innerHTML = `
         <h3 style="margin: 0 0 20px 0; color: #223142; text-align: center;">
             <i class="fas fa-fire"></i> জনপ্রিয় লেখা
@@ -446,7 +446,7 @@ function showPopularPosts() {
             `).join('')}
         </div>
     `;
-    
+
     // Add hover effect
     setTimeout(() => {
         document.querySelectorAll('.popular-post-item').forEach(item => {
@@ -460,7 +460,7 @@ function showPopularPosts() {
             });
         });
     }, 100);
-    
+
     container.insertBefore(popularSection, container.firstChild);
 }
 
@@ -471,5 +471,5 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCategory();
     createArchivePage();
     showPopularPosts();
-    console.log('✅ Related posts, tags, and archive features loaded!');
+
 });

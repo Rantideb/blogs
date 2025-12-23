@@ -606,13 +606,13 @@ function enableKeyboardNavigation() {
     }
     keyboardNavEnabled = true;
     localStorage.setItem('keyboardNavEnabled', '1');
-    console.log('✅ Keyboard navigation enabled');
+
 }
 
 function disableKeyboardNavigation() {
     keyboardNavEnabled = false;
     localStorage.setItem('keyboardNavEnabled', '0');
-    console.log('⛔ Keyboard navigation disabled');
+
 }
 
 function initKeyboardNavigationPreference() {
@@ -701,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function addCommentsSection() {
     // Bengali comment system is loaded separately via bengali-comments.js
     // This function is kept for compatibility but does nothing
-    console.log('Bengali comment system will be loaded by bengali-comments.js');
+
 }
 
 // ==================== INITIALIZE ALL FEATURES ====================
@@ -730,12 +730,12 @@ document.addEventListener('DOMContentLoaded', () => {
         script.onload = () => {
             if (window.hljs && hljs.highlightAll) {
                 hljs.highlightAll();
-                console.log('✅ highlight.js loaded via fallback');
+
             }
         };
         script.onerror = () => console.warn('highlight.js fallback failed to load');
         document.head.appendChild(script);
     })();
 
-    console.log('✅ All blog features loaded successfully!');
+
 });

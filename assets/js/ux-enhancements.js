@@ -210,7 +210,7 @@ function createZenModeButton() {
     // Only show on individual blog posts - robust check
     if (!document.querySelector('.blog-post-body')) return;
 
-    console.log('Initializing Zen Mode Button...'); // Debug
+
 
     const button = document.createElement('button');
     button.id = 'zenModeBtn';
@@ -339,7 +339,7 @@ function createRandomPostButton() {
     // Only show on individual blog posts - robust check
     if (!document.querySelector('.blog-post-body')) return;
 
-    console.log('Initializing Random Post Button...'); // Debug
+
 
     const button = document.createElement('button');
     button.id = 'randomPostBtn';

@@ -498,5 +498,5 @@ function displayResults(posts, searchInfo) {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     initGlobalSearch();
-    console.log('✅ Global search initialized!');
+
 });

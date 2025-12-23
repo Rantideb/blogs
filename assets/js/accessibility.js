@@ -6,22 +6,22 @@
 function improveAccessibility() {
     // Add skip to content link
     addSkipToContent();
-    
+
     // Improve navigation ARIA
     improveNavigationARIA();
-    
+
     // Add ARIA labels to interactive elements
     addARIALabels();
-    
+
     // Improve focus indicators
     improveFocusIndicators();
-    
+
     // Add keyboard shortcuts info
     addKeyboardShortcutsInfo();
-    
+
     // Improve image alt texts
     improveImageAltTexts();
-    
+
     // Add language attributes
     addLanguageAttributes();
 }
@@ -41,17 +41,17 @@ function addSkipToContent() {
         z-index: 10001;
         border-radius: 0 0 5px 0;
     `;
-    
+
     skipLink.addEventListener('focus', () => {
         skipLink.style.top = '0';
     });
-    
+
     skipLink.addEventListener('blur', () => {
         skipLink.style.top = '-40px';
     });
-    
+
     document.body.insertBefore(skipLink, document.body.firstChild);
-    
+
     // Add ID to main content
     const mainContent = document.querySelector('.blog-post-body') || document.querySelector('.main-wrapper');
     if (mainContent && !mainContent.id) {
@@ -66,23 +66,23 @@ function improveNavigationARIA() {
     if (header) {
         header.setAttribute('role', 'banner');
     }
-    
+
     // Main navigation
     const nav = document.querySelector('.navbar');
     if (nav) {
         nav.setAttribute('role', 'navigation');
         nav.setAttribute('aria-label', 'প্রধান নেভিগেশন');
     }
-    
+
     // Blog navigation (prev/next)
     const blogNav = document.querySelector('.blog-nav');
     if (blogNav) {
         blogNav.setAttribute('role', 'navigation');
         blogNav.setAttribute('aria-label', 'ব্লগ পোস্ট নেভিগেশন');
-        
+
         const prevLink = blogNav.querySelector('.nav-link-prev');
         const nextLink = blogNav.querySelector('.nav-link-next');
-        
+
         if (prevLink) {
             prevLink.setAttribute('aria-label', 'পূর্ববর্তী পোস্ট');
         }
@@ -90,7 +90,7 @@ function improveNavigationARIA() {
             nextLink.setAttribute('aria-label', 'পরবর্তী পোস্ট');
         }
     }
-    
+
     // Article
     const article = document.querySelector('.blog-post');
     if (article) {
@@ -107,7 +107,7 @@ function addARIALabels() {
         'github': 'গিটহাব',
         'facebook': 'ফেসবুক'
     };
-    
+
     socialLinks.forEach(link => {
         const href = link.href.toLowerCase();
         Object.keys(socialLabels).forEach(platform => {
@@ -116,7 +116,7 @@ function addARIALabels() {
             }
         });
     });
-    
+
     // Share buttons
     setTimeout(() => {
         const shareButtons = document.querySelectorAll('.share-button');
@@ -127,7 +127,7 @@ function addARIALabels() {
             }
         });
     }, 1000);
-    
+
     // Dark mode toggle
     setTimeout(() => {
         const darkModeToggle = document.getElementById('dark-mode-toggle');
@@ -135,14 +135,14 @@ function addARIALabels() {
             darkModeToggle.setAttribute('aria-label', 'ডার্ক মোড টগল করুন');
             darkModeToggle.setAttribute('role', 'switch');
             darkModeToggle.setAttribute('aria-checked', document.body.classList.contains('dark-mode'));
-            
+
             darkModeToggle.addEventListener('click', () => {
                 const isDark = document.body.classList.contains('dark-mode');
                 darkModeToggle.setAttribute('aria-checked', isDark);
             });
         }
     }, 1000);
-    
+
     // Search input
     setTimeout(() => {
         const searchInput = document.getElementById('search-input');
@@ -213,11 +213,11 @@ function addKeyboardShortcutsInfo() {
         z-index: 9998;
         transition: all 0.3s;
     `;
-    
+
     shortcutsBtn.addEventListener('click', () => {
         showKeyboardShortcutsModal();
     });
-    
+
     document.body.appendChild(shortcutsBtn);
 }
 
@@ -336,7 +336,7 @@ function improveImageAltTexts() {
             // Try to get alt from title or surrounding context
             const figure = img.closest('figure');
             const caption = figure ? figure.querySelector('figcaption') : null;
-            
+
             if (caption) {
                 img.alt = caption.textContent.trim();
             } else if (img.title) {
@@ -353,7 +353,7 @@ function addLanguageAttributes() {
     if (!document.documentElement.lang) {
         document.documentElement.lang = 'bn';
     }
-    
+
     // Mark English text sections
     const article = document.querySelector('.blog-post-body');
     if (article) {
@@ -372,5 +372,5 @@ function addLanguageAttributes() {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     improveAccessibility();
-    console.log('✅ Accessibility improvements loaded!');
+
 });

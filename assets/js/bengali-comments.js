@@ -6,9 +6,9 @@
 function createBengaliCommentSystem() {
     const article = document.querySelector('.blog-post');
     if (!article) return;
-    
+
     const pageUrl = window.location.pathname.split('/').pop();
-    
+
     const commentsSection = document.createElement('div');
     commentsSection.id = 'bengali-comments-section';
     commentsSection.style.cssText = `
@@ -17,7 +17,7 @@ function createBengaliCommentSystem() {
         background: #f8f9fa;
         border-radius: 10px;
     `;
-    
+
     commentsSection.innerHTML = `
         <h3 style="margin: 0 0 25px 0; color: #333; border-bottom: 3px solid #223142; padding-bottom: 10px;">
             <i class="fas fa-comments"></i> মন্তব্য (<span id="comment-count">0</span>)
@@ -90,11 +90,11 @@ function createBengaliCommentSystem() {
         <!-- Comments List -->
         <div id="comments-list"></div>
     `;
-    
+
     const nav = article.querySelector('.blog-nav');
     const newsletter = article.querySelector('#newsletter-subscription');
     const relatedPosts = article.querySelector('#related-posts');
-    
+
     if (relatedPosts) {
         relatedPosts.parentNode.insertBefore(commentsSection, relatedPosts.nextSibling);
     } else if (newsletter) {
@@ -104,13 +104,13 @@ function createBengaliCommentSystem() {
     } else {
         article.appendChild(commentsSection);
     }
-    
+
     // Load existing comments
     loadComments(pageUrl);
-    
+
     // Handle form submission
     setupCommentForm(pageUrl);
-    
+
     // Add input focus styles
     setupInputStyles();
 }
@@ -118,14 +118,14 @@ function createBengaliCommentSystem() {
 function loadComments(pageUrl) {
     const commentsKey = `comments_${pageUrl}`;
     const comments = JSON.parse(localStorage.getItem(commentsKey) || '[]');
-    
+
     displayComments(comments);
     updateCommentCount(comments.length);
 }
 
 function displayComments(comments) {
     const commentsList = document.getElementById('comments-list');
-    
+
     if (comments.length === 0) {
         commentsList.innerHTML = `
             <div style="text-align: center; padding: 40px; color: #999;">
@@ -135,10 +135,10 @@ function displayComments(comments) {
         `;
         return;
     }
-    
+
     // Sort comments by date (newest first)
     comments.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
+
     commentsList.innerHTML = comments.map((comment, index) => `
         <div class="comment-item" style="
             background: white;
@@ -209,48 +209,48 @@ function setupCommentForm(pageUrl) {
     const form = document.getElementById('comment-form');
     const nameInput = document.getElementById('commenter-name');
     const textInput = document.getElementById('comment-text');
-    
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const name = nameInput.value.trim();
         const text = textInput.value.trim();
-        
+
         if (!name || !text) {
             showMessage('দয়া করে সব ফিল্ড পূরণ করুন', 'error');
             return;
         }
-        
+
         // Check if comment is in Bengali (contains Bengali Unicode characters)
         const bengaliRegex = /[\u0980-\u09FF]/;
         if (!bengaliRegex.test(text)) {
             showMessage('দয়া করে বাংলায় মন্তব্য লিখুন', 'error');
             return;
         }
-        
+
         const commentsKey = `comments_${pageUrl}`;
         const comments = JSON.parse(localStorage.getItem(commentsKey) || '[]');
-        
+
         const newComment = {
             name: name,
             text: text,
             date: new Date().toISOString(),
             id: Date.now()
         };
-        
+
         comments.push(newComment);
         localStorage.setItem(commentsKey, JSON.stringify(comments));
-        
+
         // Clear form
         nameInput.value = '';
         textInput.value = '';
-        
+
         // Reload comments
         displayComments(comments);
         updateCommentCount(comments.length);
-        
+
         showMessage('আপনার মন্তব্য সফলভাবে যুক্ত হয়েছে!', 'success');
-        
+
         // Scroll to the new comment
         setTimeout(() => {
             document.getElementById('comments-list').scrollIntoView({ behavior: 'smooth' });
@@ -262,17 +262,17 @@ function deleteComment(index) {
     if (!confirm('আপনি কি এই মন্তব্যটি মুছে ফেলতে চান?')) {
         return;
     }
-    
+
     const pageUrl = window.location.pathname.split('/').pop();
     const commentsKey = `comments_${pageUrl}`;
     const comments = JSON.parse(localStorage.getItem(commentsKey) || '[]');
-    
+
     comments.splice(index, 1);
     localStorage.setItem(commentsKey, JSON.stringify(comments));
-    
+
     displayComments(comments);
     updateCommentCount(comments.length);
-    
+
     showMessage('মন্তব্য মুছে ফেলা হয়েছে', 'success');
 }
 
@@ -290,7 +290,7 @@ function formatDate(dateString) {
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
     const diffMinutes = Math.floor(diffTime / (1000 * 60));
-    
+
     if (diffMinutes < 1) {
         return 'এইমাত্র';
     } else if (diffMinutes < 60) {
@@ -323,13 +323,13 @@ function escapeHtml(text) {
 
 function setupInputStyles() {
     const inputs = document.querySelectorAll('#commenter-name, #comment-text');
-    
+
     inputs.forEach(input => {
         input.addEventListener('focus', () => {
             input.style.borderColor = '#223142';
             input.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.1)';
         });
-        
+
         input.addEventListener('blur', () => {
             input.style.borderColor = '#ddd';
             input.style.boxShadow = 'none';
@@ -342,7 +342,7 @@ function showMessage(text, type) {
     if (existingMessage) {
         existingMessage.remove();
     }
-    
+
     const message = document.createElement('div');
     message.id = 'comment-message';
     message.textContent = text;
@@ -359,9 +359,9 @@ function showMessage(text, type) {
         font-weight: 500;
         animation: slideIn 0.3s ease;
     `;
-    
+
     document.body.appendChild(message);
-    
+
     setTimeout(() => {
         message.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => message.remove(), 300);
@@ -404,5 +404,5 @@ if (!document.getElementById('comment-animations')) {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     createBengaliCommentSystem();
-    console.log('✅ Bengali comment system loaded!');
+
 });

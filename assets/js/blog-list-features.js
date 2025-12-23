@@ -6,10 +6,10 @@
 function createSearchAndFilter() {
     const blogList = document.querySelector('.blog-list');
     if (!blogList) return;
-    
+
     const container = blogList.querySelector('.container');
     if (!container) return;
-    
+
     // Create search and filter section
     const searchFilterSection = document.createElement('div');
     searchFilterSection.id = 'search-filter-section';
@@ -20,7 +20,7 @@ function createSearchAndFilter() {
         margin-bottom: 30px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     `;
-    
+
     searchFilterSection.innerHTML = `
         <div style="margin-bottom: 20px;">
             <h4 style="margin: 0 0 15px 0; color: #223142;">
@@ -76,19 +76,19 @@ function createSearchAndFilter() {
             display: none;
         "></div>
     `;
-    
+
     // Insert before the first blog item
     const firstItem = container.querySelector('.item');
     if (firstItem) {
         container.insertBefore(searchFilterSection, firstItem);
     }
-    
+
     // Extract all unique tags from blog posts
     extractAndDisplayTags();
-    
+
     // Implement search functionality
     implementSearch();
-    
+
     // Implement filter functionality
     implementFilter();
 }
@@ -96,7 +96,7 @@ function createSearchAndFilter() {
 function extractAndDisplayTags() {
     const items = document.querySelectorAll('.item');
     const tagsSet = new Set();
-    
+
     items.forEach(item => {
         const metaSpans = item.querySelectorAll('.meta span');
         metaSpans.forEach(span => {
@@ -106,10 +106,10 @@ function extractAndDisplayTags() {
             }
         });
     });
-    
+
     const filterTagsContainer = document.getElementById('filter-tags');
     const tags = Array.from(tagsSet).sort();
-    
+
     tags.forEach(tag => {
         const tagButton = document.createElement('button');
         tagButton.className = 'filter-tag';
@@ -125,22 +125,22 @@ function extractAndDisplayTags() {
             font-size: 14px;
             transition: all 0.3s;
         `;
-        
+
         tagButton.addEventListener('mouseenter', () => {
             if (!tagButton.classList.contains('active')) {
                 tagButton.style.background = '#FFF5E6';
             }
         });
-        
+
         tagButton.addEventListener('mouseleave', () => {
             if (!tagButton.classList.contains('active')) {
                 tagButton.style.background = 'white';
             }
         });
-        
+
         filterTagsContainer.appendChild(tagButton);
     });
-    
+
     // Add info text about global search
     const infoText = document.createElement('div');
     infoText.style.cssText = `
@@ -163,18 +163,18 @@ function extractAndDisplayTags() {
 function implementSearch() {
     const searchInput = document.getElementById('blog-search-input');
     const items = document.querySelectorAll('.item');
-    
+
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim();
         let visibleCount = 0;
-        
+
         items.forEach(item => {
             const title = item.querySelector('.title')?.textContent.toLowerCase() || '';
             const intro = item.querySelector('.intro')?.textContent.toLowerCase() || '';
             const meta = item.querySelector('.meta')?.textContent.toLowerCase() || '';
-            
+
             const matches = title.includes(query) || intro.includes(query) || meta.includes(query);
-            
+
             if (query === '' || matches) {
                 item.style.display = 'block';
                 visibleCount++;
@@ -182,15 +182,15 @@ function implementSearch() {
                 item.style.display = 'none';
             }
         });
-        
+
         updateResultsCount(query, visibleCount);
     });
-    
+
     searchInput.addEventListener('focus', () => {
         searchInput.style.borderColor = '#EEA73B';
         searchInput.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.1)';
     });
-    
+
     searchInput.addEventListener('blur', () => {
         searchInput.style.borderColor = '#223142';
         searchInput.style.boxShadow = 'none';
@@ -200,11 +200,11 @@ function implementSearch() {
 function implementFilter() {
     const filterButtons = document.querySelectorAll('.filter-tag');
     const items = document.querySelectorAll('.item');
-    
+
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             const selectedTag = button.getAttribute('data-tag');
-            
+
             // If it's not "all", offer to search globally
             if (selectedTag !== 'all') {
                 // Check if user wants to search globally (Ctrl/Cmd + Click)
@@ -213,7 +213,7 @@ function implementFilter() {
                     return;
                 }
             }
-            
+
             // Update active state
             filterButtons.forEach(btn => {
                 btn.classList.remove('active');
@@ -221,25 +221,25 @@ function implementFilter() {
                 btn.style.color = '#223142';
                 btn.style.border = '2px solid #223142';
             });
-            
+
             button.classList.add('active');
             button.style.background = 'linear-gradient(135deg, #223142 0%, #EEA73B 100%)';
             button.style.color = 'white';
             button.style.border = 'none';
-            
+
             // Filter items
             let visibleCount = 0;
-            
+
             items.forEach(item => {
                 const metaSpans = item.querySelectorAll('.meta span');
                 let hasTag = false;
-                
+
                 metaSpans.forEach(span => {
                     if (span.textContent.trim() === selectedTag) {
                         hasTag = true;
                     }
                 });
-                
+
                 if (selectedTag === 'all' || hasTag) {
                     item.style.display = 'block';
                     visibleCount++;
@@ -247,16 +247,16 @@ function implementFilter() {
                     item.style.display = 'none';
                 }
             });
-            
+
             updateResultsCount(selectedTag, visibleCount, true);
-            
+
             // Clear search input
             const searchInput = document.getElementById('blog-search-input');
             if (searchInput) {
                 searchInput.value = '';
             }
         });
-        
+
         // Add tooltip on hover
         if (button.getAttribute('data-tag') !== 'all') {
             button.title = 'ক্লিক করে এই পেজে ফিল্টার করুন | Ctrl/Cmd + ক্লিক করে পুরো সাইটে খুঁজুন';
@@ -266,19 +266,19 @@ function implementFilter() {
 
 function updateResultsCount(query, count, isFilter = false) {
     const resultsCount = document.getElementById('search-results-count');
-    
+
     if (query === '' || query === 'all') {
         resultsCount.style.display = 'none';
         return;
     }
-    
-    const message = isFilter 
+
+    const message = isFilter
         ? `"${query}" ট্যাগে ${count} টি পোস্ট পাওয়া গেছে`
         : `"${query}" এর জন্য ${count} টি ফলাফল পাওয়া গেছে`;
-    
+
     resultsCount.textContent = message;
     resultsCount.style.display = 'block';
-    
+
     if (count === 0) {
         resultsCount.style.background = '#ffebee';
         resultsCount.style.color = '#c62828';
@@ -291,5 +291,5 @@ function updateResultsCount(query, count, isFilter = false) {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     createSearchAndFilter();
-    console.log('✅ Blog list search and filter loaded!');
+
 });

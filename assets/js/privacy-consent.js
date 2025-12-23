@@ -148,7 +148,7 @@
             const randomIndex = Math.floor(Math.random() * CONFIG.DISPLAY_FORMATS.length);
             format = CONFIG.DISPLAY_FORMATS[randomIndex];
             localStorage.setItem(CONFIG.DISPLAY_FORMAT_KEY, format);
-            console.log('✨ Assigned display format:', format);
+
         }
 
         return format;
@@ -161,7 +161,7 @@
         // Check for manual override (for testing)
         const manualLang = localStorage.getItem('manual_language_override');
         if (manualLang === 'bn' || manualLang === 'en') {
-            console.log('Using manual language override:', manualLang);
+
             callback(manualLang === 'bn', manualLang, false);
             return;
         }
@@ -172,30 +172,30 @@
             window.location.hostname === '';
 
         if (isLocalhost) {
-            console.log('Running on localhost - using timezone detection');
+
 
             // Check timezone first (most reliable for localhost)
             const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            console.log('Detected timezone:', timezone);
+
 
             if (timezone === 'Asia/Dhaka' || timezone === 'Asia/Kolkata') {
-                console.log('✓ Detected Bangladesh/West Bengal from timezone');
+
                 callback(true, 'bn', false);
                 return;
             }
 
             // Fallback to browser language
             const browserLang = navigator.language || navigator.userLanguage || '';
-            console.log('Browser language:', browserLang);
+
 
             if (browserLang.startsWith('bn') || browserLang.includes('BD')) {
-                console.log('✓ Detected Bengali from browser language');
+
                 callback(true, 'bn', false);
                 return;
             }
 
             // Default to English for other localhost users
-            console.log('ℹ Using English (default for non-BD/WB regions)');
+
             callback(false, 'en', false);
             return;
         }
@@ -228,7 +228,7 @@
                 callback(false, 'en', isEU);
             })
             .catch(err => {
-                console.log('Geo-detection failed:', err);
+
                 callback(false, 'en', false);
             });
     }
@@ -275,12 +275,12 @@
         // Load marketing scripts if marketing cookies are enabled
         if (preferences.marketing) {
             // Add marketing scripts here
-            console.log('Marketing cookies enabled');
+
         }
 
         // Save preferences if preferences cookies are enabled
         if (preferences.preferences) {
-            console.log('Preferences cookies enabled');
+
         }
     }
 
@@ -698,19 +698,19 @@
         // 1. No consent configured yet (banner will show)
         // 2. User has accepted all cookies (no need to change)
         if (!consent || !prefs) {
-            console.log('ℹ Cookie icon hidden - no consent or preferences yet');
+
             return;
         }
 
         // Check if user accepted all cookies
         const acceptedAll = prefs.analytics && prefs.marketing && prefs.preferences;
         if (acceptedAll) {
-            console.log('ℹ Cookie icon hidden - user accepted all cookies');
+
             return;
         }
 
         // Show icon only if user declined some cookies or customized preferences
-        console.log('✓ Cookie icon shown - user has custom preferences');
+
 
         const iconHTML = `
             <div class="cookie-settings-icon" id="cookieSettingsIcon" title="Cookie Settings">
@@ -747,7 +747,7 @@
         script.crossOrigin = 'anonymous';
 
         script.onload = function () {
-            console.log('✓ AdSense loaded');
+
         };
 
         script.onerror = function () {
@@ -804,8 +804,8 @@
      * Initialize cookie consent system
      */
     function init() {
-        console.log('🍪 Initializing Enhanced Cookie Consent Manager v2.0');
-        console.log('📍 Detecting region and language...');
+
+
 
         // Update privacy policy links
         updatePrivacyLinks();
@@ -814,7 +814,7 @@
         setTimeout(function () {
             detectBengaliRegion(function (isBengali, lang, isEU) {
                 currentLang = lang;
-                console.log('🌍 Language set to:', lang === 'bn' ? 'Bengali (বাংলা)' : 'English');
+
                 isEURegion = isEU;
                 showCookieConsent();
             });
@@ -842,7 +842,7 @@
             localStorage.removeItem(CONFIG.DISPLAY_FORMAT_KEY);
             sessionStorage.removeItem(CONFIG.ADSENSE_LOADED_KEY);
             window.adsenseLoaded = false;
-            console.log('✓ Cookie consent reset');
+
             location.reload();
         },
         getConsent: function () {
@@ -855,7 +855,7 @@
         setDisplayFormat: function (format) {
             if (CONFIG.DISPLAY_FORMATS.includes(format)) {
                 localStorage.setItem(CONFIG.DISPLAY_FORMAT_KEY, format);
-                console.log('✓ Display format set to:', format);
+
                 this.reset();
             } else {
                 console.error('Invalid format. Use: banner, dialog, or popup');

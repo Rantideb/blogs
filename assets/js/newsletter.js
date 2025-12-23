@@ -5,7 +5,7 @@
 function createNewsletterBox() {
     const article = document.querySelector('.blog-post');
     if (!article) return;
-    
+
     const newsletterBox = document.createElement('div');
     newsletterBox.id = 'newsletter-subscription';
     newsletterBox.style.cssText = `
@@ -17,7 +17,7 @@ function createNewsletterBox() {
         text-align: center;
         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     `;
-    
+
     newsletterBox.innerHTML = `
         <div style="max-width: 500px; margin: 0 auto;">
             <i class="fas fa-envelope" style="font-size: 40px; margin-bottom: 15px; opacity: 0.9;"></i>
@@ -64,10 +64,10 @@ function createNewsletterBox() {
             </p>
         </div>
     `;
-    
+
     const nav = article.querySelector('.blog-nav');
     const comments = article.querySelector('#comments-section');
-    
+
     if (comments) {
         comments.parentNode.insertBefore(newsletterBox, comments);
     } else if (nav) {
@@ -75,45 +75,45 @@ function createNewsletterBox() {
     } else {
         article.appendChild(newsletterBox);
     }
-    
+
     // Handle form submission
     const form = document.getElementById('newsletter-form');
     const emailInput = document.getElementById('newsletter-email');
     const message = document.getElementById('newsletter-message');
-    
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const email = emailInput.value.trim();
-        
+
         if (!email || !email.includes('@')) {
             showMessage('দয়া করে একটি সঠিক ইমেইল ঠিকানা দিন', 'error');
             return;
         }
-        
+
         // Save to localStorage (in production, send to backend/Mailchimp)
         const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
-        
+
         if (subscribers.includes(email)) {
             showMessage('এই ইমেইলটি ইতিমধ্যে সাবস্ক্রাইব করা আছে!', 'info');
             return;
         }
-        
+
         subscribers.push(email);
         localStorage.setItem('subscribers', JSON.stringify(subscribers));
-        
+
         showMessage('✅ সফলভাবে সাবস্ক্রাইব হয়েছে! ধন্যবাদ!', 'success');
         emailInput.value = '';
-        
+
         // In production, send to your backend or Mailchimp API
         // await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
     });
-    
+
     function showMessage(text, type) {
         message.textContent = text;
         message.style.display = 'block';
         message.style.color = type === 'success' ? '#a8f5a8' : type === 'error' ? '#ff6b6b' : 'white';
-        
+
         setTimeout(() => {
             message.style.display = 'none';
         }, 5000);
@@ -123,5 +123,5 @@ function createNewsletterBox() {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     createNewsletterBox();
-    console.log('✅ Newsletter subscription loaded!');
+
 });
