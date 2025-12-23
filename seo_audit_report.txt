@@ -1,0 +1,35 @@
+
+PAGE: amar-osthirota.html
+  ⚠️ Multiple <h1> tags found: 2
+
+PAGE: archive.html
+  ⚠️ Missing og:image
+
+PAGE: blog-10.html
+  ⚠️ Title might be duplicate (needs 'Page X'): অন্তর্গত মায়া...
+
+PAGE: blog-9.html
+  ⚠️ Title might be duplicate (needs 'Page X'): খুব অভিমানে বৃষ্টি ঝরাবে, এই তো?
+
+PAGE: blog-post.html
+  ⚠️ Missing og:image
+
+PAGE: devops-engineer-roadmap-guide.html
+  ⚠️ Missing og:image
+
+PAGE: index-1.html
+  ❌ Missing <meta name='description'>
+  ❌ Missing <h1>
+  ⚠️ Missing og:image
+
+PAGE: koppa.html
+  ⚠️ Missing og:image
+
+PAGE: oprapti.html
+  ⚠️ Multiple <h1> tags found: 2
+
+PAGE: privacy-bn.html
+  ⚠️ Missing og:image
+
+PAGE: privacy-en.html
+  ⚠️ Missing og:image

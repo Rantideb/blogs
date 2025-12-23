@@ -1,270 +1,507 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-<channel>
-    <title>বোধিদ্রুমে ধরেছে হতবুদ্ধির ঘুন - Text & Tech</title>
-    <link>https://textandtech.me/</link>
-    <description>DevOps tutorials, cloud computing guides, and Bengali poetry. From CI/CD pipelines to life reflections.</description>
-    <language>en</language>
-    <lastBuildDate>Thu, 19 Dec 2024 00:00:00 GMT</lastBuildDate>
-    <atom:link href="https://textandtech.me/feed.xml" rel="self" type="application/rss+xml" />
-    
-    <!-- Latest DevOps & Tech Articles -->
+<?xml version="1.0" ?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Text and Tech</title>
+    <link>https://textandtech.me</link>
+    <description>Rantideb's personal blog on technology, philosophy, and literature.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Dec 2025 00:25:48 +0000</lastBuildDate>
+    <atom:link href="https://textandtech.me/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
-        <title>10 Beginner DevOps Projects You Can Build in 2025 (GitHub Actions, Docker, Terraform &amp; More)</title>
-        <link>https://textandtech.me/devops-projects-for-beginners.html</link>
-        <description>Looking for DevOps project ideas for beginners? Here are 10 hands-on DevOps projects using GitHub Actions, Docker, and Terraform to build your resume in 2025.</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/devops-projects-for-beginners.html</guid>
+      <title>Docker Tutorial for DevOps Beginners (2025): Build a Tiny App and Containerize It from Scratch</title>
+      <link>https://textandtech.me/docker-tutorial-for-beginners.html</link>
+      <description/>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/docker-tutorial-for-beginners.html</guid>
     </item>
-    
     <item>
-        <title>From Zero to CI/CD: Build Your First GitHub Actions Pipeline for a Simple Node/Python App</title>
-        <link>https://textandtech.me/github-actions-cicd-tutorial.html</link>
-        <description>Learn how to build a CI/CD pipeline from scratch using GitHub Actions for Node.js and Python. A complete 2025 beginner's guide to automating your testing and deployment.</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/github-actions-cicd-tutorial.html</guid>
+      <title>আঁচল কেনো আর পায় না পুরুষ?</title>
+      <link>https://textandtech.me/goddessorhoe.html</link>
+      <description>ওরা প্রথম দেখায় ভালোবাসা খুঁজে পায়, বুকের খাজে আর পেশিবহুল বাহুতে।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/goddessorhoe.html</guid>
     </item>
-    
     <item>
-        <title>Docker Tutorial for DevOps Beginners (2025): Build a Tiny App and Containerize It from Scratch</title>
-        <link>https://textandtech.me/docker-tutorial-for-beginners.html</link>
-        <description>A complete Docker tutorial for DevOps beginners in 2025. Learn to build a tiny Node.js or Python app and containerize it from scratch. Resume-ready project included.</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/docker-tutorial-for-beginners.html</guid>
+      <title>রঙ্গবতী</title>
+      <link>https://textandtech.me/rangobati.html</link>
+      <description>কখনো অশ্বত্থ, বট, কভু মনোভূমি,
+	অকস্মাৎ বদলে যাও ! বোধিবৃক্ষ, তুমি !
+	মায়া দাও, ছায়া দাও, দাও প্রলোভন,
+	মৃগদাবে পুড়ে মরে কত অকিঞ্চন !
+	তিতিক্ষুকে জল দাও, মুমুক্ষুকে প্রাণ,
+	বঞ্চিতকে বুকে ধরে শরীরের ঘ্রাণ !
+	যাদুবৃক্ষ ! জানো নাকি তোমার আশায় -
+	দারুব্রহ্মপ্রায়,
+	জেগে থাকি, যতদিন যুগান্তের পরে ।
+	তোমার নিঃশেষ হবে অন্তরে অন্তরে !
+	ততদিন বুকে ধর ঊর্ণনাভজাল –
+	আগত মোষের পিঠে কালের রাখাল !</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/rangobati.html</guid>
     </item>
-    
     <item>
-        <title>Cloud Fundamentals for DevOps Beginners (2025): From Zero to Your First Free-Tier Server</title>
-        <link>https://textandtech.me/cloud-fundamentals-for-devops.html</link>
-        <description>A complete guide to cloud fundamentals for DevOps beginners in 2025. Learn AWS EC2 basics, set up a free-tier account, and launch your first cloud server.</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/cloud-fundamentals-for-devops.html</guid>
+      <title>হারিয়ে গিয়েছি</title>
+      <link>https://textandtech.me/lost.html</link>
+      <description>এখানে নয়, যতটা পথ তুমি হেঁটে এসেছো,
+	তার কোথাও না কোথাও তুমি ঠিক দাঁড়িয়ে পড়তে পারতে!
+	একটা আয়না চুরি করে নিয়ে, তার সামনে গিয়ে-
+	নিজেকে শাসাতে পারতে, বলতে পারতে, যে আগুন তুমি ছুঁয়ছো,
+	তা কতটা পুড়িয়েছে, তোমার ঐ নরম বুক!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/lost.html</guid>
     </item>
-    
-    <!-- Bengali Poetry & Life Reflections -->
     <item>
-        <title>আমার অস্থিরতা যদি তুমি দেখতে!</title>
-        <link>https://textandtech.me/amar-osthirota.html</link>
-        <description>গৌতম স্থির হলো বোধিবৃক্ষে, মুহম্মদ হেরায় কলিঙ্গে, অশোক জীবনানন্দ ধর্মতলায় আর আমার অস্থিরতা যদি তুমি দেখতে!</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/amar-osthirota.html</guid>
+      <title>Writing A Scholarship-Awarding Motivation Letter</title>
+      <link>https://textandtech.me/sc.html</link>
+      <description>I had the pleasure to apply and be awarded a prestigious scholarship from Universität Hamburg for their Master's program in British and American Cultures: Texts and Media. I thought to share my personal experience in writing a SOP. Here, I’ll discuss my SOP and the mindset I had while writing it.</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/sc.html</guid>
     </item>
-    
     <item>
-        <title>আমার ক্ষমা প্রার্থনা</title>
-        <link>https://textandtech.me/ranti.html</link>
-        <description>আমার মাঝে মাঝে মরে যেতে ইচ্ছে করে।খুব নিঃশব্দে, কাউকে না জানিয়ে, অথবা কারও জন্যে কোনও ভাবে বিরক্তির তৈরি না করে। আমার চলে যেতে ইচ্ছে করে, যেন আমার জন্মই হয় নি অথবা আমার কোন অস্তিত্বই ছিল না।</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/ranti.html</guid>
+      <title>তোমারে একনজর দেখার জন্য</title>
+      <link>https://textandtech.me/tomar.html</link>
+      <description>তোমারে একনজর দেখার জন্য আমি কতবার ছুটে যাই এই শহরের এমাথা থেকে ওমাথা প্রতিবার ভাবি, এবার শহরের সবচেয়ে তাজা আর সুন্দর ফুলগুলো তোমারে দেবো</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/tomar.html</guid>
     </item>
-    
     <item>
-        <title>সাথী</title>
-        <link>https://textandtech.me/sathi.html</link>
-        <description>কেউ হাহাকার করছে ছেড়ে যাওয়া মানুষটির স্মৃতিতে, পাশে দাঁড়িয়ে থাকা মানুষটিকে কেউ লক্ষ্যই করছে না</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/sathi.html</guid>
+      <title>Cloud Fundamentals for DevOps Beginners (2025): From Zero to Your First Free-Tier Server</title>
+      <link>https://textandtech.me/cloud-fundamentals-for-devops.html</link>
+      <description/>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/cloud-fundamentals-for-devops.html</guid>
     </item>
-    
     <item>
-        <title>সুযোধন</title>
-        <link>https://textandtech.me/durjhodhon.html</link>
-        <description>মহাভারতের গল্প। হাজার বছর ধরে চলে আসছে। কোটি কোটি মানুষ গল্পটা জানেন। গল্পটা যদি অন্যভাবে লেখা হত!</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/durjhodhon.html</guid>
+      <title>Letter to EveryOne</title>
+      <link>https://textandtech.me/hospital-days.html</link>
+      <description>I'm sorry I'm so hard to love. So fuckin challenging to be with. 
+	I have no clue what the fuck I'm doing. For someone who is so used to being alone that the prospect of someone leaving makes no difference, I'm not good at telling people they mean something to me. When I met you, I thought you'd be another someone, just passing by. I never thought you'd stick around. Never thought I'd let you in and for the first time in forever, I'd know what it's like to have someone. I'm still getting used to it.&gt;
+	&lt;meta name=&quot;keywords&quot; content=&quot;Technology Blog, Bengali Blog, DevOps Tutorials, Literature, Rantideb, Docker, Kubernetes, CI/CD, GitHub Actions, Python, Bengali Poetry, Philosophy</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/hospital-days.html</guid>
     </item>
-    
     <item>
-        <title>নিঃসঙ্গ প্রেমিক</title>
-        <link>https://textandtech.me/prashanta.html</link>
-        <description>যুধিষ্ঠির, অর্জুন, নকুল, সহদেব সবাই এগিয়ে গেছে, শুধু তুমি কেন দাঁড়ালে আমার জন্যে ? আমি তো তাদেরও স্ত্রী, তাদের সন্তানদেরও জননী ! তবু শুধু তুমি একা কেন ?</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/prashanta.html</guid>
+      <title>আর্যতীর্থ</title>
+      <link>https://textandtech.me/aryotirtho.html</link>
+      <description>সৃষ্টি ও লয়ের জন্মদাত্রী নারী, যার মান ও অপমানে পুরুষের অন্তিম লেখা,
+	সেই নারীজন্ম ছেড়ে আমি কেন যে মহাবল পুরুষ হতে চাইলাম!
+	সেই ভ্রান্তি উত্তরপ্রজন্মের কাছে আমার নামকে অনন্তকাল হাস্যাস্পদ করে দিলো,
+	শিখণ্ডী নয়, আমি আরেকবার অম্বা হতে চাই!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/aryotirtho.html</guid>
     </item>
-    
     <item>
-        <title>নির্বাসন</title>
-        <link>https://textandtech.me/nirbashon.html</link>
-        <description>যদি আমরা এক হতে নাও পারি তাও এই সময়গুলো তো আর মিথ্যে নয়। এই রাত, এই জ্যোৎস্না, এই সব কবিতা তো আর মিথ্যে নয়!</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/nirbashon.html</guid>
+      <title>Philosophy Of My Life, You Should Probably Ignore</title>
+      <link>https://textandtech.me/life.html</link>
+      <description>Don’t trust the one person that has proven to be untrustworthy.
+	When someone shows their true color, don’t try to repaint the picture.
+	The best prediction of future behavior is past behavior.</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/life.html</guid>
     </item>
-    
     <item>
-        <title>প্রেম</title>
-        <link>https://textandtech.me/prem.html</link>
-        <description>ভীষণ ঝড়ের শেষে যে-পাতাটি পড়ে রয় জলহীন চৌচির কলসির কিনারে, তার নাম প্রেম।</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/prem.html</guid>
+      <title>Living Without, Growing Within</title>
+      <link>https://textandtech.me/liveandgrow.html</link>
+      <description>And maybe love is supposed to feel easy, light, and free. that regardless if you end up together or not, your feelings will never falter—it will stay the same, regardless if it’s expressed or unspoken.</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/liveandgrow.html</guid>
     </item>
-    
     <item>
-        <title>ভাঙাচোরা অপ্রাপ্তি</title>
-        <link>https://textandtech.me/oprapti.html</link>
-        <description>অপ্রাপ্তি নিয়ে চিন্তাভাবনা</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/oprapti.html</guid>
+      <title>প্রেমের ক্ষেত্রে আমি লোভী মেয়েদের পছন্দ করি</title>
+      <link>https://textandtech.me/keutonoy.html</link>
+      <description>সম্পর্ক ভাঙ্গার কারন খোঁজ করার প্রয়োজন নেই। বিষ্ণু পুরাণে পড়েছিলাম, আকাঙ্খা- প্রাপ্তির মোহ মায়ায় আটকে গঙ্গা এবং সরস্বতী দেবীও স্বয়ং শ্রী বিষ্ণু থেকে বিচ্ছেদ হয়েছিলো।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/keutonoy.html</guid>
     </item>
-    
     <item>
-        <title>তোমারে একনজর দেখার জন্য</title>
-        <link>https://textandtech.me/tomar.html</link>
-        <description>তোমারে একনজর দেখার জন্য আমি কতবার ছুটে যাই এই শহরের এমাথা থেকে ওমাথা প্রতিবার ভাবি, এবার শহরের সবচেয়ে তাজা আর সুন্দর ফুলগুলো তোমারে দেবো</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/tomar.html</guid>
+      <title>পরজনমে আর আমি তোর প্রেমিক হতে চাই না</title>
+      <link>https://textandtech.me/lifeandlove.html</link>
+      <description>ওদিকে প্রেমিকা শুয়ে আছে,
+	এক হাত দূরত্ব রেখে প্রমোদ গুনি,
+	মাঝ রাতে যদি ঘুম ভাঙ্গে, আমার দিকে পাশ ফিরে যদি বলে-
+	'ঘুমাওনি ?'
+	আমি নাহয় প্রতিদিনের মতো
+	প্রেমিকার বাহুতে স্থান নিবো ।
+	কিন্ত,
+	প্রেমিকা নিথর, কোন শব্দ নেই ঠোঁটে,
+	লাশের মর্গে আমি খুব একা,
+	মহাবিশ্বের শুন্যতা চারিদিক ।
+	প্রেমিকার মৃত্যুর সার্টিফিকেটে আমি দাঁড়িয়ে দিচ্ছি সিগনেচার ...
+	বাসায় ফিরে আমার স্থান হবে কোথায় ?
+	কার বাহুতে ?</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/lifeandlove.html</guid>
     </item>
-    
     <item>
-        <title>হায় কৃষ্ণ</title>
-        <link>https://textandtech.me/gandhari.html</link>
-        <description>গান্ধারী এবং কৃষ্ণের কথোপকথন</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/gandhari.html</guid>
+      <title>প্রাণোচ্ছল সন্তোর্পন</title>
+      <link>https://textandtech.me/submission.html</link>
+      <description>এইযে এখান টা দেখছো! 
+	হাত দাও। 
+	এখানকার আকাশ টা বড্ড ধূসর!
+	আলো পড়ে! তবে ছাইরঙা।
+	তোমার আকাশ নাকি সিঁদুররাঙা!
+	শুনেছি রাতভর সেখানে ঝিঁঝিঁ ডাকে! 
+	আমি শুধু রাতে পানির ওপর জলরঙা চাঁদ দেখি।
+	আর তুমি দেখতে আমায়!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/submission.html</guid>
     </item>
-    
     <item>
-        <title>ইরাবতী</title>
-        <link>https://textandtech.me/iraboti.html</link>
-        <description>ওরা প্রথম দেখায় ভালোবাসা খুঁজে পায়, বুকের খাজে আর পেশিবহুল বাহুতে।</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/iraboti.html</guid>
+      <title>নির্বাসন</title>
+      <link>https://textandtech.me/nirbashon.html</link>
+      <description>যদি আমরা এক হতে নাও পারি তাও এই সময়গুলো তো আর মিথ্যে নয়। এই রাত, এই জ্যোৎস্না, এই সব কবিতা তো আর মিথ্যে নয়! যে যার মতো যা খুশী ভাবুক, আমি আমার লেখা তোমার জন্য রেখে যাব। আমার বাদামি ডায়েরির সব লেখা শুধুমাত্র তোমার জন্য রেখে যাব। আমি যদি তোমায় খুঁজে নাও পাই, সেই ডায়েরি তোমায় খুঁজে পাবে। সেইসব কবিতা তোমায় খুঁজে পাবে। আর এই শব্দগুলোর অর্থ কেবল আমরাই জানব।মাত্র আমরা দু'জন জানব!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/nirbashon.html</guid>
     </item>
-    
     <item>
-        <title>আঁচল কেনো আর পায় না পুরুষ?</title>
-        <link>https://textandtech.me/goddessorhoe.html</link>
-        <description>ওরা প্রথম দেখায় ভালোবাসা খুঁজে পায়, বুকের খাজে আর পেশিবহুল বাহুতে।</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/goddessorhoe.html</guid>
+      <title>মাধবী</title>
+      <link>https://textandtech.me/madhovi.html</link>
+      <description>মাধবীর উপাখ্যান মহাভারতের। এক নারীর অবমাননা ও পণ্যায়নের গল্প। &gt;
+	&lt;meta name=&quot;keywords&quot; content=&quot;Technology Blog, Bengali Blog, DevOps Tutorials, Literature, Rantideb, Docker, Kubernetes, CI/CD, GitHub Actions, Python, Bengali Poetry, Philosophy</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/madhovi.html</guid>
     </item>
-    
     <item>
-        <title>পুরুষতন্ত্র</title>
-        <link>https://textandtech.me/man.html</link>
-        <description>পুরুষ জানে না তার বুকে কেন এতো বেদনা, সে প্রতি মুহূর্তে ব্যস্ত পরিবারের বেদনা তাড়ানোয়।</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/man.html</guid>
+      <title>প্রাক্তন প্রেমিকাকে</title>
+      <link>https://textandtech.me/estrangement.html</link>
+      <description>বিচ্ছেদের এতোবছর পরেও যেন
+	এখনো মাঝেমধ্যে গভীর রাতে,সে কী
+	মন উতলা,খোলা জানালা,
+	ঠান্ডা ভেজা হাওয়া,
+	দাঁড়িয়ে থাকি চোখের জলে।
+	বৃষ্টির ফোঁটা,ঝাঁপসা কাঁচে
+	এ কী মেঘের পলক,এ কী
+	শোকের শাঁকোয়,
+	এ কী দুরুদুরু বুক,ঘর্মাক্ত শরীর,
+	বাহিরে কালো।ওগো,না জানি মৃত্যু কতনা কাছেই!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/estrangement.html</guid>
     </item>
-    
     <item>
-        <title>এপিকটেটাসের ডিসকোর্স: বন্ধুত্ব প্রসঙ্গে</title>
-        <link>https://textandtech.me/friend.html</link>
-        <description>যে ব্যক্তি ভালত্বকে বুঝতে পারে, সেই কেবল ভালবাসতে পারে। কিন্তু যে ব্যক্তি শুভ থেকে অশুভকে আলাদা করতে পারে না কিম্বা আলাদা করতে পারে না শুভ-অশুভ থেকে জীবনের তুচ্ছতাকে, কিভাবে তার পক্ষে ভালবাসা সম্ভব?</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/friend.html</guid>
+      <title>প্রেম</title>
+      <link>https://textandtech.me/prem.html</link>
+      <description>ভীষণ ঝড়ের শেষে যে-পাতাটি পড়ে রয় জলহীন চৌচির কলসির কিনারে, তার নাম প্রেম।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/prem.html</guid>
     </item>
-    
     <item>
-        <title>Keutonoy</title>
-        <link>https://textandtech.me/keutonoy.html</link>
-        <description>সম্পর্ক ভাঙ্গার কারন খোঁজ করার প্রয়োজন নেই। বিষ্ণু পুরাণে পড়েছিলাম, আকাঙ্খা- প্রাপ্তির মোহ মায়ায় আটকে গঙ্গা এবং সরস্বতী দেবীও স্বয়ং শ্রী বিষ্ণু থেকে বিচ্ছেদ হয়েছিলো।</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/keutonoy.html</guid>
+      <title>যে বিদায় আনন্দের</title>
+      <link>https://textandtech.me/sayinggoodbye.html</link>
+      <description>প্রেমিকা একটু পাগলী ধরণের হবেই, হঠাৎ প্রেমে পাগলাপারা হবে;হঠাৎ তুমুল হাসবে। হঠাৎ &quot;
+		আমি তো পুরানো হয়ে গেছি&quot; বলে কাঁদবে; বা এমনও হতে পারে একটা নতুন পোশাক বা চশমা অথবা মোজা পড়ে, অনেক আনন্দ নিয়ে
+		বললো &quot;এটা কেমন গো?&quot; আপনি আপনার কিশোর মনের খিল্লি নিয়ে, জোরে হেসে উঠলেন, আর বললেন, &quot;বাচ্চাদের মতো&quot; ... সে বলবেই
+		বলবে, &quot;আমি তো হাস্যকর... জোকার!  তোমার যোগ্য নই&quot; নিজের মেয়ের অভিমান যদি একটা আলিঙ্গন বা আইসক্রিম অথবা চকোলেট
+		দিয়ে ভাঙানো যায়..... প্রেমিকারও যায়, যদি না পারেন- আপনার ভালোবাসাটাই পাপ......</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/sayinggoodbye.html</guid>
     </item>
-    
     <item>
-        <title>Living Without, Growing Within</title>
-        <link>https://textandtech.me/liveandgrow.html</link>
-        <description>And maybe love is supposed to feel easy, light, and free. that regardless if you end up together or not, your feelings will never falter—it will stay the same, regardless if it's expressed or unspoken.</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/liveandgrow.html</guid>
+      <title>Rantideb's Random Rants</title>
+      <link>https://textandtech.me/koppa.html</link>
+      <description>Rantideb's Random Rants</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/koppa.html</guid>
     </item>
-    
     <item>
-        <title>Writing A Scholarship-Awarding Motivation Letter</title>
-        <link>https://textandtech.me/sc.html</link>
-        <description>I had the pleasure to apply and be awarded a prestigious scholarship from Universität Hamburg for their Master's program in British and American Cultures: Texts and Media.</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/sc.html</guid>
+      <title>নারী বিষধর সাপের মতোন</title>
+      <link>https://textandtech.me/snake.html</link>
+      <description>যদি ভালোবেসেই সব হতো, 
+	তাহলে পাড়ার ওই বউ-পাগল গোবেচারা সেলিমের বউটা 
+	পালিয়ে গেলো কেন ? 
+	আহারে- 
+	কি যে কান্না কেঁদেছিল সেলিম, 
+	পুরো মহল্লার মানুষ দেখেছিল !</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/snake.html</guid>
     </item>
-    
     <item>
-        <title>জীবন সায়াহ্নে</title>
-        <link>https://textandtech.me/jibon-sahyane.html</link>
-        <description>Life reflections</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/jibon-sahyane.html</guid>
+      <title>যে বীজের অঙ্কুরোদগম হয়নি।</title>
+      <link>https://textandtech.me/se-jodi-janto.html</link>
+      <description>ভালো থাকতে হয়ই যেহেতু─
+	জিভ-পাকস্থলি-যৌনাঙ্গ নিয়ে
+	মস্তিষ্কবিহীন আমরা ভালো আছি।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/se-jodi-janto.html</guid>
     </item>
-    
     <item>
-        <title>প্রাক্তন প্রেমিকাকে</title>
-        <link>https://textandtech.me/estrangement.html</link>
-        <description>Reflections on past relationships</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/estrangement.html</guid>
+      <title>ইরাবতী</title>
+      <link>https://textandtech.me/hem.html</link>
+      <description>আমি মাতাল মৌমাছি- প্রেমের গন্ধ শুঁকতে শুঁকতে প্রেমিকার কাছে আসি । ক'টা যোনিপথ পাড়ি দিয়ে আমার কাছে এলে ? মুহূর্তে গলা চেপে ধরি সর্বশক্তি দিয়ে, ঠোঁটে ঠোঁট দেয়ার আগে বলি- মাতাল হতেই পারি অসভ্য স্বভাবে তবু যার তার হয়ে যাইনি তোমার অভাবে&quot; &gt;
+	&lt;meta name=&quot;keywords&quot; content=&quot;Technology Blog, Bengali Blog, DevOps Tutorials, Literature, Rantideb, Docker, Kubernetes, CI/CD, GitHub Actions, Python, Bengali Poetry, Philosophy</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/hem.html</guid>
     </item>
-    
     <item>
-        <title>অরুন্ধুতী</title>
-        <link>https://textandtech.me/arundhuti.html</link>
-        <description>Bengali poetry</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/arundhuti.html</guid>
+      <title>পুরুষতন্ত্র</title>
+      <link>https://textandtech.me/man.html</link>
+      <description>পুরুষ জানে না তার বুকে কেন এতো বেদনা, সে প্রতি মুহূর্তে ব্যস্ত পরিবারের বেদনা তাড়ানোয়। পুরুষ জানে না কেন সে সিগ্রেট ফোঁকে, অথচ সে সন্তানকে সিগ্রেট ফুঁকতে দেয় না। পুরুষ জানে না তার অশ্রু নীল নাকি বর্ণহীন, সে কোনোদিন কাঁদতে পারেনি। পুরুষ জানে না সে বুড়ো হয়ে গেছে, কেননা মৃত্যুর দিনও তাকে শুনতে হয়- &quot;কী দিয়েছ আমাকে?&quot;</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/man.html</guid>
     </item>
-    
     <item>
-        <title>মাধবী</title>
-        <link>https://textandtech.me/madhovi.html</link>
-        <description>Bengali poetry</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/madhovi.html</guid>
+      <title>হায় কৃষ্ণ</title>
+      <link>https://textandtech.me/gandhari.html</link>
+      <description>ভীমসেন হত্যা করেছে বটে, কিন্তু আসল হন্তারক তুমি হে মাধব! তুমিই তাকে অন্যায় যুদ্ধে প্ররোচিত করেছিলে। বুদ্ধি দিয়েছিলে ঊরুতে আঘাতের। প্রিয় বলরাম ক্ষুব্ধ হয়েছিল এই অন্যায় যুদ্ধে। হে মাধব, তোমার কুলবধু লক্ষণার কথা বিস্মৃত হয়েছিলে তুমি। বিস্মৃত হয়েছিলে প্রিয় সুযোধনের প্রাণের পুত্তলি লক্ষণার শোক। বৈবাহিক ছিলে তুমি সুযোধনের। ভীমসেন প্রতিজ্ঞা করেছিল যাজ্ঞসেনীর অবমাননার প্রতিশোধ সে নেবে। সে নিয়েছে। কিন্তু তুমি হে মাধব! কোন দুস্প্রভাবে তোমার মতিচ্ছন্ন হল? পুত্র সুযোধনের অঙ্গুলিসংকেত একমাত্র তোমার পানে। হ্যাঁ, শুধু তোমার দিকেই তার শেষ অঙ্গুলিসংকেত। তার পুত্রদের তুমি হত্যায় প্ররোচিত করেছো। ওই তরুণ নিষ্পাপ আমার দৌহিত্রগণের কি দোষ ছিল হে মাধব? &gt;
+	&lt;meta name=&quot;keywords&quot; content=&quot;Technology Blog, Bengali Blog, DevOps Tutorials, Literature, Rantideb, Docker, Kubernetes, CI/CD, GitHub Actions, Python, Bengali Poetry, Philosophy</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/gandhari.html</guid>
     </item>
-    
     <item>
-        <title>রঙ্গবতী</title>
-        <link>https://textandtech.me/rangobati.html</link>
-        <description>Bengali poetry</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/rangobati.html</guid>
+      <title>আমার ক্ষমা প্রার্থনা</title>
+      <link>https://textandtech.me/ranti.html</link>
+      <description>আমার মাঝে মাঝে মরে যেতে ইচ্ছে করে।খুব নিঃশব্দে, কাউকে না জানিয়ে, অথবা কারও জন্যে কোনও ভাবে বিরক্তির তৈরি না করে। আমার চলে যেতে ইচ্ছে করে, যেন আমার জন্মই হয় নি অথবা আমার কোন অস্তিত্বই ছিল না।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/ranti.html</guid>
     </item>
-    
     <item>
-        <title>সমর্পণ</title>
-        <link>https://textandtech.me/somorpan.html</link>
-        <description>Surrender and devotion</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/somorpan.html</guid>
+      <title>প্রাক্তন, পুনরায় চাওয়া, মারাত্মক ভুলগুলো</title>
+      <link>https://textandtech.me/guilty.html</link>
+      <description>তোমাকে দেখামাত্র চেঁচামেচি আরম্ভ করে দেবে স্ত্রী, কারণ বাইরে খেতে না-পেয়ে ঘরের মুড়ি-বিস্কুট-আচার সমস্ত খাবারের ডিব্বাই খুঁজেখুঁজে খালি করে দিচ্ছ তুমি।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/guilty.html</guid>
     </item>
-    
     <item>
-        <title>Letter to EveryOne</title>
-        <link>https://textandtech.me/hospital-days.html</link>
-        <description>Personal reflections from hospital days</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/hospital-days.html</guid>
+      <title>এপিকটেটাসের ডিসকোর্স: বন্ধুত্ব প্রসঙ্গে</title>
+      <link>https://textandtech.me/friend.html</link>
+      <description>যে ব্যক্তি ভালত্বকে বুঝতে পারে, সেই কেবল ভালবাসতে পারে। কিন্তু যে ব্যক্তি শুভ থেকে অশুভকে আলাদা করতে পারে না কিম্বা আলাদা করতে পারে না শুভ-অশুভ থেকে জীবনের তুচ্ছতাকে, কিভাবে তার পক্ষে ভালবাসা সম্ভব? সুতরাং কেবল প্রজ্ঞাবান ব্যক্তিই ভালবাসতে সক্ষম।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/friend.html</guid>
     </item>
-    
     <item>
-        <title>Philosophy Of My Life, You Should Probably Ignore</title>
-        <link>https://textandtech.me/life.html</link>
-        <description>Personal philosophy and life musings</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/life.html</guid>
+      <title>Rantideb's Random Rants</title>
+      <link>https://textandtech.me/blog-post.html</link>
+      <description>Rantideb's Random Rants</description>
+      <pubDate>Tue, 23 Dec 2025 23:55:17 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/blog-post.html</guid>
     </item>
-    
     <item>
-        <title>Rantideb's Random Rants</title>
-        <link>https://textandtech.me/koppa.html</link>
-        <description>Rantideb's Random Rants</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/koppa.html</guid>
+      <title>সমর্পণ</title>
+      <link>https://textandtech.me/somorpan.html</link>
+      <description>সময় বয়ে যায়, কত কাল পেরিয়ে গ্যালো হাত টা ছোঁয়া হয়নি.. 
+	কত রাত জেগেছি। 
+	চোখের নিচে কাজল নয় ওসব! ভালোবাসার অপেক্ষা জমেছে!
+	নাকের নথের মাঝে গুঁজে রাখি তবুও, কবে আসবেন? কবে হবে দ্যাখা?</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/somorpan.html</guid>
     </item>
-    
     <item>
-        <title>শান্তিতে থাকো, ওঁ শান্তি</title>
-        <link>https://textandtech.me/who.html</link>
-        <description>Peace and tranquility</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/who.html</guid>
+      <title>ইরাবতী</title>
+      <link>https://textandtech.me/iraboti.html</link>
+      <description>ওরা প্রথম দেখায় ভালোবাসা খুঁজে পায়, বুকের খাজে আর পেশিবহুল বাহুতে।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/iraboti.html</guid>
     </item>
-    
     <item>
-        <title>হারিয়ে গিয়েছি</title>
-        <link>https://textandtech.me/lost.html</link>
-        <description>Lost in thoughts</description>
-        <pubDate>Thu, 19 Dec 2024 00:00:00 GMT</pubDate>
-        <guid>https://textandtech.me/lost.html</guid>
+      <title>এইকি শেষ !</title>
+      <link>https://textandtech.me/lostloseorleft.html</link>
+      <description>মোহ কেটে গেলে গোলাপও শুকনো পাতা।
+	সমর্পিত হওয়ার আগে জেনে নিয়ো তুমি মোহ নাকি মুগ্ধতা।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/lostloseorleft.html</guid>
     </item>
-    
-</channel>
+    <item>
+      <title>কল্পমিছিল</title>
+      <link>https://textandtech.me/mon.html</link>
+      <description>তোমার কারণে আমি অনেক কিছু করতে পারি, 
+	তুমি জানো না- 
+	আমি তোমারে ভালোবেসে ভুত হয়ে গেছি, 
+	যেখানে সেখানে ঝুলে থাকি । 
+	ভুত হয়ে যাওয়ার মজা অনেক- 
+	যখন তখন চলে আসি, 
+	তোমারে দেখি- 
+	অন্য সময় আমারে দেখে তুমি লজ্জা পেতে, 
+	দ্রুত গতিতে আঁচল টেনে বুক ঢেকে নিতে- 
+	কিন্ত এখন ? 
+	তোমার সম্পূর্ণ শরীরের কাছে চলে আসার পরেও, 
+	তোমার বিকার নেই, 
+	ফ্যানের বাতাসে তোমার কোমরের মাংস বের হয়- 
+	আমার দাঁত শিনশিন করে কামড়ে ধরার জন্য, 
+	ভুত বলে কথা ! 
+	ঘাড়ের নরম জায়গা থেকেও রক্ত বের করে চুষে খেতে ইচ্ছে করে ! 
+	থাক, 
+	ভুত হলেও ভালো তো বাসি- 
+	তাই সারারাত তোমার গায়ের ঘ্রান শুঁকে, 
+	তবু ফজরের আগেই সরে আসি !</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/mon.html</guid>
+    </item>
+    <item>
+      <title>DevOps for Beginners: Roadmap, Skills, Jobs, and Salary (2025 Guide)</title>
+      <link>https://textandtech.me/devops-engineer-roadmap-guide.html</link>
+      <description/>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/devops-engineer-roadmap-guide.html</guid>
+    </item>
+    <item>
+      <title>Test Reading Time</title>
+      <link>https://textandtech.me/test-reading-time.html</link>
+      <description/>
+      <pubDate>Tue, 23 Dec 2025 23:55:17 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/test-reading-time.html</guid>
+    </item>
+    <item>
+      <title>সুযোধন</title>
+      <link>https://textandtech.me/durjhodhon.html</link>
+      <description>মহাভারতের গল্প। হাজার বছর ধরে চলে আসছে। কোটি কোটি মানুষ গল্পটা জানেন। গল্পটা যদি অন্যভাবে লেখা হত!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/durjhodhon.html</guid>
+    </item>
+    <item>
+      <title>বৈচিত্র্যনাশিনী</title>
+      <link>https://textandtech.me/horini.html</link>
+      <description>চোখে তার পান্না বাহার
+	কান্না গড়ায় কথায় কথায়!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/horini.html</guid>
+    </item>
+    <item>
+      <title>আগুন আর প্রেমিকা</title>
+      <link>https://textandtech.me/priyota.html</link>
+      <description>ভালোবাসা কি প্রেমিকার নগ্ন বুকের তিলে থাকে? 
+	চুমুর তীব্র ঝড়ের পর ভেজা ঠোটের গন্ধে? 
+	আমিতো প্রেম পাই প্রেমিকের ঘামে ভেজা শার্টের বোতামে। প্রেমিকের সিগারেট ধোয়াতে। 
+	আহারে প্রেম! ❤</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/priyota.html</guid>
+    </item>
+    <item>
+      <title>10 Beginner DevOps Projects You Can Build in 2025 (GitHub Actions, Docker, Terraform &amp; More)</title>
+      <link>https://textandtech.me/devops-projects-for-beginners.html</link>
+      <description/>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/devops-projects-for-beginners.html</guid>
+    </item>
+    <item>
+      <title>অরুন্ধুতী</title>
+      <link>https://textandtech.me/arundhuti.html</link>
+      <description/>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/arundhuti.html</guid>
+    </item>
+    <item>
+      <title>তুমি যদি দরিদ্র হও</title>
+      <link>https://textandtech.me/unfortunate.html</link>
+      <description>তোমাকে দেখামাত্র চেঁচামেচি আরম্ভ করে দেবে স্ত্রী, কারণ বাইরে খেতে না-পেয়ে ঘরের মুড়ি-বিস্কুট-আচার সমস্ত খাবারের ডিব্বাই খুঁজেখুঁজে খালি করে দিচ্ছ তুমি।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/unfortunate.html</guid>
+    </item>
+    <item>
+      <title>গোলাপী আভার সর্বনাশে</title>
+      <link>https://textandtech.me/kauke-valobashoni.html</link>
+      <description>অকাতর ভালোবেসে ফেলি তত্ক্ষনাত্!
+	সে যদি পাহাড় হয়, পাহাড়।
+	নদী হয়,নদী।
+	কাকাতুয়া হলে,কাকাতুয়া..
+	নারী হলে- নারী।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/kauke-valobashoni.html</guid>
+    </item>
+    <item>
+      <title>প্রেম পালিয়ে যায়!</title>
+      <link>https://textandtech.me/prem-paliye-jai.html</link>
+      <description>আলোর দড়ি জড়ায় তাকে,
+এম্নিতে সে একলা থাকে।
+আজ কে জানে কিসের ডাকে
+প্রেম পালিয়ে যায়!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/prem-paliye-jai.html</guid>
+    </item>
+    <item>
+      <title>From Zero to CI/CD: Build Your First GitHub Actions Pipeline for a Simple Node/Python App</title>
+      <link>https://textandtech.me/github-actions-cicd-tutorial.html</link>
+      <description/>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/github-actions-cicd-tutorial.html</guid>
+    </item>
+    <item>
+      <title>অতিথি</title>
+      <link>https://textandtech.me/o-amar.html</link>
+      <description>মায়া কইরা তুমি পাখি পুষলা, কুকুর পুষলা
+	বিড়াল পুষলা, শুধু একটু আমারে পুষলা না।
+	আমারে কদ্দুর ভালোবাসলে বুঝি তোমার পাপ
+	হইতো? পাপের শাস্তি হিসাবে খোদায় তোমারে
+	বুঝি টুইড়া ফেলতো নরকে?</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/o-amar.html</guid>
+    </item>
+    <item>
+      <title>নিঃসঙ্গ প্রেমিক</title>
+      <link>https://textandtech.me/prashanta.html</link>
+      <description>যুধিষ্ঠির, অর্জুন, নকুল, সহদেব সবাই এগিয়ে গেছে, শুধু তুমি কেন দাঁড়ালে আমার জন্যে ? আমি তো তাদেরও স্ত্রী, তাদের সন্তানদেরও জননী ! তবু শুধু তুমি একা কেন ?</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/prashanta.html</guid>
+    </item>
+    <item>
+      <title>জীবন সায়াহ্নে</title>
+      <link>https://textandtech.me/jibon-sahyane.html</link>
+      <description>তোরও কি মন খারাপ, যেমন আমার?
+	আমার তো তুই নেই, তোর অভাব কার?&quot; &gt;
+	&lt;meta name=&quot;keywords&quot; content=&quot;Technology Blog, Bengali Blog, DevOps Tutorials, Literature, Rantideb, Docker, Kubernetes, CI/CD, GitHub Actions, Python, Bengali Poetry, Philosophy</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/jibon-sahyane.html</guid>
+    </item>
+    <item>
+      <title>অথচ চলে গেলে</title>
+      <link>https://textandtech.me/karechaotumi.html</link>
+      <description>অপমানে আর একাকীত্বে মিটে গেলে আহ্লাদ,
+	ফিরে এসো, আছি, যত্নে রেখেছি কান্না করার কাঁধ।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/karechaotumi.html</guid>
+    </item>
+    <item>
+      <title>পাপ</title>
+      <link>https://textandtech.me/pap.html</link>
+      <description>তোমার কারণে আমি অনেক কিছু করতে পারি, 
+	তুমি জানো না- 
+	আমি তোমারে ভালোবেসে ভুত হয়ে গেছি, 
+	যেখানে সেখানে ঝুলে থাকি । 
+	ভুত হয়ে যাওয়ার মজা অনেক- 
+	যখন তখন চলে আসি, 
+	তোমারে দেখি- 
+	অন্য সময় আমারে দেখে তুমি লজ্জা পেতে, 
+	দ্রুত গতিতে আঁচল টেনে বুক ঢেকে নিতে- 
+	কিন্ত এখন ? 
+	তোমার সম্পূর্ণ শরীরের কাছে চলে আসার পরেও, 
+	তোমার বিকার নেই, 
+	ফ্যানের বাতাসে তোমার কোমরের মাংস বের হয়- 
+	আমার দাঁত শিনশিন করে কামড়ে ধরার জন্য, 
+	ভুত বলে কথা ! 
+	ঘাড়ের নরম জায়গা থেকেও রক্ত বের করে চুষে খেতে ইচ্ছে করে ! 
+	থাক, 
+	ভুত হলেও ভালো তো বাসি- 
+	তাই সারারাত তোমার গায়ের ঘ্রান শুঁকে, 
+	তবু ফজরের আগেই সরে আসি !</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/pap.html</guid>
+    </item>
+    <item>
+      <title>ভাঙাচোরা অপ্রাপ্তি</title>
+      <link>https://textandtech.me/oprapti.html</link>
+      <description>বুঝুক মানুষ বুঝুক,
+	একটি ডালে দুইটি পাখি সংসারটা গড়ুক।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/oprapti.html</guid>
+    </item>
+    <item>
+      <title>আমার অস্থিরতা যদি তুমি দেখতে!</title>
+      <link>https://textandtech.me/amar-osthirota.html</link>
+      <description>গৌতম স্থির হলো বোধিবৃক্ষে, মুহম্মদ হেরায় কলিঙ্গে, অশোক জীবনানন্দ ধর্মতলায়
+	আর আমার অস্থিরতা যদি তুমি দেখতে!</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/amar-osthirota.html</guid>
+    </item>
+    <item>
+      <title>শান্তিতে থাকো, ওঁ শান্তি</title>
+      <link>https://textandtech.me/who.html</link>
+      <description>ছেলেটারে কানতে দেখছ? দেখ নাই।
+	সে চক্ষু দিয়া কান্দে না, শিশ্ন দিয়া কান্দে।
+	রোজ রাইতে হস্তমৈথুন শেষে থুক দেয় শিশ্নের ডগায়,
+	আর ভাবে, অইটা তোমার মাথা।
+	এইভাবে একদিন সে সর্বহারা হবে, স্পার্মকাউন্ট- শূন্য।
+	তখন ত তুমি বলবা পাড়ায় ঢোল পিটায়া- &quot;এইজইন্যই ছাইড়া আইছিলাম সুদির্ভাইয়েরে! কিইস্সু নাই।&quot;
+	হ, তুমি ভবিষ্যৎদর্শী খোদা।</description>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="true">https://textandtech.me/who.html</guid>
+    </item>
+  </channel>
 </rss>

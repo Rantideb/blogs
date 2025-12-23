@@ -5,7 +5,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8340971949778309"
         crossorigin="anonymous"></script>
 
-    <title>404: Page Not Found</title>
+    <title>404: Page Not Found | Rantideb</title>
     <link rel="canonical" href="https://textandtech.me/404.html">
 
     <!-- Meta -->
@@ -13,6 +13,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Oops! The page you are looking for does not exist.">
+    <meta name="keywords"
+        content="Technology Blog, Bengali Blog, DevOps Tutorials, Literature, Rantideb, Docker, Kubernetes, CI/CD, GitHub Actions, Python, Bengali Poetry, Philosophy">
     <meta name="author" content="Rantideb">
     <meta property="og:title" content="404: Page Not Found">
     <meta property="og:description" content="Oops! The page you are looking for does not exist.">
@@ -47,6 +49,65 @@
         gtag('config', 'G-E2HHJ2NJSM');
     </script>
 
+    <link rel="manifest" href="manifest.json">
+<script type="application/ld+json" id="static-schema">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Text and Tech",
+    "url": "https://textandtech.me",
+    "founder": {
+      "@type": "Person",
+      "name": "Rantideb",
+      "url": "https://www.ranti.dev"
+    },
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://textandtech.me/assets/images/profile.jpg"
+    },
+    "sameAs": [
+      "https://twitter.com/r4ntide3",
+      "https://www.linkedin.com/in/rantideb/",
+      "https://github.com/Rantideb",
+      "https://www.facebook.com/R4ntideb"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rantideb",
+    "url": "https://www.ranti.dev",
+    "image": "https://textandtech.me/assets/images/profile.jpg",
+    "jobTitle": "DevOps Engineer & Writer",
+    "owns": {
+      "@type": "Organization",
+      "name": "Text and Tech",
+      "url": "https://textandtech.me"
+    },
+    "sameAs": [
+      "https://twitter.com/r4ntide3",
+      "https://www.linkedin.com/in/rantideb/",
+      "https://github.com/Rantideb",
+      "https://www.facebook.com/R4ntideb"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Text and Tech",
+    "url": "https://textandtech.me",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://textandtech.me/search-results.html?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+]
+</script>
 </head>
 
 <body>
@@ -72,7 +133,8 @@
 
             <div id="navigation" class="collapse navbar-collapse flex-column">
                 <div class="profile-section pt-3 pt-lg-0">
-                    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.jpg" alt="image">
+                    <img loading="lazy" class="profile-image mb-3 rounded-circle mx-auto"
+                        src="assets/images/profile.jpg" alt="image">
 
                     <div class="bio mb-3">তুই ক্লান্তু কেন হোস রে আমার মন
                         সবে তো তোর যাত্রা হলো শুরু,
@@ -129,10 +191,16 @@
                 <h2 class="heading">404: Page Not Found</h2>
                 <div class="intro">
                     <p>Oops! Looks like you've wandered into the void.</p>
+                    <form class="search-form d-flex justify-content-center pt-3" action="search-results.html"
+                        method="get">
+                        <input type="text" name="q" class="form-control me-2" placeholder="Search blog..."
+                            style="max-width: 250px;" required>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
                 </div>
 
-                <figure class="mt-4"><img class="img-fluid" src="assets/images/404.png" alt="404 Page Not Found"
-                        style="max-width: 400px; width: 100%;"></figure>
+                <figure class="mt-4"><img loading="lazy" class="img-fluid" src="assets/images/404.png"
+                        alt="404 Page Not Found" style="max-width: 400px; width: 100%;"></figure>
 
                 <div class="mt-5">
                     <a class="btn btn-primary" href="index.html">Take Me Home</a>
@@ -167,6 +235,7 @@
     <!-- UX Enhancements -->
     <script src="assets/js/ux-enhancements.js"></script>
 
+    <script src="assets/js/structured-data.js"></script>
 </body>
 
 </html>

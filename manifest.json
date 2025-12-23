@@ -1,0 +1,21 @@
+{
+  "name": "Text and Tech",
+  "short_name": "Rantideb",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "description": "Rantideb's personal blog on technology, philosophy, and literature.",
+  "icons": [
+    {
+      "src": "assets/images/profile.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "assets/images/profile.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
