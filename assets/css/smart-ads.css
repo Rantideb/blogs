@@ -32,7 +32,8 @@
 .list-ad,
 .header-ad,
 .section-ad,
-.footer-section-ad {
+.footer-section-ad,
+.native-ad {
     margin: 40px auto;
     /* No default padding/border to ensure height is 0 if empty */
 }
@@ -40,7 +41,8 @@
 .list-ad.ad-loaded,
 .header-ad.ad-loaded,
 .section-ad.ad-loaded,
-.footer-section-ad.ad-loaded {
+.footer-section-ad.ad-loaded,
+.native-ad.ad-loaded {
     padding: 10px;
     background: #f8f9fa;
     border: 1px dashed #e0e0e0;

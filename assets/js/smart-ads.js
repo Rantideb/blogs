@@ -58,15 +58,23 @@ const SmartAds = {
             provider: 'adsense', // 'adsense' will use an anchor ad if auto-ads are on, or we can force a unit
             // Paste a specific 728x90 or 320x50 unit code here if using 'custom'
             customCode: ``
+        },
+        // 4. NATIVE RECOMMENDATION GRID (Bottom of Article)
+        nativeBanner: {
+            enabled: true,
+            containerId: 'container-cb71fbd53cb8f907c27e68af7d11ac3f',
+            // Code includes the script AND the container logic
+            scriptUrl: 'https://pl28324851.effectivegatecpm.com/cb71fbd53cb8f907c27e68af7d11ac3f/invoke.js'
         }
     },
 
     init: function () {
         console.log('SmartAds: Initializing...');
-        this.setupHeaderAd(); // New: Top of content
+        this.setupHeaderAd();
+        this.setupSectionAds();
         this.setupInContentAds();
+        this.setupNativeBanner(); // New: Native Grid
         this.setupListAds();
-        this.setupSectionAds(); // New: Ads between sections
         this.setupStickyFooter();
         this.setupPopunder();
     },
@@ -294,6 +302,43 @@ const SmartAds = {
 
         footerAd.appendChild(adContent);
         document.body.appendChild(footerAd);
+    },
+
+    setupNativeBanner: function () {
+        if (!this.placements.nativeBanner.enabled) return;
+
+        // Target end of article content
+        const contentBody = document.querySelector('.blog-post-body');
+        if (!contentBody) return;
+
+        const adContainer = document.createElement('div');
+        adContainer.className = 'ad-slot-container native-ad';
+        adContainer.style.margin = '40px 0'; // Vertical spacing
+
+        // Label
+        const label = document.createElement('span');
+        label.className = 'ad-label';
+        label.innerText = 'Recommended';
+        adContainer.appendChild(label);
+
+        // 1. Create the specific Container DIV required by the network
+        const networkContainer = document.createElement('div');
+        networkContainer.id = this.placements.nativeBanner.containerId;
+        adContainer.appendChild(networkContainer);
+
+        // Append to bottom of content
+        contentBody.appendChild(adContainer);
+
+        // 2. Inject the Script
+        const script = document.createElement('script');
+        script.async = true;
+        script.setAttribute('data-cfasync', 'false');
+        script.src = this.placements.nativeBanner.scriptUrl;
+
+        // Append script to body or container (usually body is safer for these globals)
+        document.body.appendChild(script);
+
+        this.monitorAdHeight(adContainer);
     },
 
     setupPopunder: function () {
