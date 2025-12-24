@@ -343,9 +343,6 @@
                         <button class="cookie-btn cookie-btn-text" id="cookieCustomizeBtn">
                             ${text.customizeBtn}
                         </button>
-                        <button class="cookie-btn cookie-btn-secondary" id="cookieDeclineBtn">
-                            ${text.declineAllBtn}
-                        </button>
                         <button class="cookie-btn cookie-btn-primary" id="cookieAcceptBtn">
                             ${text.acceptAllBtn}
                         </button>
@@ -377,9 +374,6 @@
                     </div>
                     ${categoriesHTML}
                     <div class="cookie-banner-actions" style="margin-top: 24px;">
-                        <button class="cookie-btn cookie-btn-secondary" id="cookieDeclineBtn">
-                            ${text.declineAllBtn}
-                        </button>
                         <button class="cookie-btn cookie-btn-primary" id="cookieAcceptBtn">
                             ${text.acceptSelectedBtn}
                         </button>
@@ -413,9 +407,6 @@
                     </button>
                     <button class="cookie-btn cookie-btn-secondary cookie-btn-block" id="cookieCustomizeBtn">
                         ${text.customizeBtn}
-                    </button>
-                    <button class="cookie-btn cookie-btn-text" id="cookieDeclineBtn">
-                        ${text.declineAllBtn}
                     </button>
                 </div>
             </div>
