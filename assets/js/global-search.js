@@ -38,6 +38,7 @@ let allBlogPosts = [
     { title: 'সাপ', url: 'snake.html', tags: ['প্রকৃতি', 'ভয়'], excerpt: 'সাপ ভয়ংকর, কিন্তু সুন্দরও', image: 'assets/images/blog/snake.jpg' },
     { title: 'হাসপাতালের দিনগুলো', url: 'hospital-days.html', tags: ['জীবন', 'অসুস্থতা'], excerpt: 'হাসপাতালে কাটানো দিনগুলো শেখায় জীবনের মূল্য', image: 'assets/images/blog/hospital-days.jpg' },
     { title: 'যারে কাছ ছা ওতুমি', url: 'karechaotumi.html', tags: ['প্রেম', 'আবেগ'], excerpt: 'তোমাকে কাছে চাই, কিন্তু পাই না', image: 'assets/images/blog/karechaotumi.jpg' },
+    { title: 'কাঠগড়ায় তুমি', url: 'kathgoray.html', tags: ['দুঃখের পরিহাস', 'উপেক্ষিত ক্রেঙ্কার'], excerpt: 'কাছে আসার স্পর্ধা যতটা দেখিয়েছি আজন্ম, দূরে সরে যাওয়ার দম্ভ তার চেয়েও কয়েক গুণ বেশি রাখি। এই একাকীত্বই আমার সাম্রাজ্য, আমার অহংকার।', image: 'assets/images/blog/cover-6.jpg' },
     { title: 'সে যদি জান্তো', url: 'se-jodi-janto.html', tags: ['অনুশোচনা', 'প্রেম'], excerpt: 'সে যদি জানতো আমি কতটা ভালোবাসি', image: 'assets/images/blog/se-jodi-janto.jpg' },
     { title: 'বিদায় বলা', url: 'sayinggoodbye.html', tags: ['বিরহ', 'জীবন'], excerpt: 'বিদায় বলা সবচেয়ে কঠিন কাজ', image: 'assets/images/blog/sayinggoodbye.jpg' },
     { title: 'জীবন সাহ্যানে', url: 'jibon-sahyane.html', tags: ['জীবন', 'সংগ্রাম'], excerpt: 'জীবন মানেই সংগ্রাম, এটাই সহ্য করতে হয়', image: 'assets/images/blog/jibon-sahyane.jpg' },
